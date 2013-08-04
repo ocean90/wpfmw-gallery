@@ -48,10 +48,11 @@ function maybe_install() {
 	global $db, $request;
 
 	// Prevent redirection loop
-	if ( '_install' ==! $request->segments[0] ) {
-
+	if ( '_install' !== $request->segments[0] ) {
+		// Check if a table exists
 		$result = $db->query( "SHOW TABLES LIKE '$db->gallery'" );
 
+		// If not, redirect to install page
 		if ( ! $result ) {
 			redirect( get_site_url( '_install' ) );
 			exit;

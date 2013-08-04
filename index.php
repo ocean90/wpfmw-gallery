@@ -18,39 +18,9 @@ require 'includes/bootstrap.php';
 
 
 /**
- * Load the controller based on the current request.
- * http://example.com/{controller}/{action}/[{subactions}]
+ * Handles the content.
  */
-
-// Get the controller
-$controller = str_replace( '_', '', $request->segments[0] );
-
-// Get the action, if none set to index
-$action = empty( $request->segments[1] ) ? 'index' : $request->segments[1];
-
-// Get the controller class
-$class = '';
-switch ( $controller ) {
-	case 'install' :
-		$class = ucfirst( $controller ) . '_Controller';
-		require APP_INCLUDES_PATH . "/controllers/class-$controller-controller.php";
-		break;
-	default:
-}
-
-// Check if the current action exists in the controller class
-if( ! method_exists( $class, $action ) ) {
-	$controller = 'error';
-	$class = 'Error_Controller';
-	require APP_INCLUDES_PATH .  "/controllers/class-$controller-controller.php";
-	$action = 'index';
-}
-
-// Create an instance of the controller class
-$object = new $class;
-
-// Call the action methode on the controller and pass the current request
-call_user_func_array( array( $object, $action ), array( 'request' => $request ) );
+require 'includes/load.php';
 
 
 /**
