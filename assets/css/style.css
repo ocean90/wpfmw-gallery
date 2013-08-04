@@ -1,0 +1,12 @@
+/**
+ * Custom styles. Loaded after bootstrap.
+ */
+.container {
+	margin-top: 50px;
+}
+
+.jumbotron.error-404 {
+	color: #b94a48;
+	background-color: #f2dede;
+	border-color: #eed3d7;
+}

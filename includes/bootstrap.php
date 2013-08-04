@@ -1,0 +1,41 @@
+<?php
+/**
+ * Gallery - A project for 'WPF - Moderne Webanwendungen' at
+ * Cologne University of Applied Sciences.
+ *
+ * @author    Dominik Schilling <dominik.schilling@smail.fh-koeln.de>
+ * @author    Laura Hermann
+ * @author    Dario Vizzaccaro
+ * @link      https://github.com/ocean90/wpfmw-gallery
+ * @license   MIT
+ */
+
+// Set application paths (has trailing slash)
+define( 'APP_PATH', dirname( dirname( __FILE__ ) ) . '/' );
+define( 'APP_INCLUDES_PATH', APP_PATH . 'includes/' );
+define( 'APP_VIEWS_PATH', APP_INCLUDES_PATH . 'views/' );
+
+// Load some files
+require APP_INCLUDES_PATH . 'autoloader.php';
+require APP_INCLUDES_PATH . 'functions.php';
+
+check_php_mysql_version();
+
+// Init the application
+global $app;
+$app = new Application();
+
+// Load config file
+require APP_PATH . 'config.php';
+
+// Init the database
+$app->init_database();
+
+// Parse the request
+global $request;
+$request = new Request();
+
+// Check if application is installed
+maybe_install();
+
+
