@@ -17,20 +17,25 @@
 // URL for the application
 $app->config->url = 'http://localhost';
 
+// If you want to install the application in a subdir
+// you have to change this value.
+// For each subdir + 1.
+// Example: http://localhost/gallery/ => offset = 1
+$app->config->segment_offset = 0;
 
 /*****
  * Database settings
  */
 
 // The name of the database
-$application->config->db->name          = '';
+$app->config->db->name   = '';
 
 // Database username
-$application->config->db->user_name     = '';
+$app->config->db->user   = '';
 
 // Database password
-$application->config->db->user_password = '';
+$app->config->db->pw     = '';
 
 // Database hostname
-$application->config->db->host          = 'localhost';
+$app->config->db->host   = 'localhost';
 

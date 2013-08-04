@@ -61,6 +61,8 @@ class Request {
 		// Get the segements of the path
 		$path = trim( parse_url( $url, PHP_URL_PATH ), '/' );
 		$segments = explode( '/', $path );
+		$offset = ! empty( $application->config->segment_offset ) ? $application->config->segment_offset : 0;
+		$segments = array_slice( $segments, $offset );
 
 		// Set variables
 		$this->url = $url;
