@@ -93,7 +93,7 @@ function debug( $debug, $exit = false) {
 function get_site_url( $path = '' ) {
 	global $app;
 
-	$url = $app->config->url;
+	$url = rtrim( $app->config->url, '/' );
 
 	if ( $path && is_string( $path ) )
 		$url .= '/' . ltrim( $path, '/' );

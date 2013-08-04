@@ -50,6 +50,8 @@ class Request {
 	 * @param string $url Optional; will default to current URL if none is passed
 	 */
 	public function __construct( $url = null ) {
+		global $app;
+
 		// Get URL
 		if ( empty( $url ) )
 			$url = isset( $_SERVER['REQUEST_URI'] ) ? $_SERVER['REQUEST_URI'] : '';
@@ -61,7 +63,7 @@ class Request {
 		// Get the segements of the path
 		$path = trim( parse_url( $url, PHP_URL_PATH ), '/' );
 		$segments = explode( '/', $path );
-		$offset = ! empty( $application->config->segment_offset ) ? $application->config->segment_offset : 0;
+		$offset = ! empty( $app->config->segment_offset ) ? $app->config->segment_offset : 0;
 		$segments = array_slice( $segments, $offset );
 
 		// Set variables
