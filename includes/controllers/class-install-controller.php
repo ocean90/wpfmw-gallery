@@ -18,16 +18,52 @@ class Install_Controller extends Controller {
 	/**
 	 * Constructor.
 	 */
-	function __construct() {}
+	function __construct() {
+		parent::__construct();
+	}
 
 	/**
 	 * Default action.
 	 *
 	 * @return void
 	 */
-	public function index() {
-		$view = new View( 'install/index' );
+	public function index( $request ) {
+		// Check HTTP method, if is post install button
+		// was clicked
+		if ( 'POST' === $request->method ) {
+			$this->run_install();
+		} else {
+			$view = new View( 'install/index' );
+			$view->set_page_title( 'Installation' );
+			$view->render();
+		}
+	}
+
+	/**
+	 * Handles successfully installation action.
+	 *
+	 * @return void
+	 */
+	public function success( $request ) {
+		$view = new View( 'install/success' );
 		$view->set_page_title( 'Installation' );
 		$view->render();
+	}
+
+	/**
+	 * Runs the installation.
+	 * Creates the needed tables from db-schema.php.
+	 *
+	 * @return void
+	 */
+	private function run_install() {
+		global $db;
+		include APP_INCLUDES_PATH . 'db-schema.php';
+
+		$result = $db->multi_query( $schema );
+
+		if ( $result ) {
+			redirect( get_site_url( '_install/success/' ) );
+		}
 	}
 }

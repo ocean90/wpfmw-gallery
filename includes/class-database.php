@@ -58,6 +58,13 @@ class Database extends mysqli {
 	public $usermeta = 'usermeta';
 
 	/**
+	 * Holds the latest error string.
+	 *
+	 * @var string
+	 */
+	public $_error = '';
+
+	/**
 	 * Constructor.
 	 * Sets database connection and calls constructor of parent class.
 	 *
@@ -77,15 +84,30 @@ class Database extends mysqli {
 	}
 
 	/**
+	 * Returns the latest error.
+	 *
+	 * @return string The error string. Errno + error.
+	 */
+	function get_last_error() {
+		return $this->_error;
+	}
+
+	/**
 	 * Wrapper for mysqli::query.
 	 * Calls the parent query methode but does return 'false' on an empty
 	 * result.
 	 *
-	 * @param String $query The query
+	 * @param  string $query The query
+	 * @return mixed  The result of the query.
 	 */
 	public function query( $query ) {
 		// Call parent methode
 		$result = parent::query( $query );
+
+		if ( ! $result ) {
+			$this->_error = sprintf( 'MySQL Error: %d - %s', $this->errno, $this->error );
+			return false;
+		}
 
 		// Check for results
 		if ( 0 === $result->num_rows )

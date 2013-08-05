@@ -3,7 +3,7 @@
 	RewriteEngine On
 
 	# Set the base, you have to change
-	#this when subdir install
+	# this when subdir install
 	RewriteBase /
 
 	# Redirect all URL paths to index.php, but not if the request

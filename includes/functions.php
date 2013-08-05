@@ -54,7 +54,7 @@ function maybe_install() {
 
 		// If not, redirect to install page
 		if ( ! $result ) {
-			redirect( get_site_url( '_install' ) );
+			redirect( get_site_url( '_install/' ) );
 			exit;
 		}
 	}

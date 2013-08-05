@@ -19,6 +19,5 @@ class Controller {
 	 * Constructor.
 	 */
 	function __construct() {
-
 	}
 }
