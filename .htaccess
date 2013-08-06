@@ -4,7 +4,7 @@
 
 	# Set the base, you have to change
 	# this when subdir install
-	RewriteBase /
+	RewriteBase /wpfmw-gallery
 
 	# Redirect all URL paths to index.php, but not if the request
 	# is a file or a dir

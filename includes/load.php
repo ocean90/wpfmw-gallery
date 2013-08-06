@@ -26,7 +26,8 @@ $action = empty( $request->segments[1] ) ? 'index' : $request->segments[1];
 $class = '';
 switch ( $controller ) {
 	case 'install' :
-		$class = ucfirst( $controller ) . '_Controller';
+ 	case 'login' :		
+ 	$class = ucfirst( $controller ) . '_Controller';
 		require APP_INCLUDES_PATH . "/controllers/class-$controller-controller.php";
 		break;
 	default:
