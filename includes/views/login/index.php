@@ -6,8 +6,8 @@
     <div class="col-lg-4">
    		<input type="text" class="form-control" id="inputEmail" placeholder="Email">
   	</div>
-  
   </div>
+  
   <div class="form-group">
     <label for="inputPassword" class="col-lg-2 control-label">Password</label>
     <div class="col-lg-4">

@@ -27,7 +27,8 @@ $class = '';
 switch ( $controller ) {
 	case 'install' :
  	case 'login' :	
- 	case 'register' : 	
+ 	case 'register' : 
+ 	case 'profile' :	
  	$class = ucfirst( $controller ) . '_Controller';
 		require APP_INCLUDES_PATH . "/controllers/class-$controller-controller.php";
 		break;
