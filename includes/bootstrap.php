@@ -31,6 +31,10 @@ if ( is_file( APP_PATH . 'config.php' ) )
 else
 	die( 'Config Error: Please copy <code>config-sample.php</code>, change the settings and name it <code>config.php</code>!' );
 
+// Check for .htaccess
+if ( ! is_file( APP_PATH . '.htaccess' ) )
+	die( 'Config Error: Please copy <code>.htaccess-sample</code>, change the RewriteBase if neccessary and name it <code>.htaccess</code>!' );
+
 // Init the database
 $app->init_database();
 
