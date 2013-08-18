@@ -10,7 +10,7 @@
 	<p>Welcome to the installation. Your are only a click away from <em>Gallery</em>.</p>
 	<p>
 		<form method="post">
-			<button type="submit" class="btn btn-primary btn-large">Install Now</button>
+			<button type="submit" class="btn btn-primary btn-lg">Install Now</button>
 		</form>
 	</p>
 

@@ -18,6 +18,9 @@
 
 // Get the controller
 $controller = str_replace( '_', '', $request->segments[0] );
+// If the first segment is empty we are on the home screen
+if ( empty( $controller ) )
+	$controller = 'home';
 
 // Get the action, if none set to index
 $action = empty( $request->segments[1] ) ? 'index' : $request->segments[1];
@@ -26,16 +29,17 @@ $action = empty( $request->segments[1] ) ? 'index' : $request->segments[1];
 $class = '';
 switch ( $controller ) {
 	case 'install' :
- 	case 'login' :	
- 	case 'register' : 
- 	case 'profile' :	
+	case 'home' :
+ 	case 'login' :
+ 	case 'register' :
+ 	case 'profile' :
  	$class = ucfirst( $controller ) . '_Controller';
 		require APP_INCLUDES_PATH . "/controllers/class-$controller-controller.php";
 		break;
 	default:
 }
 
-// Check if the current action exists in the controller class
+// Check if the current action hadnler exists in the controller class
 if( ! method_exists( $class, $action ) ) {
 	$controller = 'error';
 	$class = 'Error_Controller';
