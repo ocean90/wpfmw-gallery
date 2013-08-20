@@ -4,14 +4,14 @@
  * Cologne University of Applied Sciences.
  *
  * @author    Dominik Schilling <dominik.schilling@smail.fh-koeln.de>
- * @author    Laura Hermann
+ * @author    Laura Hermann <laura.hermann@smail.fh-koeln.de>
  * @author    Dario Vizzaccaro
  * @link      https://github.com/ocean90/wpfmw-gallery
  * @license   MIT
  */
 
 /**
- * Controller for error handling.
+ * Controller for profile actions.
  */
 class Profile_Controller extends Controller {
 
