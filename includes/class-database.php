@@ -70,7 +70,7 @@ class Database extends mysqli {
 	 *
 	 * @param object $settings Database settings from config.php
 	 */
-	function __construct( $settings ) {
+	public function __construct( $settings ) {
 		// Sanity checks
 		if ( empty( $settings->name ) || empty( $settings->user ) || empty( $settings->host ) )
 			die( 'Please check your database settings!' );
@@ -88,8 +88,44 @@ class Database extends mysqli {
 	 *
 	 * @return string The error string. Errno + error.
 	 */
-	function get_last_error() {
+	public function get_last_error() {
 		return $this->_error;
+	}
+
+	/**
+	 * Escapes content by reference for insertion into the database, for security.
+	 *
+	 * @param  string $string to escape
+	 * @return string escaped
+	 */
+	public function escape( &$string ) {
+		$string = $this->real_escape_string( $string );
+	}
+
+	/**
+	 * Prepares a SQL query for safe execution. Uses sprintf()-like syntax.
+	 *
+	 * @param  string       $query Query statement with sprintf()-like placeholders.
+	 * @param  array|string $args  Either string or array, see vsprintf().
+	 * @return mixed               Sanitized query or false on failure.
+	 */
+	public function prepare( $query, $args ) {
+		if ( empty( $query ) || empty( $args ) )
+			return;
+
+		// If single placeholder passed move it into an array
+		if ( ! is_array( $args ) )
+			$args = array( $args );
+
+		// Prepare placeholders
+		$query = str_replace( array( "'%s'", '"%s"' ), '%s', $query ); // Remove single/double quotes around %s
+		$query = preg_replace( '|(?<!%)%s|', "'%s'", $query );         // and quote the strings
+
+		// Escape values
+		array_walk( $args, array( $this, 'escape' ) );
+
+		// Replace placeholders with escaped values
+		return vsprintf( $query, $args );
 	}
 
 	/**
@@ -97,8 +133,8 @@ class Database extends mysqli {
 	 * Calls the parent query methode but does return 'false' on an empty
 	 * result.
 	 *
-	 * @param  string $query The query
-	 * @return mixed  The result of the query.
+	 * @param  string $query The query.
+	 * @return mixed         The result of the query.
 	 */
 	public function query( $query ) {
 		// Call parent methode

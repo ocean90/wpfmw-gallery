@@ -137,3 +137,15 @@ function get_assets_url( $path = '' ) {
 function assets_url( $path = '' ) {
 	echo get_assets_url( $path );
 }
+
+/**
+ * Sanitizes a string key.
+ * Only lowercase alphanumeric characters, dashes and underscores are allowed.
+ *
+ * @param  string $key String key.
+ * @return string      Sanitized key.
+ */
+function sanitize_key( $key ) {
+	$key = strtolower( $key );
+	return preg_replace( '/[^a-z0-9_\-]/', '', $key );
+}

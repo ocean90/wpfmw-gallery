@@ -9,7 +9,7 @@
 
 	<p><strong>Congratulations</strong>. Your have your own <em>Gallery</em> now.</p>
 
-	<p>Now go to the <a href="<?php site_url( 'register/' ); ?>">register page</a> and create your first account.</p>
+	<p>Now <a href="<?php site_url( 'login/' ); ?>">login</a> and create your first gallery.</p>
 </div>
 
 <?php include APP_VIEWS_PATH . 'header.php'; ?>

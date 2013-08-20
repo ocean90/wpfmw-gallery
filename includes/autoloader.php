@@ -33,6 +33,8 @@ class Autoloader {
 			'database'              => APP_INCLUDES_PATH . 'class-database.php',
 			'controller'            => APP_INCLUDES_PATH . 'class-controller.php',
 			'view'                  => APP_INCLUDES_PATH . 'class-view.php',
+			'user_manager'          => APP_INCLUDES_PATH . 'class-user-manager.php',
+			'user_model'            => APP_INCLUDES_PATH . 'models/class-user-model.php',
 		);
 
 		spl_autoload_register( 'Autoloader::load_class' );

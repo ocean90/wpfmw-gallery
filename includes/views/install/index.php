@@ -4,15 +4,14 @@
 	<h1>Installation</h1>
 
 	<div class="progress progress-striped">
-		<div class="progress-bar" style="width: 50%;"></div>
+		<div class="progress-bar" style="width: 33.3333%;"></div>
 	</div>
 
-	<p>Welcome to the installation. Your are only a click away from <em>Gallery</em>.</p>
-	<p>
-		<form method="post">
-			<button type="submit" class="btn btn-primary btn-lg">Install Now</button>
-		</form>
-	</p>
+	<p>Welcome to the installation. Your are only some clicks away from your own <em>Gallery</em>.</p>
+
+	<form method="post">
+		<button type="submit" class="btn btn-primary btn-lg">Install Now</button>
+	</form>
 
 </div>
 

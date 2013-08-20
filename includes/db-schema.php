@@ -65,7 +65,6 @@ CREATE TABLE `users` (
   `user_pass` varchar(64) NOT NULL,
   `user_email` varchar(100) NOT NULL,
   `user_registered` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `user_status` int(10) NOT NULL,
   PRIMARY KEY (`ID`),
   KEY (`user_login`),
   KEY (`user_email`)
