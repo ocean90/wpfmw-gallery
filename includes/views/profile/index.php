@@ -1,5 +1,6 @@
 <?php include APP_VIEWS_PATH . 'header.php'; ?>
 
+
 <form class="form-horizontal" method="POST" action="register.php">
  
     <legend>Profile Changes</legend>

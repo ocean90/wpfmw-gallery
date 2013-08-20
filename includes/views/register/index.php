@@ -6,14 +6,14 @@
 
 
     <div class="form-group">
-    <label for="inputFirstName" class="col-lg-2 control-label">FirstNameName</label>
+    <label for="inputFirstName" class="col-lg-2 control-label">First Name</label>
     <div class="col-lg-4">
    		<input type="text" class="form-control" id="inputFirstName" placeholder="First Name">
   	</div>
   	</div>
 
   	<div class="form-group">
-    <label for="inputLastName" class="col-lg-2 control-label">LastName</label>
+    <label for="inputLastName" class="col-lg-2 control-label">Last Name</label>
     <div class="col-lg-4">
    		<input type="text" class="form-control" id="inputLastName" placeholder="Last Name">
   	</div>
@@ -41,9 +41,9 @@
   </div>
 
   <div class="form-group">
-    <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+    <label for="inputPassword" class="col-lg-2 control-label">Password again</label>
     <div class="col-lg-4">
-      <input type="password" class="form-control" id="inputPassword" placeholder="Password">
+      <input type="password" class="form-control" id="inputPassword" placeholder="Password again">
     </div>
   </div>
 
