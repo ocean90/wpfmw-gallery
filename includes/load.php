@@ -33,6 +33,7 @@ switch ( $controller ) {
  	case 'login' :
  	case 'register' :
  	case 'profile' :
+ 	case 'upload' :
  	$class = ucfirst( $controller ) . '_Controller';
 		require APP_INCLUDES_PATH . "/controllers/class-$controller-controller.php";
 		break;
