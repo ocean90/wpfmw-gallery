@@ -22,15 +22,39 @@ class User_Manager {
 	}
 
 	/**
+	 * Creates a new user.
+	 *
+	 * @param  array   $user  The new user to create. Array must include username,
+	 *                              email and password.
+	 * @return boolean        True on success, false if not.
+	 */
+	public function create_user( $user ) {
+		global $db;
+
+		$query = $db->prepare(
+			"INSERT INTO $db->users (`user_login`, `user_pass`, `user_email`, `user_registered`) VALUES ( %s, %s, %s, %s )",
+			array(
+				$user['name'],
+				hash_password( $user['password'] ),
+				$user['email'],
+				gmdate( 'Y-m-d H:i:s' )
+			)
+		);
+
+		return $db->query( $query );
+	}
+
+	/**
 	 * Validates a new user.
 	 *
 	 * @param  array         $user  The new user to valid. Array must include username,
 	 *                              email, password1 and password2.
 	 * @return boolean|array        True if valid, array if not.
 	 */
-	function validate_new_user( $user ) {
+	public function validate_new_user( $user ) {
 		$error = array();
 
+		// Check username
 		if ( empty( $user[ 'username' ] ) ) {
 			$error[] = 'emptyusername';
 		} else {
@@ -42,6 +66,7 @@ class User_Manager {
 			}
 		}
 
+		// Check email
 		if ( empty( $user[ 'email' ] ) ) {
 			$error[] = 'emptyemail';
 		} else {
@@ -52,6 +77,7 @@ class User_Manager {
 			}
 		}
 
+		// Check passwords
 		if ( empty( $user[ 'password1' ] ) || empty( $user[ 'password2' ] ) ) {
 			$error[] = 'emptypassword';
 		} else {
@@ -63,6 +89,7 @@ class User_Manager {
 			}
 		}
 
+		// Check if username/email exists
 		if ( empty( $error ) ) {
 			if ( User_Model::get_data_by( 'email', $email ) ) {
 				$error[] = 'mailexists';
@@ -71,10 +98,19 @@ class User_Manager {
 			}
 		}
 
+		// Return if error
 		if ( ! empty( $error ) )
-			return $error;
+			return array( 'valid' => false, 'errors' => $error );
 
-		return true;
+		// Return on success
+		return array(
+			'valid' => true,
+			'sanitized_user' => array(
+				'name'     => $username,
+				'email'    => $email,
+				'password' => $password1
+			)
+		);
 	}
 
 }

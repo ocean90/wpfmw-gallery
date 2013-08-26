@@ -109,9 +109,14 @@ class Database extends mysqli {
 	 * @param  array|string $args  Either string or array, see vsprintf().
 	 * @return mixed               Sanitized query or false on failure.
 	 */
-	public function prepare( $query, $args ) {
-		if ( empty( $query ) || empty( $args ) )
+	public function prepare( $query ) {
+		if ( empty( $query ) )
 			return;
+
+		$args = func_get_args();
+		array_shift( $args );
+		if ( isset( $args[0] ) )
+			$args = $args[0];
 
 		// If single placeholder passed move it into an array
 		if ( ! is_array( $args ) )
@@ -146,7 +151,7 @@ class Database extends mysqli {
 		}
 
 		// Check for results
-		if ( 0 === $result->num_rows )
+		if ( ! is_bool( $result ) && 0 === $result->num_rows )
 			return false;
 
 		return $result;

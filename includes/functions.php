@@ -149,3 +149,10 @@ function sanitize_key( $key ) {
 	$key = strtolower( $key );
 	return preg_replace( '/[^a-z0-9_\-]/', '', $key );
 }
+
+function hash_password( $password ) {
+	// See APP_INCLUDES_PATH . 'libs/PasswordHash.php',
+	$wp_hasher = new PasswordHash( 8, false );
+
+	return $wp_hasher->HashPassword( $password );
+}

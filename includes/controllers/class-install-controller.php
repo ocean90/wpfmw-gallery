@@ -22,14 +22,13 @@ class Install_Controller extends Controller {
 		parent::__construct();
 	}
 
-
 	/**
 	 * Default action.
 	 *
 	 * @return void
 	 */
 	public function index( $request ) {
-	#	$this->check_install_status();
+		$this->check_install_status();
 
 		// Check HTTP method, if is post install button
 		// was clicked
@@ -69,7 +68,7 @@ class Install_Controller extends Controller {
 	}
 
 	/**
-	 * Check the current install status
+	 * Checks the current install status.
 	 *
 	 * @return void
 	 */
@@ -100,14 +99,28 @@ class Install_Controller extends Controller {
 
 		if ( $result ) {
 			redirect( get_site_url( '_install/register/' ) );
+			exit;
 		}
 	}
 
+	/**
+	 * Handles admin register action.
+	 *
+	 * @return void
+	 */
 	private function register_admin() {
-		debug( $_POST );
-
 		$manager = new User_Manager();
 		$result = $manager->validate_new_user( (array) $_POST );
-		var_dump( $result );
+
+		if ( ! $result[ 'valid'] ) {
+			// TODO
+		} else {
+			$result = $manager->create_user( $result[ 'sanitized_user'] );
+
+			if ( $result ) {
+				redirect( get_site_url( '_install/success/' ) );
+				exit;
+			}
+		}
 	}
 }

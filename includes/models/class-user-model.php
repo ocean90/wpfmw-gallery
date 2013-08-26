@@ -28,7 +28,6 @@ class User_Model {
 		$this->set_user( $id );
 	}
 
-
 	public static function get_data_by( $field, $value ) {
 		global $db;
 
@@ -60,10 +59,11 @@ class User_Model {
 				return false;
 		}
 
-		$query = $db->prepare( "SELECT * FROM $db->users WHERE $db_field = \"%s\"", $value );
+		$query = $db->prepare( "SELECT * FROM $db->users WHERE $db_field = %s", $value );
 		debug($query);
 
 		$user = $db->query( $query );
+		debug($user);
 		return $user;
 	}
 }

@@ -35,6 +35,7 @@ class Autoloader {
 			'view'                  => APP_INCLUDES_PATH . 'class-view.php',
 			'user_manager'          => APP_INCLUDES_PATH . 'class-user-manager.php',
 			'user_model'            => APP_INCLUDES_PATH . 'models/class-user-model.php',
+			'passwordhash'          => APP_INCLUDES_PATH . 'libs/PasswordHash.php',
 		);
 
 		spl_autoload_register( 'Autoloader::load_class' );

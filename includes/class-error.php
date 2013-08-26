@@ -11,18 +11,14 @@
  */
 
 /**
- * Users model
+ * Loads a template from a template name.
  */
-class Users_Model {
+class Error {
 
-	/**
-	 * Constructor.
-	 *
-	 */
-	function __construct( $id ) {
-		$this->set_user( $id );
+	public $string;
+
+	function __construct() {
+
 	}
-
-	public static get_user_by( $)
 
 }
