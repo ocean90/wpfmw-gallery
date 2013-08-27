@@ -19,8 +19,8 @@
 function check_compatibility() {
 	$php_version = phpversion();
 
-	if ( version_compare( '5.3.0', $php_version, '>' ) )
-		die( sprintf( 'Your server is running PHP version %1$s but this application requires at least 5.3.0.', $php_version ) );
+	if ( version_compare( '5.4.0', $php_version, '>' ) )
+		die( sprintf( 'Your server is running PHP version %1$s but this application requires at least 5.4.0.', $php_version ) );
 
 	 if ( ! extension_loaded( 'mysqli' ) )
 		die( 'Your server is not running the MySQLi extension but this application requires it.' );
