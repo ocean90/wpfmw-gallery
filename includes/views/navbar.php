@@ -42,8 +42,8 @@
 				</div>
 			</li>
 			<?php } else { ?>
-				<li><a href="<?php site_url( '/logout/' ); ?>">Log out! </a></li>
-				<li class="divider-vertical"></li>
+				<li><a href="<?php site_url( '/user/' . $GLOBALS['app']->current_user->user_login ); ?>"><?php echo $GLOBALS['app']->current_user->user_login; ?></a></li>
+				<li><a href="<?php site_url( '/logout/' ); ?>">Log out</a></li>
 			<?php } ?>
 		</ul>
 	</div><!-- /.navbar-collapse -->

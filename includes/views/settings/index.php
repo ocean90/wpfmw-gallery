@@ -1,8 +1,12 @@
 <?php include APP_VIEWS_PATH . 'header.php'; ?>
+<?php include APP_VIEWS_PATH . 'navbar.php'; ?>
 
+<?php
+var_dump( $_[ 'user' ] );
+?>
 
 <form class="form-horizontal" method="POST" action="register.php">
- 
+
     <legend>Profile Changes</legend>
 
 
@@ -33,7 +37,7 @@
       <input type="text" class="form-control" id="inputEmail" placeholder="Email">
     </div>
     </div>
-  
+
   <div class="form-group">
     <label for="inputPassword" class="col-lg-2 control-label">Password</label>
     <div class="col-lg-4">
@@ -49,7 +53,7 @@
   </div>
 
    <button type="submit" class="btn btn-default">Update</button>
-  
+
 </form>
 
 

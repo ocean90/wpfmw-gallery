@@ -11,9 +11,9 @@
  */
 
 /**
- * Controller for profile actions.
+ * Controller for user actions.
  */
-class Profile_Controller extends Controller {
+class User_Controller extends Controller {
 
 	/**
 	 * Constructor.
@@ -25,10 +25,20 @@ class Profile_Controller extends Controller {
 	 *
 	 * @return void
 	 */
-	public function index() {
-		$view = new View( 'profile/index' );
-		$view->set_page_title( 'Profile' );
+	public function index( $request ) {
+
+		if ( empty( $request->segments[1] ) ) {
+			redirect( get_site_url( '/' ) );
+			exit;
+		} else {
+			$user = User_Model::get_data_by( 'login', $request->segments[1] );
+		}
+
+		$view = new View( 'user/index' );
+		$view->set_page_title( 'User' . $user->user_login );
+		$view->assign( 'user', $user );
 		$view->render();
+
 	}
 
 }

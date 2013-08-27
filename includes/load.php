@@ -33,14 +33,15 @@ switch ( $controller ) {
 	case 'login' :
 	case 'logout' :
 	case 'register' :
-	case 'profile' :
+	case 'settings' :
+	case 'user' :
+		$action = 'index';
 	case 'upload' :
  	$class = ucfirst( $controller ) . '_Controller';
 		require APP_INCLUDES_PATH . "/controllers/class-$controller-controller.php";
 		break;
 	default:
 }
-
 // Check if the current action hadnler exists in the controller class
 if ( ! method_exists( $class, $action ) ) {
 	$controller = 'error';

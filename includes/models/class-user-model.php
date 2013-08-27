@@ -49,6 +49,12 @@ class User_Model {
 			$this->ID = $this->data->ID;
 	}
 
+	public function __get( $key ) {
+		if ( isset( $this->data->$key ) )
+			return $this->data->$key;
+		else
+			return null;
+	}
 	/**
 	 * Returns data of a user by field.
 	 *
