@@ -1,6 +1,7 @@
 # App specific
 config.php
 .htaccess
+/images
 
 # Mac
 .DS_Store
