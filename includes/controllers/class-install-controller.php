@@ -109,8 +109,7 @@ class Install_Controller extends Controller {
 	 * @return void
 	 */
 	private function register_admin() {
-		$manager = new User_Manager();
-		$result = $manager->validate_new_user( (array) $_POST );
+		$result = User_Manager::validate_new_user( (array) $_POST );
 
 		if ( ! $result['valid'] ) {
 			$view = new View( 'install/register' );
@@ -118,7 +117,7 @@ class Install_Controller extends Controller {
 			$view->assign( 'error', $result['errors'] );
 			$view->render();
 		} else {
-			$result = $manager->create_user( $result['sanitized_user'] );
+			$result = User_Manager::create_user( $result['sanitized_user'] );
 
 			if ( $result ) {
 				redirect( get_site_url( '_install/success/' ) );

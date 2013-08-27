@@ -182,5 +182,19 @@ function check_password( $password, $hash ) {
 	if ( empty( $hasher ) )
 		$hasher = new PasswordHash( 8, false );
 
-	return $hasher->CheckPassword( $password , $hash);
+	return $hasher->CheckPassword( $password , $hash );
+}
+
+/**
+ * Checks if the current visitor is a logged in user.
+ *
+ * @return boolean True if user is logged in, false if not logged in.
+ */
+function is_user_logged_in() {
+	global $app;
+
+	if ( $app->current_user !== null )
+		return true;
+
+	return false;
 }

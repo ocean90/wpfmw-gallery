@@ -14,7 +14,7 @@
 @ini_set( 'session.use_only_cookies', 1 );
 
 /**
- * Loads a template from a template name.
+ * Session handler.
  */
 class Session {
 	private $session;
@@ -31,6 +31,13 @@ class Session {
 		session_start();
 
 		$this->session = session_id();
+	}
+
+	public function destroy() {
+		if ( $this->session === null )
+			$this->start();
+
+		session_destroy();
 	}
 
 	public function set( $key, $value ) {

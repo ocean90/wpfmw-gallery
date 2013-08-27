@@ -64,7 +64,7 @@ class Login_Controller extends Controller {
 
 				if ( check_password( $password, $user->user_pass ) ) {
 					session_regenerate_id();
-					$app->session->set( 'user', $user->user_login );
+					$app->session->set( 'user', $user->ID );
 
 					redirect( get_site_url( '/' ) );
 					exit;

@@ -30,10 +30,11 @@ $class = '';
 switch ( $controller ) {
 	case 'install' :
 	case 'home' :
- 	case 'login' :
- 	case 'register' :
- 	case 'profile' :
- 	case 'upload' :
+	case 'login' :
+	case 'logout' :
+	case 'register' :
+	case 'profile' :
+	case 'upload' :
  	$class = ucfirst( $controller ) . '_Controller';
 		require APP_INCLUDES_PATH . "/controllers/class-$controller-controller.php";
 		break;
@@ -41,7 +42,7 @@ switch ( $controller ) {
 }
 
 // Check if the current action hadnler exists in the controller class
-if( ! method_exists( $class, $action ) ) {
+if ( ! method_exists( $class, $action ) ) {
 	$controller = 'error';
 	$class = 'Error_Controller';
 	require APP_INCLUDES_PATH .  "/controllers/class-$controller-controller.php";

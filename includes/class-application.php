@@ -30,6 +30,13 @@ class Application {
 	public $db;
 
 	/**
+	 * Stores the current logged in user.
+	 *
+	 * @var User_Model
+	 */
+	public $current_user;
+
+	/**
 	 * Constructor.
 	 * Inits config field.
 	 */

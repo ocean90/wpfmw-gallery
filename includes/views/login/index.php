@@ -12,6 +12,12 @@ if ( ! empty( $_POST[ 'password' ] ) ) {
 	$password = htmlspecialchars( $_POST[ 'password' ], ENT_QUOTES );
 }
 
+if ( isset( $_GET[ 'loggedout' ] ) ) {
+	?>
+	<div class="alert alert-success">Successfully logged out!</div>
+	<?php
+}
+
 // Check for errors
 $password_extra = $user_extra = '';
 if ( ! empty( $_[ 'error' ] ) ) {
@@ -29,7 +35,7 @@ if ( ! empty( $_[ 'error' ] ) ) {
 }
 ?>
 
-<form class="form-horizontal" method="post">
+<form class="form-horizontal" action="<?php site_url( '/login/' ); ?>" method="post">
 	<div class="form-group<?php echo $user_extra; ?>">
 		<label for="login" class="col-lg-2 control-label">Email</label>
 		<div class="col-lg-4">

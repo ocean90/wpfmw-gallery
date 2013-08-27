@@ -38,6 +38,8 @@ if ( ! is_file( APP_PATH . '.htaccess' ) )
 // Init the database
 $app->init_database();
 
+User_Manager::set_current_user();
+
 // Parse the request
 global $request;
 $request = new Request();

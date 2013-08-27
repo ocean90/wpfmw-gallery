@@ -21,6 +21,22 @@ class User_Manager {
 	function __construct( ) {
 	}
 
+	public static function set_current_user() {
+		global $app;
+
+		$user_id = $app->session->get( 'user' );
+		if ( empty( $user_id ) )
+			$app->current_user = null;
+		else {
+			$user = new User_Model( $user_id );
+
+			if ( $user->ID !== 0 )
+				$app->current_user = $user;
+			else
+				$app->current_user = null;
+		}
+	}
+
 	/**
 	 * Creates a new user.
 	 *
@@ -28,7 +44,7 @@ class User_Manager {
 	 *                        email and password.
 	 * @return boolean        True on success, false if not.
 	 */
-	public function create_user( $user ) {
+	public static function create_user( $user ) {
 		global $db;
 
 		$query = $db->prepare(
@@ -47,11 +63,12 @@ class User_Manager {
 	/**
 	 * Validates a new user.
 	 *
-	 * @param  array         $user  The new user to valid. Array must include username,
-	 *                              email, password1 and password2.
-	 * @return boolean|array        True if valid, array if not.
+	 * @param  array   $user  The new user to valid. Array must include username,
+	 *                        email, password1 and password2.
+	 * @return array          Array with valid key which has a boolean value. True on
+	 *                        success, false on failure. See value of error key then.
 	 */
-	public function validate_new_user( $user ) {
+	public static function validate_new_user( $user ) {
 		$errors = array();
 
 		// Check username

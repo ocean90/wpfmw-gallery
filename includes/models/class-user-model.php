@@ -15,17 +15,38 @@
  */
 class User_Model {
 
-	public $username;
-	public $email;
-	public $first_name;
-	public $last_name;
+	/**
+	 * User's ID.
+	 *
+	 * @var int
+	 */
+	public $ID;
+
+	/**
+	 * Holds user data.
+	 *
+	 * @var object
+	 */
+	public $data;
 
 	/**
 	 * Constructor.
 	 *
 	 */
 	function __construct( $id ) {
-		$this->set_user( $id );
+		$this->init( $id );
+	}
+
+	/**
+	 * Sets the user data.
+	 *
+	 * @param  int  $id The ID of the user.
+	 * @return void
+	 */
+	private function init( $id ) {
+		$this->data = self::get_data_by( 'id', $id );
+		if ( null !== $this->data )
+			$this->ID = $this->data->ID;
 	}
 
 	/**
