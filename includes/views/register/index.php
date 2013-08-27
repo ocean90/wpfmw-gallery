@@ -33,7 +33,7 @@ if ( ! empty( $_POST[ 'inputSecondPassword' ] ) ) {
 }
 
 // Check for errors
-$FirstName_extra = $LastName_extra = $UserName_extra = $Email_extra = $Password_extra = $SecondPassword_extra = '';
+$UserName_extra = $Email_extra = $Password_extra = $SecondPassword_extra = '';
 
 
 if ( ! empty( $_[ 'error' ] ) ) {
@@ -41,11 +41,19 @@ if ( ! empty( $_[ 'error' ] ) ) {
   <div class="alert alert-danger">Sorry, there was an error. Please check the highlighted fields.</div>
   <?php
 
-  if ( in_array( 'emptypassword', $_[ 'error' ] ) || in_array( 'wrongpassword', $_[ 'error' ] ) ) {
-    $password_extra = ' has-error';
+  if ( in_array( 'emptyusername', $_[ 'error' ] ) || in_array( 'invalidusername', $_[ 'error' ] ) ) {
+    $UserName_extra = ' has-error';
   }
 
-  if ( in_array( 'emptylogin', $_[ 'error' ] ) || in_array( 'nouser', $_[ 'error' ] ) ) {
+  if ( in_array( 'emptyemail', $_[ 'error' ] ) || in_array( 'invalidemail', $_[ 'error' ] ) ) {
+    $Email_extra = ' has-error';
+  }
+
+  if ( in_array( 'emptypassword', $_[ 'error' ] ) || in_array( 'passwordmismatch', $_[ 'error' ] ) ) {
+    $Password_extra = ' has-error';
+  }
+
+  if ( in_array( 'mailexists', $_[ 'error' ] ) || in_array( 'usernameexists', $_[ 'error' ] ) ) {
     $user_extra = ' has-error';
   }
 }
