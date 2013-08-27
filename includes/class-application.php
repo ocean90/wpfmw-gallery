@@ -36,6 +36,8 @@ class Application {
 	function __construct() {
 		$this->config = new Configurator();
 		$this->config->db = new StdClass();
+
+		$this->session = new Session();
 	}
 
 	/**

@@ -25,9 +25,60 @@ class Login_Controller extends Controller {
 	 *
 	 * @return void
 	 */
-	public function index() {
+	public function index( $request ) {
+		// Check HTTP method, if is post login button
+		// was clicked
+		if ( 'POST' === $request->method ) {
+			$this->run_login();
+		} else {
+			$view = new View( 'login/index' );
+			$view->set_page_title( 'Login' );
+			$view->render();
+		}
+	}
+
+	/**
+	 * Runs the login.
+	 *
+	 * @return void
+	 */
+	private function run_login() {
+		global $app;
+
+		$login = trim( $_POST['login'] );
+		$password = trim( $_POST['password'] );
+
+		$errors = array();
+
+		if ( empty( $login ) )
+			$errors[] = 'emptylogin';
+
+		if ( empty( $password ) )
+			$errors[] = 'emptypassword';
+
+		// Check if username/email exists
+		if ( empty( $errors ) ) {
+			$user = User_Model::get_data_by( 'email', $login );
+
+			if ( ! empty( $user ) ) {
+
+				if ( check_password( $password, $user->user_pass ) ) {
+					session_regenerate_id();
+					$app->session->set( 'user', $user->user_login );
+
+					redirect( get_site_url( '/' ) );
+					exit;
+				} else {
+					$errors[] = 'wrongpassword';
+				}
+			} else {
+				$errors[] = 'nouser';
+			}
+		}
+
 		$view = new View( 'login/index' );
 		$view->set_page_title( 'Login' );
+		$view->assign( 'error', $errors );
 		$view->render();
 	}
 

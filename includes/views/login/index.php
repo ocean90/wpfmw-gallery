@@ -1,39 +1,62 @@
 <?php include APP_VIEWS_PATH . 'header.php'; ?>
 
-<form class="form-horizontal" method="POST" action="login.php">
-  <div class="form-group">
-    <label for="inputEmail" class="col-lg-2 control-label">Email</label>
-    <div class="col-lg-4">
-   		<input type="text" class="form-control" id="inputEmail" placeholder="Email">
-  	</div>
-  </div>
-  
-  <div class="form-group">
-    <label for="inputPassword" class="col-lg-2 control-label">Password</label>
-    <div class="col-lg-4">
-      <input type="password" class="form-control" id="inputPassword" placeholder="Password">
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-lg-offset-2 col-lg-10">
-      <div class="checkbox">
-        <label>
-          <input type="checkbox"> Remember me
-        </label>
-      </div>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-lg-offset-2 col-lg-10">
-      <button type="submit" class="btn btn-default">Sign in</button>
-    </div>
-  </div>
+<?php
+// Check existing POST data and show them
+$login = '';
+if ( ! empty( $_POST[ 'login' ] ) ) {
+	$login = htmlspecialchars( $_POST[ 'login' ], ENT_QUOTES );
+}
+
+$password = '';
+if ( ! empty( $_POST[ 'password' ] ) ) {
+	$password = htmlspecialchars( $_POST[ 'password' ], ENT_QUOTES );
+}
+
+// Check for errors
+$password_extra = $user_extra = '';
+if ( ! empty( $_[ 'error' ] ) ) {
+	?>
+	<div class="alert alert-danger">Sorry, there was an error. Please check the highlighted fields.</div>
+	<?php
+
+	if ( in_array( 'emptypassword', $_[ 'error' ] ) || in_array( 'wrongpassword', $_[ 'error' ] ) ) {
+		$password_extra = ' has-error';
+	}
+
+	if ( in_array( 'emptylogin', $_[ 'error' ] ) || in_array( 'nouser', $_[ 'error' ] ) ) {
+		$user_extra = ' has-error';
+	}
+}
+?>
+
+<form class="form-horizontal" method="post">
+	<div class="form-group<?php echo $user_extra; ?>">
+		<label for="login" class="col-lg-2 control-label">Email</label>
+		<div class="col-lg-4">
+			<input type="text" value="<?php echo $login; ?>" class="form-control" id="login" name="login" placeholder="Enter Email">
+		</div>
+	</div>
+
+	<div class="form-group<?php echo $password_extra; ?>">
+		<label for="password" class="col-lg-2 control-label">Password</label>
+		<div class="col-lg-4">
+			<input type="password" value="<?php echo $password; ?>" class="form-control" id="password" name="password" placeholder="Enter Password">
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-lg-offset-2 col-lg-10">
+			<div class="checkbox">
+				<label>
+					<input type="checkbox" name="remember" value="1"> Remember me
+				</label>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">
+		<div class="col-lg-offset-2 col-lg-10">
+			<button type="submit" class="btn btn-default">Sign in</button>
+		</div>
+	</div>
 </form>
 
-
-
-
-
 <?php include APP_VIEWS_PATH . 'footer.php'; ?>
-
-

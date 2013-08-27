@@ -25,7 +25,7 @@ class User_Manager {
 	 * Creates a new user.
 	 *
 	 * @param  array   $user  The new user to create. Array must include username,
-	 *                              email and password.
+	 *                        email and password.
 	 * @return boolean        True on success, false if not.
 	 */
 	public function create_user( $user ) {

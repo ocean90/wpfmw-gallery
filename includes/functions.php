@@ -11,12 +11,12 @@
  */
 
 /**
- * Checks if the PHP version matches the required 5.3.0 and
- * if mysqli extension is loaded.
+ * Checks if the PHP version matches the required 5.3.0,
+ * if mysqli extension is loaded and sessions are enabled
  *
  * @return void
  */
-function check_php_mysql_version() {
+function check_compatibility() {
 	$php_version = phpversion();
 
 	if ( version_compare( '5.3.0', $php_version, '>' ) )
@@ -24,6 +24,9 @@ function check_php_mysql_version() {
 
 	 if ( ! extension_loaded( 'mysqli' ) )
 		die( 'Your server is not running the MySQLi extension but this application requires it.' );
+
+	if ( session_status() === 0 )
+		die( 'Your server has sessions disabled but this application requires it.' );
 }
 
 /**
@@ -150,9 +153,34 @@ function sanitize_key( $key ) {
 	return preg_replace( '/[^a-z0-9_\-]/', '', $key );
 }
 
+/**
+ * Hashes a password via PasswordHash.
+ * See APP_INCLUDES_PATH . 'libs/PasswordHash.php'
+ *
+ * @param  string $password Password as plain text.
+ * @return string           Hashed password.
+ */
 function hash_password( $password ) {
-	// See APP_INCLUDES_PATH . 'libs/PasswordHash.php',
-	$wp_hasher = new PasswordHash( 8, false );
+	global $hasher;
 
-	return $wp_hasher->HashPassword( $password );
+	if ( empty( $hasher ) )
+		$hasher = new PasswordHash( 8, false );
+
+	return $hasher->HashPassword( $password );
+}
+
+/**
+ * Hashes a password via PasswordHash.
+ * See APP_INCLUDES_PATH . 'libs/PasswordHash.php'
+ *
+ * @param  string  $password Password as plain text.
+ * @return boolean           False, if the $password does not match the hashed password.
+ */
+function check_password( $password, $hash ) {
+	global $hasher;
+
+	if ( empty( $hasher ) )
+		$hasher = new PasswordHash( 8, false );
+
+	return $hasher->CheckPassword( $password , $hash);
 }

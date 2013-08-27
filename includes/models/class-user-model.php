@@ -28,6 +28,13 @@ class User_Model {
 		$this->set_user( $id );
 	}
 
+	/**
+	 * Returns data of a user by field.
+	 *
+	 * @param  string  $field  id, email or login.
+	 * @param  mixed   $value  The value of the field.
+	 * @return mixed           false on error, object on success.
+	 */
 	public static function get_data_by( $field, $value ) {
 		global $db;
 
@@ -60,10 +67,7 @@ class User_Model {
 		}
 
 		$query = $db->prepare( "SELECT * FROM $db->users WHERE $db_field = %s", $value );
-		debug($query);
 
-		$user = $db->query( $query );
-		debug($user);
-		return $user;
+		return $db->get_row( $query );
 	}
 }

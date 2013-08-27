@@ -65,6 +65,13 @@ class Database extends mysqli {
 	public $_error = '';
 
 	/**
+	 * Holds the latest results
+	 *
+	 * @var string
+	 */
+	private $_last_result = array();
+
+	/**
 	 * Constructor.
 	 * Sets database connection and calls constructor of parent class.
 	 *
@@ -76,10 +83,10 @@ class Database extends mysqli {
 			die( 'Please check your database settings!' );
 
 		// Call parent constructor
- 		@parent::__construct( $settings->host, $settings->user, $settings->pw, $settings->name );
+		@parent::__construct( $settings->host, $settings->user, $settings->pw, $settings->name );
 
- 		// Check for errors
- 		if ( $this->connect_errno )
+		// Check for errors
+		if ( $this->connect_errno )
 			die( sprintf( 'MySQL Connect Error: %d - %s', $this->connect_errno, $this->connect_error ) );
 	}
 
@@ -142,6 +149,8 @@ class Database extends mysqli {
 	 * @return mixed         The result of the query.
 	 */
 	public function query( $query ) {
+		$this->flush();
+
 		// Call parent methode
 		$result = parent::query( $query );
 
@@ -154,6 +163,30 @@ class Database extends mysqli {
 		if ( ! is_bool( $result ) && 0 === $result->num_rows )
 			return false;
 
-		return $result;
+		if ( is_object( $result ) ) {
+			$rows = 0;
+			while ( $row = $result->fetch_object() ) {
+				$this->_last_result[ $rows++ ] = $row;
+			}
+		}
+
+		if ( is_resource( $result ) )
+			$result->close();
+
+		return true;
+	}
+
+	public function get_row( $query, $i = 0 ) {
+		$result = $this->query( $query );
+
+		if ( ! isset( $this->_last_result[ $i ] ) )
+			return null;
+
+		return $this->_last_result[ $i ];
+	}
+
+	private function flush() {
+		$this->_error = '';
+		$this->_last_result = array();
 	}
 }

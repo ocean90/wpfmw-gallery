@@ -19,7 +19,7 @@ define( 'APP_VIEWS_PATH', APP_INCLUDES_PATH . 'views/' );
 require APP_INCLUDES_PATH . 'autoloader.php';
 require APP_INCLUDES_PATH . 'functions.php';
 
-check_php_mysql_version();
+check_compatibility();
 
 // Init the application
 global $app;
