@@ -1,5 +1,16 @@
 <?php include APP_VIEWS_PATH . 'header.php'; ?>
 
+<?php
+// Check for errors
+if ( ! empty( $_[ 'error' ] ) ) {
+	?>
+	<div class="alert alert-danger">Sorry, there was an error. Please check the highlighted fields.</div>
+	<?php
+
+	// TODO
+}
+?>
+
 <div class="jumbotron">
 	<h1>Installation</h1>
 

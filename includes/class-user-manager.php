@@ -52,55 +52,55 @@ class User_Manager {
 	 * @return boolean|array        True if valid, array if not.
 	 */
 	public function validate_new_user( $user ) {
-		$error = array();
+		$errors = array();
 
 		// Check username
 		if ( empty( $user[ 'username' ] ) ) {
-			$error[] = 'emptyusername';
+			$errors[] = 'emptyusername';
 		} else {
 			$username = $raw_username = trim( $user[ 'username' ] );
 			$username = sanitize_key( $username );
 
 			if ( $raw_username !== $username ) {
-				$error[] = 'invalidusername';
+				$errors[] = 'invalidusername';
 			}
 		}
 
 		// Check email
 		if ( empty( $user[ 'email' ] ) ) {
-			$error[] = 'emptyemail';
+			$errors[] = 'emptyemail';
 		} else {
 			$email = trim( $user[ 'email' ] );
 
 			if ( ! filter_var( $email, FILTER_VALIDATE_EMAIL ) ) {
-				$error[] = 'invalidemail';
+				$errors[] = 'invalidemail';
 			}
 		}
 
 		// Check passwords
 		if ( empty( $user[ 'password1' ] ) || empty( $user[ 'password2' ] ) ) {
-			$error[] = 'emptypassword';
+			$errors[] = 'emptypassword';
 		} else {
 			$password1 = trim( $user[ 'password1' ] );
 			$password2 = trim( $user[ 'password2' ] );
 
 			if ( $password1 !== $password2 ) {
-				$error[] = 'passwordmismatch';
+				$errors[] = 'passwordmismatch';
 			}
 		}
 
 		// Check if username/email exists
-		if ( empty( $error ) ) {
+		if ( empty( $errors ) ) {
 			if ( User_Model::get_data_by( 'email', $email ) ) {
-				$error[] = 'mailexists';
+				$errors[] = 'mailexists';
 			} elseif ( User_Model::get_data_by( 'login', $username ) ) {
-				$error[] = 'usernameexists';
+				$errors[] = 'usernameexists';
 			}
 		}
 
 		// Return if error
-		if ( ! empty( $error ) )
-			return array( 'valid' => false, 'errors' => $error );
+		if ( ! empty( $errors ) )
+			return array( 'valid' => false, 'errors' => $errors );
 
 		// Return on success
 		return array(
