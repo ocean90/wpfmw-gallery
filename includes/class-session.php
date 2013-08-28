@@ -38,6 +38,13 @@ class Session {
 			$this->start();
 
 		session_destroy();
+
+		// Destroy the remember cookie too.
+		setcookie( session_name(), session_id(), time() - 3600, '/' );
+	}
+
+	public function set_lifetime( $value = 0 ) {
+		setcookie( session_name(), session_id(), time() + $value, '/' );
 	}
 
 	public function set( $key, $value ) {

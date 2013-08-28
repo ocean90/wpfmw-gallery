@@ -31,13 +31,17 @@ class User_Controller extends Controller {
 			redirect( get_site_url( '/' ) );
 			exit;
 		} else {
-			$user = User_Model::get_data_by( 'login', $request->segments[1] );
+			$user = User_Model::get_data_by( 'username', $request->segments[1] );
 		}
 
-		$view = new View( 'user/index' );
-		$view->set_page_title( 'User' . $user->user_login );
-		$view->assign( 'user', $user );
-		$view->render();
+		if ( ! empty( $user ) ) {
+			$view = new View( 'user/index' );
+			$view->set_page_title( 'User ' . $user->user_login );
+			$view->assign( 'user', $user );
+			$view->render();
+		} else {
+			show_404();
+		}
 
 	}
 

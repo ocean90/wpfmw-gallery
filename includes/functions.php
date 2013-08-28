@@ -198,3 +198,15 @@ function is_user_logged_in() {
 
 	return false;
 }
+
+/**
+ * Calls error controller and index method to render
+ * 404 view.
+ *
+ * @return void
+ */
+function show_404() {
+	require APP_INCLUDES_PATH .  "/controllers/class-error-controller.php";
+	$controller = new Error_Controller();
+	$controller->index();
+}

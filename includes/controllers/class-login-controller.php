@@ -66,6 +66,11 @@ class Login_Controller extends Controller {
 					session_regenerate_id();
 					$app->session->set( 'user', $user->ID );
 
+					if ( ! empty( $_POST['remember'] ) ) {
+						$lifetime = 60 * 60 * 24 * 30; // 30 days
+						$app->session->set_lifetime( $lifetime );
+					}
+
 					redirect( get_site_url( '/' ) );
 					exit;
 				} else {
