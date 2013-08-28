@@ -63,7 +63,7 @@ class Login_Controller extends Controller {
 			if ( ! empty( $user ) ) {
 
 				if ( check_password( $password, $user->user_pass ) ) {
-					session_regenerate_id();
+					$app->session->regenerate();
 					$app->session->set( 'user', $user->ID );
 
 					if ( ! empty( $_POST['remember'] ) ) {
