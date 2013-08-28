@@ -1,6 +1,10 @@
 <?php include APP_VIEWS_PATH . 'header.php'; ?>
 <?php include APP_VIEWS_PATH . 'navbar.php'; ?>
 
+<?php
+var_dump($_['error']);
+?>
+
 <form class="form-horizontal" method="post" action="">
 
 	<legend>Register</legend>

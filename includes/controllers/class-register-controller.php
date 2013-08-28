@@ -53,13 +53,22 @@ class Register_Controller extends Controller {
 	 * @return void
 	 */
 	public function success( $request ) {
+		if ( is_user_logged_in() ) {
+			redirect( get_site_url( '/' ) );
+			exit;
+		}
+
 		$view = new View( 'register/success' );
 		$view->set_page_title( 'Success | Register' );
 		$view->render();
 	}
 
+	/**
+	 * Handles user registration.
+	 *
+	 * @return void
+	 */
 	private function run_register() {
-		var_dump($_POST);
 		$result = User_Manager::validate_new_user( (array) $_POST );
 
 		if ( ! $result['valid'] ) {

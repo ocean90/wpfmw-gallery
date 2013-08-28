@@ -1,5 +1,4 @@
 <nav class="navbar navbar-default" role="navigation">
-	<!-- Brand and toggle get grouped for better mobile display -->
 	<div class="navbar-header">
 		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
 			<span class="sr-only">Toggle navigation</span>
@@ -7,14 +6,13 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand" href="#">Home</a>
+		<a class="navbar-brand" href="<?php site_url( '/' ); ?>">Home</a>
 	</div>
 
-	<!-- Collect the nav links, forms, and other content for toggling -->
 	<div class="collapse navbar-collapse navbar-ex1-collapse">
 		<ul class="nav navbar-nav">
-			<li><a href="#">Pictures</a></li>
-			<li><a href="#">Placeholder</a></li>
+			<li><a href="<?php site_url( '/settings/' ); ?>">Settings</a></li>
+			<li><a href="<?php site_url( '/upload/' ); ?>">Upload</a></li>
 		</ul>
 
 		<form class="navbar-form navbar-left" role="search">
@@ -27,7 +25,6 @@
 		<ul class="nav navbar-nav navbar-right">
 			<?php if ( ! is_user_logged_in() ) { ?>
 			<li><a href="/register">Sign up</a></li>
-			<li class="divider-vertical"></li>
 			<li class="dropdown">
 				<a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
 				<div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
@@ -42,7 +39,9 @@
 				</div>
 			</li>
 			<?php } else { ?>
-				<li><a href="<?php site_url( '/user/' . $GLOBALS['app']->current_user->user_login ); ?>"><?php echo $GLOBALS['app']->current_user->user_login; ?></a></li>
+				<li>
+					<p class="navbar-text">Signed in as <a class="navbar-link" href="<?php site_url( '/user/' . $GLOBALS['app']->current_user->user_login ); ?>"><?php echo $GLOBALS['app']->current_user->user_login; ?></a></p>
+				</li>
 				<li><a href="<?php site_url( '/logout/' ); ?>">Log out</a></li>
 			<?php } ?>
 		</ul>

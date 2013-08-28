@@ -36,7 +36,7 @@ class User_Controller extends Controller {
 
 		if ( ! empty( $user ) ) {
 			$view = new View( 'user/index' );
-			$view->set_page_title( 'User ' . $user->user_login );
+			$view->set_page_title( $user->user_login . ' | User' );
 			$view->assign( 'user', $user );
 			$view->render();
 		} else {

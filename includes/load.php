@@ -35,13 +35,17 @@ switch ( $controller ) {
 	case 'register' :
 	case 'settings' :
 	case 'user' :
-		$action = 'index';
 	case 'upload' :
- 	$class = ucfirst( $controller ) . '_Controller';
+		$class = ucfirst( $controller ) . '_Controller';
 		require APP_INCLUDES_PATH . "/controllers/class-$controller-controller.php";
 		break;
 	default:
 }
+
+// Handle special actions for some controllers
+if ( $controller === 'user' )
+	$action = 'index';
+
 // Check if the current action hadnler exists in the controller class
 if ( ! method_exists( $class, $action ) ) {
 	$controller = 'error';
