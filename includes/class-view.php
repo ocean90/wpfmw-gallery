@@ -53,12 +53,31 @@ class View {
 	/**
 	 * Sets page title.
 	 *
-	 * @param  string $key Key
 	 * @param  string $value Value
 	 * @return void
 	 */
 	public function set_page_title( $title ) {
 		$this->assign( 'page_title', $title );
+	}
+
+	/**
+	 * Sets additonal header elements.
+	 *
+	 * @param  string $value Value
+	 * @return void
+	 */
+	public function set_extra_header( $value ) {
+		$this->assign( 'extra_header', $value );
+	}
+
+	/**
+	 * Sets additonal footer elements.
+	 *
+	 * @param  string $value Value
+	 * @return void
+	 */
+	public function set_extra_footer( $value ) {
+		$this->assign( 'extra_footer', $value );
 	}
 
 	/**

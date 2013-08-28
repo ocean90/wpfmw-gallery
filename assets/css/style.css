@@ -11,7 +11,28 @@
 	border-color: #eed3d7;
 }
 
-
 .install-register-form {
 	margin-top: 20px;
+}
+
+#password-strength-result {
+	margin-top: -15px;
+}
+
+#password-strength-result .progress {
+	height: 10px;
+}
+
+#password-strength-result .progress-bar {
+	-webkit-transition: width 0.3s ease;
+	transition: width 0.3s ease;
+}
+
+#password-strength-result .help-block {
+	margin: 0;
+	text-align: right;
+}
+
+#password-mismatch {
+	visibility: hidden;
 }

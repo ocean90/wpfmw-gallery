@@ -10,6 +10,10 @@
 		<title><?php echo $title; ?></title>
 		<link rel="stylesheet" href="<?php assets_url( 'css/bootstrap.css' ); ?>" type="text/css" media="screen">
 		<link rel="stylesheet" href="<?php assets_url( 'css/style.css' ); ?>" type="text/css" media="screen">
+		<?php
+		if ( ! empty( $_['extra_header'] ) )
+			echo $_['extra_header'];
+		?>
 	</head>
 	<body>
 		<div class="container">

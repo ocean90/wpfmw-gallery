@@ -1,3 +1,4 @@
+<?php header( 'HTTP/1.0 404 Not Found' ); ?>
 <?php include APP_VIEWS_PATH . 'header.php'; ?>
 
 <div class="jumbotron error-404">

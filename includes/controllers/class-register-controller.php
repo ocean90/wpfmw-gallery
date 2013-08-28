@@ -26,8 +26,20 @@ class Register_Controller extends Controller {
 	 * @return void
 	 */
 	public function index() {
+		if ( is_user_logged_in() ) {
+			redirect( get_site_url( '/' ) );
+			exit;
+		}
+
 		$view = new View( 'register/index' );
 		$view->set_page_title( 'Register' );
+
+		$extra_footer = '
+<script>var _zxcvbnURL = "' . get_assets_url( 'js/zxcvbn.js' ) . '";</script>
+<script src="' . get_assets_url( 'js/zxcvbn-async.js' ) . '"></script>
+<script src="' . get_assets_url( 'js/password-strength.js' ) . '"></script>
+		';
+		$view->set_extra_footer( $extra_footer );
 		$view->render();
 	}
 

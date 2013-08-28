@@ -26,6 +26,11 @@ class Login_Controller extends Controller {
 	 * @return void
 	 */
 	public function index( $request ) {
+		if ( is_user_logged_in() ) {
+			redirect( get_site_url( '/' ) );
+			exit;
+		}
+
 		// Check HTTP method, if is post login button
 		// was clicked
 		if ( 'POST' === $request->method ) {
