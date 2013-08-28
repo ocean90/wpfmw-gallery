@@ -1,63 +1,6 @@
 <?php include APP_VIEWS_PATH . 'header.php'; ?>
 
-<?php
-// Check existing POST data and show them
-$inputFirstName = '';
-if ( ! empty( $_POST[ 'inputFirstName' ] ) ) {
-  $inputFirstName = htmlspecialchars( $_POST[ 'inputFirstName' ], ENT_QUOTES );
-}
 
-$inputLastName = '';
-if ( ! empty( $_POST[ 'inputLastName' ] ) ) {
-  $inputLastName = htmlspecialchars( $_POST[ 'inputLastName' ], ENT_QUOTES );
-}
-
-$inputUserName = '';
-if ( ! empty( $_POST[ 'inputUserName' ] ) ) {
-  $inputUserName = htmlspecialchars( $_POST[ 'inputUserName' ], ENT_QUOTES );
-}
-
-$inputEmail = '';
-if ( ! empty( $_POST[ 'inputEmail' ] ) ) {
-  $inputEmail = htmlspecialchars( $_POST[ 'inputEmail' ], ENT_QUOTES );
-}
-
-$inputPassword = '';
-if ( ! empty( $_POST[ 'inputPassword' ] ) ) {
-  $inputPassword = htmlspecialchars( $_POST[ 'inputPassword' ], ENT_QUOTES );
-}
-
-$inputSecondPassword = '';
-if ( ! empty( $_POST[ 'inputSecondPassword' ] ) ) {
-  $inputSecondPassword = htmlspecialchars( $_POST[ 'inputSecondPassword' ], ENT_QUOTES );
-}
-
-// Check for errors
-$UserName_extra = $Email_extra = $Password_extra = $SecondPassword_extra = '';
-
-
-if ( ! empty( $_[ 'error' ] ) ) {
-  ?>
-  <div class="alert alert-danger">Sorry, there was an error. Please check the highlighted fields.</div>
-  <?php
-
-  if ( in_array( 'emptyusername', $_[ 'error' ] ) || in_array( 'invalidusername', $_[ 'error' ] ) ) {
-    $UserName_extra = ' has-error';
-  }
-
-  if ( in_array( 'emptyemail', $_[ 'error' ] ) || in_array( 'invalidemail', $_[ 'error' ] ) ) {
-    $Email_extra = ' has-error';
-  }
-
-  if ( in_array( 'emptypassword', $_[ 'error' ] ) || in_array( 'passwordmismatch', $_[ 'error' ] ) ) {
-    $Password_extra = ' has-error';
-  }
-
-  if ( in_array( 'mailexists', $_[ 'error' ] ) || in_array( 'usernameexists', $_[ 'error' ] ) ) {
-    $user_extra = ' has-error';
-  }
-}
-?>
 
 <form class="form-horizontal" method="POST" action="register.php">
  
