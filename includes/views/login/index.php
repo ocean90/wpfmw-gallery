@@ -1,4 +1,5 @@
 <?php include APP_VIEWS_PATH . 'header.php'; ?>
+<?php include APP_VIEWS_PATH . 'navbar.php'; ?>
 
 <?php
 // Check existing POST data and show them

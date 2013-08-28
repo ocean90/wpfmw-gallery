@@ -1,8 +1,5 @@
 <?php include APP_VIEWS_PATH . 'header.php'; ?>
-
-<?php
-var_dump($_['error']);
-?>
+<?php include APP_VIEWS_PATH . 'navbar.php'; ?>
 
 <form class="form-horizontal" method="post" action="">
 
