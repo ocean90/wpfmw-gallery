@@ -1,8 +1,8 @@
 <?php include APP_VIEWS_PATH . 'header.php'; ?>
 
 <?php
-// Check existing POST data and show them
 
+// Check existing POST data and show them
 $username = '';
 if ( ! empty( $_POST[ 'username' ] ) ) {
   $username = htmlspecialchars( $_POST[ 'username' ], ENT_QUOTES );
