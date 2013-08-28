@@ -1,16 +1,17 @@
 <?php include APP_VIEWS_PATH . 'header.php'; ?>
 
-
+<?php
+var_dump($_['error']);
+?>
 
 <form class="form-horizontal" method="post" action="">
 
 	<legend>Register</legend>
 
-
 	<div class="form-group">
 		<label for="username" class="col-lg-2 control-label">Username</label>
 		<div class="col-lg-4">
-			<input type="text" class="form-control" id="username" placeholder="Enter Username">
+			<input type="text" class="form-control" id="username" name="username" autofocus placeholder="Enter Username">
 			<small class="help-block">Allowed characters: <code>a-z0-9_-</code></small>
 		</div>
 	</div>

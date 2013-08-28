@@ -48,7 +48,7 @@ class Install_Controller extends Controller {
 	 */
 	public function register( $request ) {
 		if ( 'POST' === $request->method ) {
-			$this->register_admin();
+			$this->run_register();
 		} else {
 			$view = new View( 'install/register' );
 			$view->set_page_title( 'Register | Installation' );
@@ -108,7 +108,7 @@ class Install_Controller extends Controller {
 	 *
 	 * @return void
 	 */
-	private function register_admin() {
+	private function run_register() {
 		$result = User_Manager::validate_new_user( (array) $_POST );
 
 		if ( ! $result['valid'] ) {
