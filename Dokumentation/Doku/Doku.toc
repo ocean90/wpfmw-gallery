@@ -1,0 +1,24 @@
+\select@language {ngerman}
+\contentsline {section}{\numberline {1}Introduction}{3}{section.4}
+\contentsline {section}{\numberline {2}Planning}{3}{section.5}
+\contentsline {section}{\numberline {3}Realization}{3}{section.6}
+\contentsline {subsection}{\numberline {3.1}MVC-paradigm}{3}{subsection.7}
+\contentsline {subsection}{\numberline {3.2}Database }{4}{subsection.12}
+\contentsline {subsubsection}{\numberline {3.2.1}Create}{4}{subsubsection.13}
+\contentsline {subsubsection}{\numberline {3.2.2}Database tables}{4}{subsubsection.14}
+\contentsline {subsubsection}{\numberline {3.2.3}SQL-Query}{5}{subsubsection.20}
+\contentsline {subsection}{\numberline {3.3}resources }{6}{subsection.80}
+\contentsline {subsubsection}{\numberline {3.3.1}/register}{6}{subsubsection.81}
+\contentsline {subsubsection}{\numberline {3.3.2}/login}{6}{subsubsection.82}
+\contentsline {subsubsection}{\numberline {3.3.3}/logout}{7}{subsubsection.83}
+\contentsline {subsubsection}{\numberline {3.3.4}/profile}{7}{subsubsection.84}
+\contentsline {subsubsection}{\numberline {3.3.5}/user/\{\$id\}}{7}{subsubsection.85}
+\contentsline {subsubsection}{\numberline {3.3.6}/user/\{\$id\}/galleries/\{\$id\}}{7}{subsubsection.86}
+\contentsline {subsubsection}{\numberline {3.3.7}/search}{7}{subsubsection.87}
+\contentsline {subsubsection}{\numberline {3.3.8}/install}{8}{subsubsection.88}
+\contentsline {subsection}{\numberline {3.4}Code}{8}{subsection.89}
+\contentsline {subsubsection}{\numberline {3.4.1}Controllers}{8}{subsubsection.90}
+\contentsline {subsubsection}{\numberline {3.4.2}Form-Validation}{8}{subsubsection.91}
+\contentsline {subsubsection}{\numberline {3.4.3}CSS-Framework Bootstrap}{8}{subsubsection.92}
+\contentsline {subsubsection}{\numberline {3.4.4}Functions}{9}{subsubsection.93}
+\contentsline {subsubsection}{\numberline {3.4.5}Javascript}{9}{subsubsection.94}
