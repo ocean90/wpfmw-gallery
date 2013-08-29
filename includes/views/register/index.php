@@ -47,55 +47,39 @@ if ( ! empty( $_[ 'error' ] ) ) {
 }
 ?>
 
-<form class="form-horizontal" method="post" action="">
-
-	<legend>Register</legend>
-
-	<div class="form-group">
-		<label for="username" class="col-lg-2 control-label">Username</label>
-		<div class="col-lg-4">
-			<input type="text" class="form-control" id="username" name="username" autofocus placeholder="Enter Username">
-			<small class="help-block">Allowed characters: <code>a-z0-9_-</code></small>
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label for="email" class="col-lg-2 control-label">Email</label>
-		<div class="col-lg-4">
-			<input type="text" class="form-control" id="email" name="email" placeholder="Enter Email">
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label for="password1" class="col-lg-2 control-label">Password</label>
-		<div class="col-lg-4">
-			<input type="password" class="form-control" id="password1" name="password1" placeholder="Enter Password">
-		</div>
-	</div>
-
-	<div class="form-group">
-		<label for="password2" class="col-lg-2 control-label">Password again <span id="password-mismatch" class="label label-danger">Mismatch!</span> </label>
-		<div class="col-lg-4">
-			<input type="password" class="form-control" id="password2" name="password2" placeholder="Enter Password again">
-		</div>
-	</div>
-
-	<div id="password-strength-result" class="form-group">
-		<div class="col-lg-offset-2 col-lg-4">
-			<small class="help-block">Password Strength</small>
-			<div class="progress">
-				<div class="progress-bar"></div>
+<form method="post" class="form-horizontal install-register-form clearfix">
+		<div class="form-group<?php echo $username_extra; ?>">
+			<label for="username" class="col-lg-3 control-label">Username</label>
+			<div class="col-lg-5">
+				<input type="text" value="<?php echo $username; ?>" class="form-control input-lg" id="username" name="username" autofocus placeholder="Enter username" maxlength="60">
 			</div>
 		</div>
-	</div>
 
-	<div class="form-group">
-		<div class="col-lg-offset-2 col-lg-4">
-			<button type="submit" class="btn btn-primary pull-right">Register</button>
+		<div class="form-group<?php echo $email_extra; ?>">
+			<label for="email" class="col-lg-3 control-label">Email</label>
+			<div class="col-lg-5">
+				<input type="email" value="<?php echo $email; ?>" class="form-control input-lg" id="email" name="email" placeholder="Enter email" maxlength="100">
+			</div>
 		</div>
-	</div>
 
-</form>
+		<div class="form-group<?php echo $password_extra; ?>">
+			<label for="password1" class="col-lg-3 control-label">Password</label>
+			<div class="col-lg-5">
+				<input type="password" value="<?php echo $password1; ?>" class="form-control input-lg" id="password1" name="password1" placeholder="Enter password" maxlength="100">
+			</div>
+		</div>
+
+		<div class="form-group<?php echo $password_extra; ?>">
+			<label for="password2" class="col-lg-3 control-label">Repeat Password</label>
+			<div class="col-lg-5">
+				<input type="password" value="<?php echo $password2; ?>" class="form-control input-lg" id="password2" name="password2" placeholder="Enter password again" maxlength="100">
+			</div>
+		</div>
+
+		<div class="col-lg-8">
+			<button type="submit" class="btn btn-primary btn-lg pull-right">Register</button>
+		</div>
+	</form>
 
 
 <?php include APP_VIEWS_PATH . 'footer.php'; ?>
