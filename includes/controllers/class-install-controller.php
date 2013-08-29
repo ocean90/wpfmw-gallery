@@ -52,6 +52,12 @@ class Install_Controller extends Controller {
 		} else {
 			$view = new View( 'install/register' );
 			$view->set_page_title( 'Register | Installation' );
+
+			$extra_footer = '
+	<script>var _zxcvbnURL = "' . get_assets_url( 'js/libs/zxcvbn.js' ) . '";</script>
+	<script src="' . get_assets_url( 'js/zxcvbn-async.js' ) . '"></script>
+	<script src="' . get_assets_url( 'js/password-strength.js' ) . '"></script>
+			';
 			$view->render();
 		}
 	}
@@ -115,6 +121,12 @@ class Install_Controller extends Controller {
 			$view = new View( 'install/register' );
 			$view->set_page_title( 'Register | Installation' );
 			$view->assign( 'error', $result['errors'] );
+
+			$extra_footer = '
+	<script>var _zxcvbnURL = "' . get_assets_url( 'js/libs/zxcvbn.js' ) . '";</script>
+	<script src="' . get_assets_url( 'js/zxcvbn-async.js' ) . '"></script>
+	<script src="' . get_assets_url( 'js/password-strength.js' ) . '"></script>
+			';
 			$view->render();
 		} else {
 			$result = User_Manager::create_user( $result['sanitized_user'] );

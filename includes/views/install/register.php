@@ -1,4 +1,6 @@
 <?php include APP_VIEWS_PATH . 'header.php'; ?>
+<?php include APP_VIEWS_PATH . 'navbar.php'; ?>
+
 
 <?php
 // Check existing POST data and show them
@@ -54,7 +56,7 @@ if ( ! empty( $_[ 'error' ] ) ) {
 
 	<p>Please fill in your data here. It's used for the admin account!</p>
 
-	<form method="post" class="form-horizontal install-register-form clearfix">
+<form method="post" class="form-horizontal install-register-form clearfix">
 		<div class="form-group<?php echo $username_extra; ?>">
 			<label for="username" class="col-lg-3 control-label">Username</label>
 			<div class="col-lg-5">
@@ -96,6 +98,11 @@ if ( ! empty( $_[ 'error' ] ) ) {
 			<button type="submit" class="btn btn-primary btn-lg pull-right">Register</button>
 		</div>
 	</form>
+
+
+<?php include APP_VIEWS_PATH . 'footer.php'; ?>
+
+
 </div>
 
 <?php include APP_VIEWS_PATH . 'header.php'; ?>
