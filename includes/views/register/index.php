@@ -1,8 +1,50 @@
 <?php include APP_VIEWS_PATH . 'header.php'; ?>
 <?php include APP_VIEWS_PATH . 'navbar.php'; ?>
 
+
 <?php
-var_dump($_['error']);
+// Check existing POST data and show them
+$username = '';
+if ( ! empty( $_POST[ 'username' ] ) ) {
+	$username = htmlspecialchars( $_POST[ 'username' ], ENT_QUOTES );
+}
+
+$email = '';
+if ( ! empty( $_POST[ 'email' ] ) ) {
+	$email = htmlspecialchars( $_POST[ 'email' ], ENT_QUOTES );
+}
+
+$password1 = '';
+if ( ! empty( $_POST[ 'password1' ] ) ) {
+	$password1 = htmlspecialchars( $_POST[ 'password1' ], ENT_QUOTES );
+}
+
+$password2 = '';
+if ( ! empty( $_POST[ 'password2' ] ) ) {
+	$password2 = htmlspecialchars( $_POST[ 'password2' ], ENT_QUOTES );
+}
+
+// Check for errors
+$username_extra = $email_extra = $password_extra = '';
+
+// Check for errors
+if ( ! empty( $_[ 'error' ] ) ) {
+	?>
+	<div class="alert alert-danger">Sorry, there was an error. Please check the highlighted fields.</div>
+	<?php
+
+	if ( in_array( 'emptyusername', $_[ 'error' ] ) || in_array( 'invalidusername', $_[ 'error' ] ) || in_array( 'usernameexists', $_[ 'error' ] ) ) {
+		$username_extra = ' has-error';
+	}
+
+	if ( in_array( 'emptyemail', $_[ 'error' ] ) || in_array( 'invalidemail', $_[ 'error' ] ) || in_array( 'mailexists', $_[ 'error' ] ) ) {
+		$email_extra = ' has-error';
+	}
+
+	if ( in_array( 'emptypassword', $_[ 'error' ] ) || in_array( 'passwordmismatch', $_[ 'error' ] ) ) {
+		$password_extra = ' has-error';
+	}
+}
 ?>
 
 <form class="form-horizontal" method="post" action="">
