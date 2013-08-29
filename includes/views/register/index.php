@@ -77,7 +77,7 @@ if ( ! empty( $_[ 'error' ] ) ) {
 		</div>
 
 		<div id="password-strength-result" class="form-group">
-			<div class="col-lg-offset-2 col-lg-4">
+			<div class="col-lg-offset-3 col-lg-5">
 				<small class="help-block">Password Strength</small>
 				<div class="progress">
 					<div class="progress-bar"></div>
