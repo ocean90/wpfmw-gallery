@@ -27,21 +27,18 @@ class Upload_Controller extends Controller {
 	 */
 	public function index( $request ) {
 		if ( is_user_logged_in() ) {
-			redirect( get_site_url( '/' ) );
 			exit;
 		}
+	}
 
-		// was clicked
-		if ( 'POST' === $request->method ) {
-			$this->run_upload();
-		} else {
-			$view = new View( 'upload/index' );
-			$view->set_page_title( 'Upload' );
-			$extra_footer = '
-				<script src="' . get_assets_url( 'js/image-uploader.js' ) . '"></script>
-			';
-			$view->set_extra_footer( $extra_footer );
-			$view->render();
+	/**
+	 * Default action.
+	 *
+	 * @return void
+	 */
+	public function upload( $request ) {
+		if ( is_user_logged_in() ) {
+			exit;
 		}
 	}
 

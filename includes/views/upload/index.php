@@ -8,14 +8,19 @@
   <small><cite title="Source Title">Susan Sontag</cite></small>
 </blockquote>
 
-<form action="" method="post" enctype="multipart/form-data">
+<form id="image-uploader" action="" method="post" enctype="multipart/form-data">
 
 	<div class="form-group">
-		<label for="upload">File input</label>
-		<input type="file" id="upload" name="upload[]" multiple accept="image/*">
+		<label for="images">File input</label>
+		<input type="file" id="images" name="images[]" multiple accept="image/*">
 		<p class="help-block">Choose one ore more pictures to upload</p>
 	</div>
 
+	<div class="form-group">
+		<button type="submit" class="btn btn-primary">Upload</button>
+	</div>
  </form>
+
+ <div id="image-container"></div>
 
 <?php include APP_VIEWS_PATH . 'footer.php'; ?>

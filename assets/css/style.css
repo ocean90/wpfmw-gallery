@@ -36,3 +36,10 @@
 #password-mismatch {
 	visibility: hidden;
 }
+
+
+.image-to-upload {
+	max-width: 300px;
+	height: auto;
+	margin: 10px;
+}

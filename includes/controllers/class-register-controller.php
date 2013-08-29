@@ -38,7 +38,7 @@ class Register_Controller extends Controller {
 			$view->set_page_title( 'Register' );
 
 			$extra_footer = '
-	<script>var _zxcvbnURL = "' . get_assets_url( 'js/zxcvbn.js' ) . '";</script>
+	<script>var _zxcvbnURL = "' . get_assets_url( 'js/libs/zxcvbn.js' ) . '";</script>
 	<script src="' . get_assets_url( 'js/zxcvbn-async.js' ) . '"></script>
 	<script src="' . get_assets_url( 'js/password-strength.js' ) . '"></script>
 			';
@@ -77,7 +77,7 @@ class Register_Controller extends Controller {
 
 			$extra_footer = '
 				<script>var _zxcvbnURL = "' . get_assets_url( 'js/zxcvbn.js' ) . '";</script>
-				<script src="' . get_assets_url( 'js/zxcvbn-async.js' ) . '"></script>
+				<script src="' . get_assets_url( 'js/libs/zxcvbn-async.js' ) . '"></script>
 				<script src="' . get_assets_url( 'js/password-strength.js' ) . '"></script>
 			';
 			$view->set_extra_footer( $extra_footer );

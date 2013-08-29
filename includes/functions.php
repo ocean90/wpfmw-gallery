@@ -123,7 +123,7 @@ function site_url( $path = '' ) {
 function get_assets_url( $path = '' ) {
 	global $app;
 
-	$url  = get_site_url( '/assets/' );
+	$url  = get_site_url( '/assets' );
 
 	if ( $path && is_string( $path ) )
 		$url .= '/' . ltrim( $path, '/' );
