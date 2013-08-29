@@ -1,6 +1,4 @@
 <?php include APP_VIEWS_PATH . 'header.php'; ?>
-<?php include APP_VIEWS_PATH . 'navbar.php'; ?>
-
 
 <?php
 // Check existing POST data and show them
@@ -99,10 +97,6 @@ if ( ! empty( $_[ 'error' ] ) ) {
 		</div>
 	</form>
 
-
-<?php include APP_VIEWS_PATH . 'footer.php'; ?>
-
-
 </div>
 
-<?php include APP_VIEWS_PATH . 'header.php'; ?>
+<?php include APP_VIEWS_PATH . 'footer.php'; ?>
