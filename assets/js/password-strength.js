@@ -51,7 +51,6 @@
 	}
 
 	$( function() {
-		console.log('jo');
 		$('#password1').keyup( check_password_strength );
 		$('#password2').keyup( check_password_strength );
 	});
