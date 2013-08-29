@@ -36,6 +36,7 @@ switch ( $controller ) {
 	case 'settings' :
 	case 'user' :
 	case 'upload' :
+	case 'ajax' :
 		$class = ucfirst( $controller ) . '_Controller';
 		require APP_INCLUDES_PATH . "/controllers/class-$controller-controller.php";
 		break;

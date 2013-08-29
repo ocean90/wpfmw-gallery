@@ -13,7 +13,7 @@
 /**
  * Controller for upload action.
  */
-class Upload_Controller extends Controller {
+class Ajax_Controller extends Controller {
 
 	/**
 	 * Constructor.
@@ -37,38 +37,47 @@ class Upload_Controller extends Controller {
 	 * @return void
 	 */
 	public function upload( $request ) {
-		if ( is_user_logged_in() ) {
-			exit;
-		}
-	}
-
-	private function run_upload() {
-		$raw_files = $_FILES[ 'images' ];
-		$files_count = 0;
-
-		if ( is_array( $raw_files[ 'name' ] ) ) {
-			$files_count = count( $raw_files[ 'name' ] );
+		// Uploads are only for logged in users
+		if ( ! is_user_logged_in() ) {
+			die( '-1' );
 		}
 
-		// No files selected
-		if ( 0 === $files_count ) {
-			redirect( get_site_url( '/upload/' ) );
-			exit;
+		// Get the image
+		$image = $_FILES[ 'image' ];
+
+		// Check if image was uploaded via HTTP POST
+		if ( ! is_uploaded_file( $image[ 'tmp_name' ] ) ) {
+			die( '-1' );
 		}
 
-		$files = array();
-		for ( $i = 0; $i < $files_count; $i++ ) {
-			$files[] = array(
-				'name'     => $raw_files[ 'name' ][ $i ],
-				'type'     => $raw_files[ 'type' ][ $i ],
-				'tmp_name' => $raw_files[ 'tmp_name' ][ $i ],
-				'error'    => $raw_files[ 'error' ][ $i ],
-				'size'     => $raw_files[ 'size' ][ $i ],
-			);
+		// Check error status
+		if ( $image[ 'error' ] !== UPLOAD_ERR_OK ) { // http://php.net/manual/en/features.file-upload.errors.php
+			die( '-1' );
 		}
 
-		var_dump($_POST);
-		var_dump($files);
+		// Do some file name checks for security reasons
+		if ( ! $image_file = check_image_file( $image ) ) {
+			die( '-2' );
+		}
+
+		// Filename = md5 hash of current time and image file name
+		$filename = md5( microtime() . $image_file[ 'name' ] ) . '.' . $image_file[ 'ext' ];
+
+		$current_user_id = $GLOBALS[ 'app' ]->current_user->ID;
+		$path = APP_CONTENT_PATH . '/' . $current_user_id . '/';
+
+		if ( ! is_dir( APP_CONTENT_PATH ) )
+			mkdir( APP_CONTENT_PATH );
+
+		if ( ! is_dir( $path ) )
+			mkdir( $path );
+
+		// Image is okay, move it to the content dir
+		if ( false === @ move_uploaded_file( $image[ 'tmp_name' ], $path . $filename ) ) {
+			die( '-1' );
+		}
+
+		die( '1' );
 	}
 
 }

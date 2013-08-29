@@ -14,6 +14,7 @@
 define( 'APP_PATH', dirname( dirname( __FILE__ ) ) . '/' );
 define( 'APP_INCLUDES_PATH', APP_PATH . 'includes/' );
 define( 'APP_VIEWS_PATH', APP_INCLUDES_PATH . 'views/' );
+define( 'APP_CONTENT_PATH', APP_PATH . 'images/' );
 
 // Load some files
 require APP_INCLUDES_PATH . 'autoloader.php';
