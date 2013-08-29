@@ -58,6 +58,7 @@ class Install_Controller extends Controller {
 	<script src="' . get_assets_url( 'js/zxcvbn-async.js' ) . '"></script>
 	<script src="' . get_assets_url( 'js/password-strength.js' ) . '"></script>
 			';
+			$view->set_extra_footer( $extra_footer );
 			$view->render();
 		}
 	}
@@ -127,6 +128,7 @@ class Install_Controller extends Controller {
 	<script src="' . get_assets_url( 'js/zxcvbn-async.js' ) . '"></script>
 	<script src="' . get_assets_url( 'js/password-strength.js' ) . '"></script>
 			';
+			$view->set_extra_footer( $extra_footer );
 			$view->render();
 		} else {
 			$result = User_Manager::create_user( $result['sanitized_user'] );
