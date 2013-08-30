@@ -24,22 +24,24 @@
 
 		<ul class="nav navbar-nav navbar-right">
 			<?php if ( ! is_user_logged_in() ) { ?>
-			<li><a href="<?php site_url( '/register/'); ?>">Sign up</a></li>
-			<li class="dropdown">
-				<a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
-				<div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
-							
-					<form method="post" action="<?php site_url( '/login/' ); ?>">
-						<input style="margin-bottom: 15px;" type="text" placeholder="Enter Email" id="login" name="login">
-						<input style="margin-bottom: 15px;" type="password" placeholder="Enter Password" id="password" name="password">
-						<input style="float: left; margin-right: 10px;" type="checkbox" name="remember" id="remember" value="1">
-						<label class="string optional" for="remember"> Remember me</label>
-						<input class="btn btn-primary btn-block" type="submit" id="sign-in" value="Sign In">
-						<label style="text-align:center;margin-top:5px"></label>
-					</form>
-				</div>
-			</li>
-			<?php } else { ?>
+				<li><a href="<?php site_url( '/register/'); ?>">Sign up</a></li>
+				<li class="dropdown">
+					<a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
+					<div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
+								
+						<form method="post" action="<?php site_url( '/login/' ); ?>">
+							<input style="margin-bottom: 15px;" type="text" placeholder="Enter Email" class="form-control" id="login" name="login">
+							<input style="margin-bottom: 15px;" type="password" placeholder="Enter Password" class="form-control" id="password" name="password">
+							<input style="float: left; margin-right: 10px;" type="checkbox" name="remember" id="remember" value="1">
+							<label class="string optional" for="remember"> Remember me</label>
+							<input class="btn btn-primary btn-block" type="submit" id="sign-in" value="Sign In">
+							<label style="text-align:center;margin-top:5px"></label>
+						</form>
+					</div>
+				</li>
+			<?php } 
+
+			else { ?>
 				<li>
 					<p class="navbar-text">Signed in as <a class="navbar-link" href="<?php site_url( '/user/' . $GLOBALS['app']->current_user->user_login ); ?>"><?php echo $GLOBALS['app']->current_user->user_login; ?></a></p>
 				</li>
