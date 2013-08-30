@@ -34,7 +34,7 @@
 							<input style="margin-bottom: 15px;" type="password" placeholder="Enter Password" class="form-control" id="password" name="password">
 							<input style="float: left; margin-right: 10px;" type="checkbox" name="remember" id="remember" value="1">
 							<label class="string optional" for="remember"> Remember me</label>
-							<input class="btn btn-primary btn-block" type="submit" id="sign-in" value="Sign In">
+							<input class="btn btn-default btn-block" type="submit" id="sign-in" value="Sign In">
 							<label style="text-align:center;margin-top:5px"></label>
 						</form>
 					</div>
