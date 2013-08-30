@@ -1,7 +1,7 @@
 <?php include APP_VIEWS_PATH . 'header.php'; ?>
 <?php include APP_VIEWS_PATH . 'navbar.php'; ?>
 
-<h2>File Upload</h2>
+<legend>File Upload</legend>
 
 <blockquote class="pull-right">
 	<p>Today everything exists to end in a photograph.</p>

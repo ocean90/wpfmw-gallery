@@ -59,9 +59,15 @@ footer{
 
 }
 
+body{
+	background-color: #dde4ec;
+	color: #fff;
+
+}
+
 * {
     font-family: 'Lato', sans-serif;
-    color:#fff;
+    color:#6E6E6E;
 }
 
 .block {
@@ -70,10 +76,7 @@ footer{
 
 }
 
-body{
-	background-color: #dde4ec;
 
-}
 
 #makeMeScrollable div.scrollableArea *
 {
