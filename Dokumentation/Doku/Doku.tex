@@ -161,6 +161,9 @@ are explained in more detail below.
 \subsubsection*{Request}
 
 Example: 
+\begin{lstlisting}
+GET localhost/user/?foo=bar
+\end{lstlisting}
 
  The Request class extracts the URL into its component parts. user,
 for example, is one segment.
@@ -172,15 +175,15 @@ The controllers include the logic always belongs to a resource.
 
 Example: 
 
-
+\begin{lstlisting}
 localhost / user
+\end{lstlisting}
 then the controller is loaded, see load.php. The controllers are
-located in includes / controllers directory. If no other resource
-specify, for example 
-localhost / user / blaa
- is called the index method of the controller. If the resource was
-blaa and indicate the method exists, it is called when it does not
-exist, the index is retrieved.
+located in "includes / controllers" directory. If no other resource
+specify, for example "localhost / user / blaa"
+ is called the index method of the controller will start. If the resource was
+"blaa" and indicate the method exists, it is called when it does not
+exist, the "index" is retrieved.
 
 
 \subsubsection*{Views}
@@ -191,6 +194,12 @@ includes / views
 of data.
 
 Example call:
+
+\begin{lstlisting}
+$view = new View( 'install/success' ); 
+$view->set_page_title( 'Installation' );  
+$view->render(); // Gibt das Template aus
+\end{lstlisting}
 
 A view can consist of several template, eg headers - content - footer.
 
@@ -220,27 +229,113 @@ tables and fields. Collation: utf8\_general\_ci
 
 This is to inform the users of the gallery. These are uniquely identified
 by an ID.
+\begin{tabular}{|c|c|}
+\hline 
+Feld & Typ\tabularnewline
+\hline 
+\hline 
+ID & bigint(20)\tabularnewline
+\hline 
+user\_login & varchar(50)\tabularnewline
+\hline 
+user\_pass & varchar(64)\tabularnewline
+\hline 
+user\_email & varchar(100)\tabularnewline
+\hline 
+user\_registered & datetime\tabularnewline
+\hline 
+user\_status & int(10)\tabularnewline
+\hline 
+\end{tabular}
 
 
 \paragraph*{Usermeta}
 
 Metadatas of the users
 
+\begin{tabular}{|c|c|}
+\hline 
+Feld & Typ\tabularnewline
+\hline 
+\hline 
+ID & bigint(20)\tabularnewline
+\hline 
+user\_id & bigint(20)\tabularnewline
+\hline 
+meta\_key & varchar(255)\tabularnewline
+\hline 
+meta\_value & longtext\tabularnewline
+\hline 
+\end{tabular}
 
 \paragraph*{Images}
 
 Data of the images
-
+\begin{tabular}{|c|c|}
+\hline 
+Feld & Typ\tabularnewline
+\hline 
+\hline 
+ID & bigint(20)\tabularnewline
+\hline 
+user\_id & bigint(20)\tabularnewline
+\hline 
+uploaded\_date & datetime\tabularnewline
+\hline 
+image\_caption & longtext\tabularnewline
+\hline 
+image\_title & text\tabularnewline
+\end{tabular}
 
 \paragraph*{Imagemeta}
 
 Metadatas of the images
 
+\begin{tabular}{|c|c|}
+\hline 
+Feld & Typ\tabularnewline
+\hline 
+\hline 
+ID & bigint(20)\tabularnewline
+\hline 
+image\_id & bigint(20)\tabularnewline
+\hline 
+metakey & varchar(255)\tabularnewline
+\hline 
+meta\_value & longtext\tabularnewline
+\end{tabular}
 
 \paragraph*{Gallery}
 
 Informations about the gallery in general
 
+\begin{tabular}{|c|c|}
+\hline 
+Feld & Typ\tabularnewline
+\hline 
+\hline 
+ID & bigint(20)\tabularnewline
+\hline 
+user\_id & bigint(20)\tabularnewline
+\hline 
+public & boolean\tabularnewline
+\hline 
+gallery\_title & text\tabularnewline
+\hline 
+gallery\_description & longtext\tabularnewline
+\end{tabular}
+
+\paragraph*{ImageRelationships}
+
+\begin{tabular}{|c|c|}
+\hline 
+Feld & Typ\tabularnewline
+\hline 
+\hline 
+ID & bigint(20)\tabularnewline
+\hline 
+gallery\_id & bigint(20)\tabularnewline
+\end{tabular}
 
 \subsubsection{SQL-Query}
 
