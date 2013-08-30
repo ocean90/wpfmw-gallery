@@ -24,7 +24,7 @@
 
 		<ul class="nav navbar-nav navbar-right">
 			<?php if ( ! is_user_logged_in() ) { ?>
-			<li><a href="/register">Sign up</a></li>
+			<li><a href="<?php site_url( '/register/'); ?>">Sign up</a></li>
 			<li class="dropdown">
 				<a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
 				<div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
