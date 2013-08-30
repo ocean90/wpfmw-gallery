@@ -39,7 +39,7 @@ class Ajax_Controller extends Controller {
 	public function upload( $request ) {
 		// Uploads are only for logged in users
 		if ( ! is_user_logged_in() ) {
-			die( '-1' );
+			die( '1' );
 		}
 
 		// Get the image
@@ -47,17 +47,17 @@ class Ajax_Controller extends Controller {
 
 		// Check if image was uploaded via HTTP POST
 		if ( ! is_uploaded_file( $image[ 'tmp_name' ] ) ) {
-			die( '-1' );
+			die( '2' );
 		}
 
 		// Check error status
 		if ( $image[ 'error' ] !== UPLOAD_ERR_OK ) { // http://php.net/manual/en/features.file-upload.errors.php
-			die( '-1' );
+			die( '3' );
 		}
 
 		// Do some file name checks for security reasons
 		if ( ! $image_file = check_image_file( $image ) ) {
-			die( '-2' );
+			die( '4' );
 		}
 
 		// Filename = md5 hash of current time and image file name
@@ -74,10 +74,15 @@ class Ajax_Controller extends Controller {
 
 		// Image is okay, move it to the content dir
 		if ( false === @ move_uploaded_file( $image[ 'tmp_name' ], $path . $filename ) ) {
-			die( '-1' );
+			die( '5' );
 		}
 
-		die( '1' );
+		$data = array(
+			'hash' => $_POST[ 'hash' ],
+			'filename' => $filename
+		);
+
+		die( json_encode( $data ) );
 	}
 
 }
