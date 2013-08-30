@@ -9,9 +9,20 @@
 
 		init: function() {
 			//this.$el.on( 'submit', $.proxy( this.uploadRequest, this ) );
-			this.$imagesToUpload.on( 'change', $.proxy( this.imagesChanged, this ) );
 			this.$button.on( 'click', $.proxy( this.triggerFileSelect, this ) );
+			this.$imagesToUpload.on( 'change', $.proxy( this.imagesChanged, this ) );
 			//this.$imagesToUpload.on( 'change', $.proxy( this.previewImages, this ) );
+		},
+
+		template: function( data ) {
+			return $( '<div/>' )
+				.attr( 'data-hash', data.hash )
+				.addClass( 'image-wrapper' )
+				.append(
+					$( '<img/>' )
+					.addClass( 'img-thumbnail' )
+					.attr( 'src', data.imageSrc )
+				);
 		},
 
 		triggerFileSelect: function( e ) {
@@ -44,6 +55,8 @@
 
 			$.each( images, function( index, value ) {
 				var reader = new FileReader();
+				var image = images[ index ];
+				var hash = md5( image.name + image.size + image.type );
 
 				reader.onload = function ( file ) {
 					var image = new Image();
@@ -51,12 +64,16 @@
 
 					image.onload = function() {
 						self.$container.prepend(
-							$( '<img/>' ).addClass( 'img-thumbnail image-to-upload' ).attr( 'src', this.src )
+							self.template( {
+								'hash' : hash,
+								imageSrc : this.src
+							} )
+							//$( '<img/>' ).addClass( 'img-thumbnail image-to-upload' ).attr( 'src', this.src )
 						);
 					}
 				}
 
-				reader.readAsDataURL( images[ index ] );
+				reader.readAsDataURL( image );
 			} );
 		},
 
@@ -67,14 +84,18 @@
 				var hash = md5( image.name + image.size + image.type );
 				var data = new FormData();
 				data.append( 'image', image);
+				data.append( 'hash', hash );
 				$.ajax({
 					url: ajaxURL + 'upload/',
 					data: data,
 					type: 'POST',
 					processData: false,
 					contentType: false,
+					dataType: 'json',
 					success: function( e ) {
-						console.log( e );
+						console.log( e.hash );
+
+						console.log( self.$container.find( '[data-hash="' + e.hash + '"]' ));
 					},
 					xhr: function() {
 						// Add a custom event listener for progress status
