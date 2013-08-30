@@ -28,7 +28,8 @@
 			<li class="dropdown">
 				<a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
 				<div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
-					<form method="post" action="/login">
+							
+					<form method="post" action="<?php site_url( '/login/' ); ?>">
 						<input style="margin-bottom: 15px;" type="text" placeholder="Enter Email" id="login" name="login">
 						<input style="margin-bottom: 15px;" type="password" placeholder="Enter Password" id="password" name="password">
 						<input style="float: left; margin-right: 10px;" type="checkbox" name="remember" id="remember" value="1">
