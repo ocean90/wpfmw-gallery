@@ -1,4 +1,4 @@
-<nav class="navbar navbar-default" role="navigation">
+<nav class="navbar navbar-inverse" role="navigation">
 	<div class="navbar-header">
 		<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
 			<span class="sr-only">Toggle navigation</span>
@@ -28,7 +28,7 @@
 				<li class="dropdown">
 					<a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
 					<div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
-								
+
 						<form method="post" action="<?php site_url( '/login/' ); ?>">
 							<input style="margin-bottom: 15px;" type="text" placeholder="Enter Email" class="form-control" id="login" name="login">
 							<input style="margin-bottom: 15px;" type="password" placeholder="Enter Password" class="form-control" id="password" name="password">
@@ -39,14 +39,14 @@
 						</form>
 					</div>
 				</li>
-			<?php } 
+			<?php }
 
 			else { ?>
 				<li>
-					<p class="navbar-text">Signed in as <a class="navbar-link" href="<?php site_url( '/user/' . $GLOBALS['app']->current_user->user_login ); ?>"><?php echo $GLOBALS['app']->current_user->user_login; ?></a></p>
-				</li>
-				<li>
-					<a href="<?php site_url( '/user/' . $GLOBALS['app']->current_user->user_login ); ?>" class="brand"><img alt="" src="<?php get_gravatar( $GLOBALS['app']->current_user->user_email, 40, 'mm', 'g', true)?>" /></a>
+					<a class="navbar-link" href="<?php site_url( '/user/' . $GLOBALS['app']->current_user->user_login ); ?>">
+						Signed in as <?php echo $GLOBALS['app']->current_user->user_login; ?>
+						<?php echo get_gravatar( $GLOBALS['app']->current_user->user_email, 20, 'mm', 'g', true ); ?>
+					</a>
 				</li>
 				<li>
 					<a href="<?php site_url( '/logout/' ); ?>">Log out</a>
