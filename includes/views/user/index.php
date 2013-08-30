@@ -2,8 +2,7 @@
 <?php include APP_VIEWS_PATH . 'navbar.php'; ?>
 
 <?php
-
-get_gravatar(   $_[ 'user' ]->user_email, 200, 'mm', 'g', true );
+echo get_gravatar(   $_[ 'user' ]->user_email, 200, 'mm', 'g', true );
 ?>
 
 <?php include APP_VIEWS_PATH . 'footer.php'; ?>

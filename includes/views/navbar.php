@@ -42,7 +42,12 @@
 				<li>
 					<p class="navbar-text">Signed in as <a class="navbar-link" href="<?php site_url( '/user/' . $GLOBALS['app']->current_user->user_login ); ?>"><?php echo $GLOBALS['app']->current_user->user_login; ?></a></p>
 				</li>
-				<li><a href="<?php site_url( '/logout/' ); ?>">Log out</a></li>
+				<li>
+					<a href="<?php site_url( '/user/' . $GLOBALS['app']->current_user->user_login ); ?>" class="brand"><img alt="" src="<?php get_gravatar( $GLOBALS['app']->current_user->user_email, 40, 'mm', 'g', true)?>" /></a>
+				</li>
+				<li>
+					<a href="<?php site_url( '/logout/' ); ?>">Log out</a>
+				</li>
 			<?php } ?>
 		</ul>
 	</div><!-- /.navbar-collapse -->
