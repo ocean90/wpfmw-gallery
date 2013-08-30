@@ -37,46 +37,11 @@
 	visibility: hidden;
 }
 
-#images {
-	display: none;
-}
 
-#image-container {
-	margin-top: 30px;
-	margin-right: -1%;
-}
-
-.upload-image-wrapper {
-	width: 24%;
-	margin-right: 1%;
-	margin-bottom: 3%;
-	float: left;
-	position: relative;
-}
-
-.upload-image-wrapper img {
-	width: 100%;
+.image-to-upload {
+	max-width: 300px;
 	height: auto;
-}
-
-.upload-image-wrapper img.not-loaded {
-	opacity: 0.5;
-}
-
-.upload-image-wrapper .progress {
-	position: absolute;
-	top: 150px;
-	left: 50%;
-	margin: -10px 0 0 -40%;
-	width: 80%;
-}
-
-.upload-image-wrapper .form-group {
-	margin-top: 10px;
-}
-
-.upload-image-wrapper .image-description {
-	resize: none;
+	margin: 10px;
 }
 
 footer{
