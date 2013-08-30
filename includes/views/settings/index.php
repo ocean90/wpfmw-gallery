@@ -51,7 +51,26 @@
    <button type="submit" class="btn btn-default">Update</button>
 
 </form>
+<?php 
+// Check for errors
+if ( ! empty( $_[ 'error' ] ) ) {
+  ?>
+  <div class="alert alert-danger">Sorry, there was an error. Please check the highlighted fields.</div>
+  <?php
 
+  if (in_array( 'invalidusername', $_[ 'error' ] ) || in_array( 'usernameexists', $_[ 'error' ] ) ) {
+    $username_extra = ' has-error';
+  }
+
+  if ( in_array( 'emptyemail', $_[ 'error' ] ) || in_array( 'invalidemail', $_[ 'error' ] ) || in_array( 'mailexists', $_[ 'error' ] ) ) {
+    $email_extra = ' has-error';
+  }
+
+  if ( in_array( 'emptypassword', $_[ 'error' ] ) || in_array( 'passwordmismatch', $_[ 'error' ] ) ) {
+    $password_extra = ' has-error';
+  }
+}
+?>
 
 <?php include APP_VIEWS_PATH . 'footer.php'; ?>
 
