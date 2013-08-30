@@ -19,7 +19,7 @@
 			<div class="form-group">
 				<input type="text" class="form-control" placeholder="Search">
 			</div>
-			<button type="submit" class="btn btn-default">Submit</button>
+			<button type="submit" class="btn btn-primary">Submit</button>
 		</form>
 
 		<ul class="nav navbar-nav navbar-right">
@@ -34,7 +34,7 @@
 							<input style="margin-bottom: 15px;" type="password" placeholder="Enter Password" class="form-control" id="password" name="password">
 							<input style="float: left; margin-right: 10px;" type="checkbox" name="remember" id="remember" value="1">
 							<label class="string optional" for="remember"> Remember me</label>
-							<input class="btn btn-default btn-block" type="submit" id="sign-in" value="Sign In">
+							<input class="btn btn-primary btn-block" type="submit" id="sign-in" value="Sign In">
 							<label style="text-align:center;margin-top:5px"></label>
 						</form>
 					</div>
