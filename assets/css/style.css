@@ -37,6 +37,9 @@
 	visibility: hidden;
 }
 
+#images {
+	display: none;
+}
 
 .image-to-upload {
 	max-width: 300px;

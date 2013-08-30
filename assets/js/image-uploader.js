@@ -2,6 +2,7 @@
 
 	var imageUploader = {
 		$el: $( '#image-uploader' ),
+		$button: $( '#image-upload-button' ),
 		$imagesToUpload: $( '#images' ),
 		$container: $( '#image-container' ),
 		currentImages: [],
@@ -9,7 +10,12 @@
 		init: function() {
 			//this.$el.on( 'submit', $.proxy( this.uploadRequest, this ) );
 			this.$imagesToUpload.on( 'change', $.proxy( this.imagesChanged, this ) );
+			this.$button.on( 'click', $.proxy( this.triggerFileSelect, this ) );
 			//this.$imagesToUpload.on( 'change', $.proxy( this.previewImages, this ) );
+		},
+
+		triggerFileSelect: function( e ) {
+			this.$imagesToUpload.trigger( 'click' );
 		},
 
 		imagesChanged: function( e ) {
