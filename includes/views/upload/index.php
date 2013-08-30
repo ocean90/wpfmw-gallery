@@ -10,14 +10,14 @@
 	<small><cite>Susan Sontag</cite></small>
 </blockquote>
 
-<div id="image-uploader-wrapper clearfix">
+<div id="image-uploader-wrapper">
 	 <div id="upload-container">
 	 	<form id="image-uploader" action="" method="post" enctype="multipart/form-data">
 			<input type="file" id="images" name="images[]" multiple accept="image/*">
 
 			<button id="image-upload-button" type="button" class="btn btn-primary btn-lg btn-block">Select Images To Upload</button>
 
-			<div id="image-container"></div>
+			<div id="image-container" class="clearfix"></div>
 
 	 	</form>
 	 </div>
