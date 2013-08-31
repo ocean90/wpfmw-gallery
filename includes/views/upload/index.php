@@ -1,11 +1,13 @@
 <?php include APP_VIEWS_PATH . 'header.php'; ?>
 <?php include APP_VIEWS_PATH . 'navbar.php'; ?>
 
-<legend>File Upload</legend>
+<div class="page-header">
+	<h2>Upload <small>Create a new gallery</small></h2>
+</div>
 
 <blockquote class="pull-right">
 	<p>Today everything exists to end in a photograph.</p>
-  <small><cite title="Source Title">Susan Sontag</cite></small>
+	<small><cite>Susan Sontag</cite></small>
 </blockquote>
 
 <div id="image-uploader-wrapper">
@@ -13,7 +15,9 @@
 	 	<form id="image-uploader" action="" method="post" enctype="multipart/form-data">
 			<input type="file" id="images" name="images[]" multiple accept="image/*">
 
-			<div id="image-container"></div>
+			<button id="image-upload-button" type="button" class="btn btn-primary btn-lg btn-block">Select Images To Upload</button>
+
+			<div id="image-container" class="clearfix"></div>
 
 	 	</form>
 	 </div>
