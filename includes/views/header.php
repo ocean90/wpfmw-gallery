@@ -8,7 +8,7 @@
 		<?php
 		$title = ! empty( $_['page_title'] ) ? $_['page_title'] : ''; ?>
 		<title><?php echo $title; ?></title>
-		<link rel="stylesheet" href="<?php assets_url( 'css/bootstrap.min.css' ); ?>" type="text/css" media="screen">
+		<link rel="stylesheet" href="<?php assets_url( 'css/libs/bootstrap.min.css' ); ?>" type="text/css" media="screen">
 		<link rel="stylesheet" href="<?php assets_url( 'css/style.css' ); ?>" type="text/css" media="screen">
 		<?php
 		if ( ! empty( $_['extra_header'] ) )
@@ -17,5 +17,6 @@
 	</head>
 	<body>
 		<div class="container">
+			<div id="content">
 
 
