@@ -21,7 +21,7 @@ body {
 }
 
 #content {
-	margin-top: 40px;
+	padding: 40px 0;
 	margin-bottom: 200px; /* Height of footer */
 }
 
@@ -79,7 +79,7 @@ body {
 	height: auto;
 }
 
-.upload-image-wrapper img.not-loaded {
+.upload-image-wrapper.loading .img-thumbnail {
 	opacity: 0.5;
 }
 

@@ -9,7 +9,7 @@
 	<p>Today everything exists to end in a photograph.</p>
 	<small><cite>Susan Sontag</cite></small>
 </blockquote>
-
+<div class="clearfix"></div>
 <div id="image-uploader-wrapper">
 	 <div id="upload-container">
 	 	<form id="image-uploader" action="" method="post" enctype="multipart/form-data">

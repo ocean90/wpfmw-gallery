@@ -36,8 +36,7 @@ CREATE TABLE `images` (
   `user_id` bigint(20) unsigned NOT NULL,
   `uploaded_date` datetime NOT NULL,
   `image_title` text NOT NULL,
-  `image_description` longtext,
-  `image_caption` text NOT NULL,
+  `image_caption` longtext NOT NULL,
   PRIMARY KEY (`ID`),
   KEY (`user_id`)
 ) DEFAULT CHARSET=utf8;
