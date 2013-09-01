@@ -31,6 +31,17 @@ if ( isset( $_GET[ 'success' ] ) ) {
 <form class="form-horizontal" method="post" action="<?php site_url( '/settings/' ); ?>">
 
 	<div class="form-group">
+		<label class="col-lg-2 control-label">Avatar</label>
+
+		<div class="col-lg-4" id="avatar_settings">
+			<?php
+			echo get_gravatar( $_[ 'user' ]->user_email, 200, 'mm', 'g', true );
+			?>
+			<small class="help-block"><a href="https://gravatar.com/">Change your avatar at Gravatar.com.</a></small>
+		</div>
+	</div>
+
+	<div class="form-group">
 		<label for="username" class="col-lg-2 control-label">Username</label>
 		<div class="col-lg-4">
 			<input type="text" class="form-control" id="username" name="username" value="<?php echo escape_attribute( $_[ 'user' ]->user_login ); ?>" placeholder="Enter Username" disabled>
@@ -97,19 +108,10 @@ if ( isset( $_GET[ 'success' ] ) ) {
 		</div>
 	</div>
 
-	<div class="form-group">
-		<label class="col-lg-2 control-label">Avatar</label>
-
-		<div class="col-lg-4">
-			<?php
-			echo get_gravatar( $_[ 'user' ]->user_email, 200, 'mm', 'g', true );
-			?>
-			<small class="help-block"><a href="https://gravatar.com/">Change your avatar at Gravatar.com.</a></small>
-		</div>
-	</div>
+	
 
 	<div class="col-lg-offset-2 col-lg-4">
-		<button type="submit" class="btn btn-default pull-right">Update</button>
+		<button type="submit" class="btn btn-primary pull-right">Update</button>
 	</div>
 
 </form>
