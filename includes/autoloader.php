@@ -27,16 +27,17 @@ class Autoloader {
 	 */
 	function __construct() {
 		self::$classes = array(
-			'configurator' => APP_INCLUDES_PATH . 'class-configurator.php',
-			'application'  => APP_INCLUDES_PATH . 'class-application.php',
-			'request'      => APP_INCLUDES_PATH . 'class-request.php',
-			'database'     => APP_INCLUDES_PATH . 'class-database.php',
-			'controller'   => APP_INCLUDES_PATH . 'class-controller.php',
-			'view'         => APP_INCLUDES_PATH . 'class-view.php',
-			'user_manager' => APP_INCLUDES_PATH . 'class-user-manager.php',
-			'session'      => APP_INCLUDES_PATH . 'class-session.php',
-			'user_model'   => APP_INCLUDES_PATH . 'models/class-user-model.php',
-			'passwordhash' => APP_INCLUDES_PATH . 'libs/PasswordHash.php',
+			'configurator'  => APP_INCLUDES_PATH . 'class-configurator.php',
+			'application'   => APP_INCLUDES_PATH . 'class-application.php',
+			'request'       => APP_INCLUDES_PATH . 'class-request.php',
+			'database'      => APP_INCLUDES_PATH . 'class-database.php',
+			'controller'    => APP_INCLUDES_PATH . 'class-controller.php',
+			'view'          => APP_INCLUDES_PATH . 'class-view.php',
+			'user_manager'  => APP_INCLUDES_PATH . 'class-user-manager.php',
+			'image_manager' => APP_INCLUDES_PATH . 'class-image-manager.php',
+			'session'       => APP_INCLUDES_PATH . 'class-session.php',
+			'user_model'    => APP_INCLUDES_PATH . 'models/class-user-model.php',
+			'passwordhash'  => APP_INCLUDES_PATH . 'libs/PasswordHash.php',
 		);
 
 		spl_autoload_register( 'Autoloader::load_class' );

@@ -56,7 +56,7 @@ class Ajax_Controller extends Controller {
 		}
 
 		// Do some file name checks for security reasons
-		if ( ! $image_file = check_image_file( $image ) ) {
+		if ( ! $image_file = Image_Manager::check_file( $image ) ) {
 			die( '4' );
 		}
 
@@ -76,9 +76,13 @@ class Ajax_Controller extends Controller {
 			die( '6' );
 		}
 
+		if ( ! $image_id = Image_Manager::create_db_entry( $filename ) ) {
+			die( '7' );
+		}
+
 		$data = array(
 			'hash'     => $_POST[ 'hash' ],
-			'id'       => 1, // TODO
+			'id'       => $image_id, // TODO
 			'filename' => $filename
 		);
 

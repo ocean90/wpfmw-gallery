@@ -72,13 +72,6 @@ class Database extends mysqli {
 	private $_last_result = array();
 
 	/**
-	 * Holds the insert ID.
-	 *
-	 * @var integer
-	 */
-	public $_insert_id = 0;
-
-	/**
 	 * Constructor.
 	 * Sets database connection and calls constructor of parent class.
 	 *
@@ -230,6 +223,5 @@ class Database extends mysqli {
 	private function flush() {
 		$this->_error = '';
 		$this->_last_result = array();
-		$this->_insert_id = 0;
 	}
 }
