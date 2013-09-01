@@ -36,8 +36,8 @@ if ( ! empty( $_[ 'error' ] ) ) {
 }
 ?>
 
-<div class="page-header">
-	<h2>Login</h2>
+<div class="page-header" style="text-align:center">
+  <h2>Login</h2>
 </div>
 
 <form class="form-horizontal" action="<?php site_url( '/login/' ); ?>" method="post">
