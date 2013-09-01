@@ -36,12 +36,25 @@
 						)
 				)
 				.append(
+					$( '<small/>' )
+						.addClass( 'help-block' )
+						.append(
+							$( '<strong/>' )
+								.text(
+									'Filename: '
+								)
+						)
+						.append(
+							data.filename
+						)
+				)
+				.append(
 					$( '<div/>')
 						.addClass( 'form-group')
 						.append(
 							$( '<label/>')
 								.attr( 'for', 'image-title-' + data.hash )
-								.append(
+								.text(
 									'Title'
 								)
 						)
@@ -58,7 +71,7 @@
 						.append(
 							$( '<label/>')
 								.attr( 'for', 'image-description-' + data.hash )
-								.append(
+								.text(
 									'Description'
 								)
 						)
@@ -75,7 +88,7 @@
 						.attr( 'type', 'button' )
 						.addClass( 'btn btn-danger btn-xs pull-right delete-image' )
 						.attr( 'data-hash', data.hash )
-						.html(
+						.text(
 							'Delete'
 						)
 				);
@@ -146,13 +159,14 @@
 				}
 
 				reader.onload = function ( file ) {
-					var image = new Image();
-					image.src = file.target.result;
+					var imageO = new Image();
+					imageO.src = file.target.result;
 
-					image.onload = function() {
+					imageO.onload = function() {
 						self.$container.prepend(
 							self.template( {
 								hash : hash,
+								filename: image.name,
 								image: self.imageToCanvas( this ),
 							} )
 						);
@@ -163,7 +177,7 @@
 						}
 
 						reader = null;
-						image = null;
+						imageO = null;
 				}
 
 				reader.readAsDataURL( image );
@@ -284,7 +298,10 @@
 					contentType: false,
 					dataType: 'json',
 					success: function( result ) {
-						self.imageUploadSuccess( result, hash );
+						if ( result.id !== undefined )
+							self.imageUploadSuccess( result, hash );
+						else
+							self.imageUploadError( result, hash );
 					},
 					xhr: function() {
 						// Add a custom event listener for progress status
@@ -312,6 +329,21 @@
 				$(this).remove();
 				$imageWrapper.removeClass( 'loading' );
 			} );
+		},
+
+		imageUploadError: function( result, hash ) {
+			var self = this;
+			var $imageWrapper = self.$container.find( '[data-hash="' + hash + '"]' );
+			var $progress = $( '.progress-bar', $imageWrapper );
+
+			$progress.addClass( 'progress-bar-danger' );
+
+			$( '.image-description', $imageWrapper ).prop( 'disabled', true );
+			$( '.image-title', $imageWrapper ).prop( 'disabled', true );
+
+			if ( result === 5 ) {
+				self.showError( 'Uploads directory is not writeable! Please check if the root dir is writeable, try to change permissions to 777.' );
+			}
 		},
 
 		showProgress: function( e, hash ) {

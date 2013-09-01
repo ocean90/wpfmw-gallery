@@ -85,7 +85,7 @@ body {
 
 .upload-image-wrapper .progress {
 	position: absolute;
-	top: 150px;
+	top: 40px;
 	left: 50%;
 	margin: -10px 0 0 -40%;
 	width: 80%;
