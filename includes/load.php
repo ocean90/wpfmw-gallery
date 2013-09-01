@@ -18,9 +18,13 @@
 
 // Get the controller
 $controller = str_replace( '_', '', $request->segments[0] );
-// If the first segment is empty we are on the home screen
+
+// Handle special controllers for some segments
 if ( empty( $controller ) )
 	$controller = 'home';
+
+if ( ! empty( $request->segments[3] ) )
+	$controller = 'gallery';
 
 // Get the action, if none set to index
 $action = empty( $request->segments[1] ) ? 'index' : $request->segments[1];
@@ -36,6 +40,7 @@ switch ( $controller ) {
 	case 'settings' :
 	case 'user' :
 	case 'upload' :
+	case 'gallery' :
 	case 'ajax' :
 		$class = ucfirst( $controller ) . '_Controller';
 		require APP_INCLUDES_PATH . "/controllers/class-$controller-controller.php";
@@ -45,6 +50,9 @@ switch ( $controller ) {
 
 // Handle special actions for some controllers
 if ( $controller === 'user' )
+	$action = 'index';
+
+if ( $controller === 'gallery' )
 	$action = 'index';
 
 // Check if the current action hadnler exists in the controller class

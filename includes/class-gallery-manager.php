@@ -33,12 +33,11 @@ class Gallery_Manager {
 		global $db;
 
 		$slug = self::unique_slug( sanitize_slug( $gallery[ 'title' ] ) );
-		var_dump($slug);
 
 		$query = $db->prepare(
 			"INSERT INTO $db->galleries (`user_id`, `is_public`, `gallery_title`, `gallery_slug`, `gallery_description`, `gallery_created`) VALUES ( %d, %d, %s, %s, %s, %s )",
 			array(
-				User_Manager::get_current_user()->ID,
+				$gallery[ 'user_id' ],
 				(int) $gallery[ 'is_public' ],
 				$gallery[ 'title' ],
 				$slug,

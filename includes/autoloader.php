@@ -38,6 +38,7 @@ class Autoloader {
 			'gallery_manager' => APP_INCLUDES_PATH . 'class-gallery-manager.php',
 			'session'         => APP_INCLUDES_PATH . 'class-session.php',
 			'user_model'      => APP_INCLUDES_PATH . 'models/class-user-model.php',
+			'gallery_model'   => APP_INCLUDES_PATH . 'models/class-gallery-model.php',
 			'passwordhash'    => APP_INCLUDES_PATH . 'libs/PasswordHash.php',
 		);
 

@@ -47,23 +47,37 @@ class Upload_Controller extends Controller {
 	}
 
 	private function create_gallery() {
-		var_dump( $_POST );
-
+		$current_user = User_Manager::get_current_user();
 		$gallery = array();
-
+		$gallery[ 'user_id' ] = $current_user->ID;
 		$gallery[ 'title' ] = trim( $_POST[ 'gallery-title' ] );
 		$gallery[ 'description' ] = trim( $_POST[ 'gallery-description' ] );
 		$gallery[ 'is_public' ] = ! empty( $_POST[ 'gallery-is-public' ] );
 
 		$gallery_id = Gallery_Manager::create_gallery( $gallery );
-var_dump($gallery_id);
+
 		$images = (array) $_POST[ 'images' ];
 		$image_ids = array_keys( $images );
 
+		// Update image titles and descriptions
+		foreach ( $images as $image_id => $data ) {
+			$image = array_merge( array( 'ID' => $image_id ), $data );
+			Image_Manager::edit_image( $image );
+		}
+
+		// Create relationships
 		Gallery_Manager::create_relationships( $gallery_id, $image_ids );
 
-		var_dump( $image_ids );
+		// Get new gallery model
+		$gallery = new Gallery_Model( $gallery_id );
 
+		if ( $gallery ) {
+			$path = sprintf( 'user/%s/gallery/%s/', $current_user->user_login, $gallery->gallery_slug  );
+			redirect( get_site_url( $path ) );
+			exit;
+		} else {
+			var_dump( $gallery );
+		}
 	}
 
 }

@@ -76,7 +76,7 @@ class Ajax_Controller extends Controller {
 			die( '6' );
 		}
 
-		if ( ! $image_id = Image_Manager::create_db_entry( $filename ) ) {
+		if ( ! $image_id = Image_Manager::create_image( $filename ) ) {
 			die( '7' );
 		}
 

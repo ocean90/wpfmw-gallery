@@ -29,7 +29,7 @@ class Image_Manager {
 	 * @param  string   $filename The name of the uploaded file.
 	 * @return int|bool            False on failure, row ID on success.
 	 */
-	public static function create_db_entry( $filename ) {
+	public static function create_image( $filename ) {
 		global $db;
 
 		$query = $db->prepare(
@@ -48,6 +48,31 @@ class Image_Manager {
 			return $db->insert_id;
 		else
 			return false;
+	}
+
+	public static function edit_image( $image ) {
+		global $db;
+
+		if ( empty( $image[ 'ID' ] ) ) {
+			return false;
+		}
+
+		$data = array();
+		$result = false;
+
+		if ( isset( $image[ 'title' ] ) ) {
+			$data[] = $db->prepare( '`image_title` = %s', $image[ 'title' ] );
+		}
+
+		if ( isset( $image[ 'description' ] ) ) {
+			$data[] = $db->prepare( '`image_description` = %s', $image['description'] );
+		}
+
+		$query = "UPDATE $db->images SET " . implode( ', ', $data ) . " WHERE `ID` = {$image[ 'ID' ]}";
+
+		$result = $db->query( $query );
+
+		return $result;
 	}
 
 	/**
