@@ -31,7 +31,7 @@ class User_Controller extends Controller {
 			redirect( get_site_url( '/' ) );
 			exit;
 		} else {
-			$user = User_Model::get_data_by( 'username', $request->segments[1] );
+			$user = User_Model::get_user_by( 'username', $request->segments[1] );
 		}
 
 		if ( ! empty( $user ) ) {

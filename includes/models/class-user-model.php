@@ -148,4 +148,42 @@ class User_Model {
 
 		return $db->get_row( $query );
 	}
+
+	/**
+	 * Returns a user by field.
+	 *
+	 * @param  string  $field  email or login.
+	 * @param  mixed   $value  The value of the field.
+	 * @return mixed           false on error, object on success.
+	 */
+	public static function get_user_by( $field, $value ) {
+		global $db;
+
+		$value = trim( $value );
+
+		if ( empty( $value ) )
+			return false;
+
+		switch ( $field ) {
+			case 'email':
+				$db_field = 'user_email';
+				break;
+			case 'login':
+			case 'username':
+				$db_field = 'user_login';
+				break;
+			default:
+				return false;
+		}
+
+		$query = $db->prepare( "SELECT ID FROM $db->users WHERE $db_field = %s", $value );
+
+		$result = $db->get_row( $query );
+
+		if ( ! empty ( $result ) ) {
+			return new User_Model( $result->ID );
+		} else {
+			return null;
+		}
+	}
 }
