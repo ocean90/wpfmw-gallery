@@ -5,30 +5,35 @@
 	<h2>Profile <small>Have a look at your profile</small></h2>
 </div>
 
-
-<div class="span4 well">
+<div class="span4 well" style="text-align: center">
 	<div class="row">
-		<div class="span3">
-			<div style="algin: center">
-			<?php
-				echo get_gravatar(   $_[ 'user' ]->user_email, 200, 'mm', 'g', true );
-			?>
-			</div>
+		<div class="span3">	
 			<?php 
-			if (!empty($_[ 'user' ]->firstname)) {
-				echo $_[ 'user' ]->firstname;
-			}
+				$isemptylastn = $_[ 'user' ]->lastname;
+	   			$isemptyfirstn = $_[ 'user' ]->firstname;
+	   		?>
+
+	   		<div id="avatar_profile">
+	   		<?php
+	    		echo get_gravatar(   $_[ 'user' ]->user_email, 200, 'mm', 'g', true );
+	   		?>
+	   		</div>
+
+	   		<?php   		
+	   		
+	   			if (!empty($isemptylastf)) {
+	   				echo $_[ 'user' ]->firstname;
+	  			 }
+	   		
+		    
+			   if (!empty($isemptylastn)) {
+			    echo $_[ 'user' ]->lastname;
+			   }
 			?>
 
-			<?php 
-			if (!empty($_[ 'user' ]->lastname)) {
-				echo $_[ 'user' ]->lastname;
-			}
-			?>
-			
+		   	</div>
 			<h5 class="text-info">Username: </h5><?php echo $_[ 'user' ]->user_login; ?><br><br>
 			<h5 class="text-info">Email-Adresse: </h5><?php echo $_[ 'user' ]->user_email; ?><br><br>
-			<?php echo $_[ 'user' ]->firstname; ?><br><br>
 
 		</div>
 	</div>
