@@ -5,15 +5,19 @@ Home Screen
 <div id="slideshow">
   <ul>
     <li>
-      <img src="bg.jpg" title="Lorem ipsum dolor sit amet" />
+      <img src="pic1.jpg" title="Lorem ipsum dolor sit amet" />
     </li>
 
     <li>
-      <img src="bg.jpg" title="Lorem ipsum dolor sit amet" />
+      <img src="pic2.jpg" title="Lorem ipsum dolor sit amet" />
     </li>
 
     <li>
-      <img src="bg.jpg" title="Lorem ipsum dolor sit amet" />
+      <img src="pic3.jpg" title="Lorem ipsum dolor sit amet" />
+    </li>
+
+    <li>
+      <img src="pic4.jpg" title="Lorem ipsum dolor sit amet" />
     </li>
   </ul>
 </div>
