@@ -35,6 +35,12 @@
 
 					<div class="form-group">
 						<button id="create-gallery-button" type="submit" class="btn btn-primary btn-lg btn-block pull-right">Create New Gallery</button>
+
+						<div class="checkbox pull-left">
+							<label>
+								<input type="checkbox" name="gallery-is-public" value="1" checked> Public Gallery
+							</label>
+						</div>
 					</div>
 				</div>
 			</form>

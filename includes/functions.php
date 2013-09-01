@@ -53,7 +53,7 @@ function maybe_install() {
 	// Prevent redirection loop
 	if ( '_install' !== $request->segments[0] ) {
 		// Check if a table exists
-		$result = $db->query( "SHOW TABLES LIKE '$db->gallery'" );
+		$result = $db->query( "SHOW TABLES LIKE '$db->galleries'" );
 
 		// If not, redirect to install page
 		if ( ! $result ) {

@@ -83,7 +83,7 @@ class Install_Controller extends Controller {
 		global $db;
 
 		// Check if a table exists
-		$result = $db->query( "SHOW TABLES LIKE '$db->gallery'" );
+		$result = $db->query( "SHOW TABLES LIKE '$db->galleries'" );
 
 		// If already installed, redirect to home page
 		if ( ! empty( $result ) ) {

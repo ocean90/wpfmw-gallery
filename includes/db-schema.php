@@ -12,12 +12,13 @@
 
 $schema = <<<EOT
 
-CREATE TABLE `gallery` (
-  `ID` bigint(20) unsigned NOT NULL,
+CREATE TABLE `galleries` (
+  `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) unsigned NOT NULL,
   `is_public` tinyint(1) NOT NULL DEFAULT '1',
   `gallery_title` text NOT NULL,
   `gallery_description` longtext NOT NULL,
+  `gallery_created` datetime NOT NULL,
   PRIMARY KEY (`ID`)
 ) DEFAULT CHARSET=utf8;
 
@@ -34,7 +35,7 @@ CREATE TABLE `imagemeta` (
 CREATE TABLE `images` (
   `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) unsigned NOT NULL,
-  `uploaded_date` datetime NOT NULL,
+  `image_uploaded` datetime NOT NULL,
   `image_filename` text NOT NULL,
   `image_title` text NOT NULL,
   `image_description` longtext NOT NULL,

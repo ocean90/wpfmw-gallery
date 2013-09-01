@@ -48,6 +48,22 @@ class Upload_Controller extends Controller {
 
 	private function create_gallery() {
 		var_dump( $_POST );
+
+		$gallery = array();
+
+		$gallery[ 'title' ] = trim( $_POST[ 'gallery-title' ] );
+		$gallery[ 'description' ] = trim( $_POST[ 'gallery-description' ] );
+		$gallery[ 'is_public' ] = ! empty( $_POST[ 'gallery-is-public' ] );
+
+		$gallery_id = Gallery_Manager::create_gallery( $gallery );
+
+		$images = (array) $_POST[ 'images' ];
+		$image_ids = array_keys( $images );
+
+		Gallery_Manager::create_relationships( $gallery_id, $image_ids );
+
+		var_dump( $image_ids );
+
 	}
 
 }

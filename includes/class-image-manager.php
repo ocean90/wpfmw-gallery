@@ -33,7 +33,7 @@ class Image_Manager {
 		global $db;
 
 		$query = $db->prepare(
-			"INSERT INTO $db->images (`user_id`, `uploaded_date`, `image_filename`, `image_title`, `image_description`) VALUES ( %d, %s, %s, %s, %s )",
+			"INSERT INTO $db->images (`user_id`, `image_uploaded`, `image_filename`, `image_title`, `image_description`) VALUES ( %d, %s, %s, %s, %s )",
 			array(
 				User_Manager::get_current_user()->ID,
 				gmdate( 'Y-m-d H:i:s' ),

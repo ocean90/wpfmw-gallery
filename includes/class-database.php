@@ -20,7 +20,7 @@ class Database extends mysqli {
 	 *
 	 * @var string
 	 */
-	public $gallery = 'gallery';
+	public $galleries = 'galleries';
 
 	/**
 	 * Image meta table.

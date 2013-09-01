@@ -9,3 +9,10 @@
  * @link      https://github.com/ocean90/wpfmw-gallery
  * @license   MIT
  */
+
+
+/**
+ * Close database connection.
+ */
+global $db;
+$db->close();

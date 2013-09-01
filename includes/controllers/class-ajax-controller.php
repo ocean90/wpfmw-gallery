@@ -82,7 +82,7 @@ class Ajax_Controller extends Controller {
 
 		$data = array(
 			'hash'     => $_POST[ 'hash' ],
-			'id'       => $image_id, // TODO
+			'id'       => $image_id,
 			'filename' => $filename
 		);
 
