@@ -35,6 +35,7 @@ CREATE TABLE `images` (
   `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` bigint(20) unsigned NOT NULL,
   `uploaded_date` datetime NOT NULL,
+  `image_filename` text NOT NULL,
   `image_title` text NOT NULL,
   `image_caption` longtext NOT NULL,
   PRIMARY KEY (`ID`),
