@@ -233,6 +233,20 @@ function escape_attribute( $value ) {
 }
 
 /**
+ * Returns serialized data for arrays and objects.
+ *
+ * @param  mixed  $data Data to serialize.
+ * @return mixed        Serialized data.
+ */
+function maybe_serialize( $data ) {
+	if ( is_array( $data ) || is_object( $data ) ) {
+		return serialize( $data );
+	}
+
+	return $data;
+}
+
+/**
  * Checks if a string is serialized.
  *
  * @param  string  $string Maybe serialized string.
@@ -241,9 +255,9 @@ function escape_attribute( $value ) {
 function is_serialized( $string ) {
 	$data = @unserialize( $string );
 	if ( $string === 'b:0;' || $data !== false ) {
-	   return true;
+		return true;
 	} else {
-	   return false;
+		return false;
 	}
 }
 

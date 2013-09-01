@@ -3,9 +3,10 @@
 
 <?php
 // Check for errors
+$email_extra = $password_extra = '';
 if ( ! empty( $_[ 'error' ] ) ) {
 	?>
-	<div class="alert alert-danger">Sorry, there was an error. Please check the highlighted fields.</div>
+	<div class="alert alert-danger">Sorry, there was an error. Please check the highlighted fields and update again.</div>
 	<?php
 	if ( in_array( 'emptyemail', $_[ 'error' ] ) || in_array( 'invalidemail', $_[ 'error' ] ) || in_array( 'mailexists', $_[ 'error' ] ) ) {
 		$email_extra = ' has-error';
@@ -27,7 +28,7 @@ if ( isset( $_GET[ 'success' ] ) ) {
 	<h2>Settings <small>Update your profile</small></h2>
 </div>
 
-<form class="form-horizontal" method="post" action="">
+<form class="form-horizontal" method="post" action="<?php site_url( '/settings/' ); ?>">
 
 	<div class="form-group">
 		<label for="username" class="col-lg-2 control-label">Username</label>
@@ -40,8 +41,8 @@ if ( isset( $_GET[ 'success' ] ) ) {
 		<label for="meta-firstname" class="col-lg-2 control-label">Firstname</label>
 		<div class="col-lg-4">
 			<?php
-			if ( isset( $_POST[ 'meta[firstname]' ] ) ) {
-				$firstname = $_POST[ 'meta[firstname]' ];
+			if ( isset( $_POST[ 'meta' ][ 'firstname'] ) ) {
+				$firstname = $_POST[ 'meta' ][ 'firstname'];
 			} else {
 				$firstname = $_[ 'user' ]->firstname;
 			}
@@ -55,8 +56,8 @@ if ( isset( $_GET[ 'success' ] ) ) {
 		<label for="meta-lastname" class="col-lg-2 control-label">Lastname</label>
 		<div class="col-lg-4">
 			<?php
-			if ( isset( $_POST[ 'meta[lastname]' ] ) ) {
-				$lastname = $_POST[ 'meta[lastname]' ];
+			if ( isset( $_POST[ 'meta' ][ 'lastname'] ) ) {
+				$lastname = $_POST[ 'meta' ][ 'lastname'];
 			} else {
 				$lastname = $_[ 'user' ]->lastname;
 			}
@@ -66,7 +67,7 @@ if ( isset( $_GET[ 'success' ] ) ) {
 		</div>
 	</div>
 
-	<div class="form-group">
+	<div class="form-group<?php echo $email_extra; ?>">
 		<label for="email" class="col-lg-2 control-label">Email</label>
 		<div class="col-lg-4">
 			<?php
@@ -81,7 +82,7 @@ if ( isset( $_GET[ 'success' ] ) ) {
 		</div>
 	</div>
 
-	<div class="form-group">
+	<div class="form-group<?php echo $password_extra; ?>">
 		<label for="password1" class="col-lg-2 control-label">Password</label>
 		<div class="col-lg-4">
 			<input type="password" class="form-control" id="password1" name="password1" placeholder="Enter Password">
@@ -89,7 +90,7 @@ if ( isset( $_GET[ 'success' ] ) ) {
 		</div>
 	</div>
 
-	<div class="form-group">
+	<div class="form-group<?php echo $password_extra; ?>">
 		<label for="password2" class="col-lg-2 control-label">Repeat Password</label>
 		<div class="col-lg-4">
 			<input type="password" class="form-control" id="password2" name="password2" placeholder="Enter Password Again">

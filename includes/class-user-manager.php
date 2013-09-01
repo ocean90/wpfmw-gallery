@@ -91,6 +91,7 @@ class User_Manager {
 		}
 
 		$data = array();
+		$result = false;
 
 		if ( isset( $user[ 'email' ] ) ) {
 			$data[] = $db->prepare( '`user_email` = %s', $user[ 'email' ] );
@@ -101,14 +102,39 @@ class User_Manager {
 		}
 
 		if ( isset( $user[ 'meta' ] ) ) {
-			// TODO
+			$current_user = self::get_current_user();
+
+			foreach ( $user[ 'meta' ] as $key => $value ) {
+				// Check if the key is new, means we have to create the entry
+				// or an existing one, means we have to update the entry
+				if ( $current_user->$key === null ) {
+					$query = $db->prepare(
+						"INSERT INTO $db->usermeta (`user_id`, `meta_key`, `meta_value` ) VALUES ( %d, %s, %s )",
+						array(
+							$user[ 'ID' ],
+							$key,
+							maybe_serialize( $value )
+						)
+					);
+				} else {
+					$query = $db->prepare(
+						"UPDATE $db->usermeta SET `meta_value` = %s WHERE `user_id` = %d AND `meta_key` = %s",
+						array(
+							maybe_serialize( $value ),
+							$user[ 'ID' ],
+							$key
+						)
+					);
+				}
+				$result = $db->query( $query );
+			}
 		}
 
 		if ( empty( $data ) ) {
-			return;
+			return $result;
 		}
 
-		$query = "UPDATE $db->users SET " . implode( ', ', $data ) . " WHERE ID = {$user[ 'ID' ]}";
+		$query = "UPDATE $db->users SET " . implode( ', ', $data ) . " WHERE `ID` = {$user[ 'ID' ]}";
 
 		$result = $db->query( $query );
 

@@ -78,6 +78,17 @@ class Settings_Controller extends Controller {
 			}
 		}
 
+		if ( ! empty( $_POST[ 'meta' ] ) ) {
+			$meta = (array) $_POST[ 'meta' ];
+
+			foreach ( $meta as $key => $value ) {
+				$value = trim( $value );
+				if ( $current_user->$key !== $value ) {
+					$update[ 'meta' ][ $key ] = $value;
+				}
+			}
+		}
+
 		if ( ! empty( $errors ) ) {
 			$view = new View( 'settings/index' );
 			$view->set_page_title( 'Settings' );
