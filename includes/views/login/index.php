@@ -36,6 +36,10 @@ if ( ! empty( $_[ 'error' ] ) ) {
 }
 ?>
 
+<div class="page-header">
+	<h2>Login</h2>
+</div>
+
 <form class="form-horizontal" action="<?php site_url( '/login/' ); ?>" method="post">
 	<div class="form-group<?php echo $user_extra; ?>">
 		<label for="login" class="col-lg-2 control-label">Email</label>

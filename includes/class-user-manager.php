@@ -21,6 +21,29 @@ class User_Manager {
 	function __construct( ) {
 	}
 
+	/**
+	 * Checks if the current visitor is a logged in user.
+	 *
+	 * @return boolean True if user is logged in, false if not logged in.
+	 */
+	public static function is_user_logged_in() {
+		if ( self::get_current_user() !== null )
+			return true;
+
+		return false;
+	}
+
+	/**
+	 * Returns the current user.
+	 *
+	 * @return User_Model The current user. Null if no user logged in.
+	 */
+	public static function get_current_user() {
+		global $app;
+
+		return $app->current_user;
+	}
+
 	public static function set_current_user() {
 		global $app;
 
@@ -58,6 +81,38 @@ class User_Manager {
 		);
 
 		return $db->query( $query );
+	}
+
+	public static function edit_user( $user ) {
+		global $db;
+
+		if ( empty( $user[ 'ID' ] ) ) {
+			return false;
+		}
+
+		$data = array();
+
+		if ( isset( $user[ 'email' ] ) ) {
+			$data[] = $db->prepare( '`user_email` = %s', $user[ 'email' ] );
+		}
+
+		if ( isset( $user[ 'password' ] ) ) {
+			$data[] = $db->prepare( '`user_pass` = %s', hash_password( $user['password'] ) );
+		}
+
+		if ( isset( $user[ 'meta' ] ) ) {
+			// TODO
+		}
+
+		if ( empty( $data ) ) {
+			return;
+		}
+
+		$query = "UPDATE $db->users SET " . implode( ', ', $data ) . " WHERE ID = {$user[ 'ID' ]}";
+
+		$result = $db->query( $query );
+
+		return $result;
 	}
 
 	/**

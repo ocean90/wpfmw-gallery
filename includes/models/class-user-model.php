@@ -20,14 +20,21 @@ class User_Model {
 	 *
 	 * @var int
 	 */
-	public $ID;
+	public $ID = 0;
 
 	/**
 	 * Holds user data.
 	 *
 	 * @var object
 	 */
-	public $data;
+	public $data = null;
+
+	/**
+	 * Cache for meta values.
+	 *
+	 * @var array;
+	 */
+	private $meta = array();
 
 	/**
 	 * Constructor.
@@ -45,16 +52,60 @@ class User_Model {
 	 */
 	private function init( $id ) {
 		$this->data = self::get_data_by( 'id', $id );
-		if ( null !== $this->data )
-			$this->ID = $this->data->ID;
+
+		// User doesn't exists
+		if ( null === $this->data )
+			return;
+
+		$this->ID = $this->data->ID;
+		$this->meta = $this->set_meta();
 	}
 
 	public function __get( $key ) {
-		if ( isset( $this->data->$key ) )
+		if ( ! $this->ID )
+			return false;
+
+		if ( isset( $this->data->$key ) ) {
 			return $this->data->$key;
-		else
-			return null;
+		} else {
+			return $this->get_meta( $key );
+		}
 	}
+
+	public function get_meta( $key ) {
+		global $db;
+
+		if ( ! $this->ID )
+			return false;
+
+		if ( ! isset( $this->meta[ $key ] ) )
+			return null;
+
+		return $this->meta[ $key ];
+	}
+
+	private function set_meta() {
+		global $db;
+
+		if ( ! $this->ID )
+			return false;
+
+		$query = $db->prepare( "SELECT * FROM $db->usermeta WHERE user_id = %d", $this->ID );
+
+		$results = $db->get_results( $query );
+
+		if ( empty ( $results ) ) {
+			return array();
+		}
+
+		$meta = array();
+		foreach ( $results as $index => $value ) {
+			$meta[ $value->meta_key ] = is_serialized( $value->meta_value ) ? unserialize( $value->meta_value ) : $value->meta_value;
+		}
+
+		return $meta;
+	}
+
 	/**
 	 * Returns data of a user by field.
 	 *

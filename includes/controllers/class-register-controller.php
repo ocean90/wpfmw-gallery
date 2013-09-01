@@ -26,7 +26,7 @@ class Register_Controller extends Controller {
 	 * @return void
 	 */
 	public function index( $request ) {
-		if ( is_user_logged_in() ) {
+		if ( User_Manager::is_user_logged_in() ) {
 			redirect( get_site_url( '/' ) );
 			exit;
 		}
@@ -53,7 +53,7 @@ class Register_Controller extends Controller {
 	 * @return void
 	 */
 	public function success( $request ) {
-		if ( is_user_logged_in() ) {
+		if ( User_Manager::is_user_logged_in() ) {
 			redirect( get_site_url( '/' ) );
 			exit;
 		}

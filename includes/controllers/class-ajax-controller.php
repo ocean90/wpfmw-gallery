@@ -26,7 +26,7 @@ class Ajax_Controller extends Controller {
 	 * @return void
 	 */
 	public function index( $request ) {
-		if ( is_user_logged_in() ) {
+		if ( User_Manager::is_user_logged_in() ) {
 			exit;
 		}
 	}
@@ -38,7 +38,7 @@ class Ajax_Controller extends Controller {
 	 */
 	public function upload( $request ) {
 		// Uploads are only for logged in users
-		if ( ! is_user_logged_in() ) {
+		if ( ! User_Manager::is_user_logged_in() ) {
 			die( '1' );
 		}
 
@@ -63,7 +63,7 @@ class Ajax_Controller extends Controller {
 		// Filename = md5 hash of current time and image file name
 		$filename = md5( microtime() . $image_file[ 'name' ] ) . '.' . $image_file[ 'ext' ];
 
-		$current_user_id = $GLOBALS[ 'app' ]->current_user->ID;
+		$current_user_id = User_Manager::get_current_user()->ID;
 		$path = APP_CONTENT_PATH . '/' . $current_user_id . '/';
 
 		if ( ! is_dir( APP_CONTENT_PATH ) )
@@ -78,7 +78,8 @@ class Ajax_Controller extends Controller {
 		}
 
 		$data = array(
-			'hash' => $_POST[ 'hash' ],
+			'hash'     => $_POST[ 'hash' ],
+			'id'       => 1, // TODO
 			'filename' => $filename
 		);
 

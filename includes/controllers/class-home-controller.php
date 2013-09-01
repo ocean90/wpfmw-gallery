@@ -26,7 +26,7 @@ class Home_Controller extends Controller {
 	 * @return void
 	 */
 	public function index() {
-		if ( is_user_logged_in() ) {
+		if ( User_Manager::is_user_logged_in() ) {
 			$view = new View( 'home/index' );
 			$view->set_page_title( 'Timeline | Gallery' );
 			$view->render();

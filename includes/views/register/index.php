@@ -7,22 +7,22 @@
 // Check existing POST data and show them
 $username = '';
 if ( ! empty( $_POST[ 'username' ] ) ) {
-	$username = htmlspecialchars( $_POST[ 'username' ], ENT_QUOTES );
+	$username = escape_attribute( $_POST[ 'username' ] );
 }
 
 $email = '';
 if ( ! empty( $_POST[ 'email' ] ) ) {
-	$email = htmlspecialchars( $_POST[ 'email' ], ENT_QUOTES );
+	$email = escape_attribute( $_POST[ 'email' ] );
 }
 
 $password1 = '';
 if ( ! empty( $_POST[ 'password1' ] ) ) {
-	$password1 = htmlspecialchars( $_POST[ 'password1' ], ENT_QUOTES );
+	$password1 = escape_attribute( $_POST[ 'password1' ] );
 }
 
 $password2 = '';
 if ( ! empty( $_POST[ 'password2' ] ) ) {
-	$password2 = htmlspecialchars( $_POST[ 'password2' ], ENT_QUOTES );
+	$password2 = escape_attribute( $_POST[ 'password2' ] );
 }
 
 // Check for errors
@@ -48,32 +48,36 @@ if ( ! empty( $_[ 'error' ] ) ) {
 }
 ?>
 
-<form method="post" class="form-horizontal install-register-form clearfix">
+<div class="page-header">
+	<h2>Register <small>Create a new account</small></h2>
+</div>
+
+<form method="post" class="form-horizontal clearfix">
 		<div class="form-group<?php echo $username_extra; ?>">
 			<label for="username" class="col-lg-3 control-label">Username</label>
 			<div class="col-lg-5">
-				<input type="text" value="<?php echo $username; ?>" class="form-control input-lg" id="username" name="username" autofocus placeholder="Enter username" maxlength="60">
+				<input type="text" value="<?php echo $username; ?>" class="form-control" id="username" name="username" autofocus placeholder="Enter username" maxlength="60">
 			</div>
 		</div>
 
 		<div class="form-group<?php echo $email_extra; ?>">
 			<label for="email" class="col-lg-3 control-label">Email</label>
 			<div class="col-lg-5">
-				<input type="email" value="<?php echo $email; ?>" class="form-control input-lg" id="email" name="email" placeholder="Enter email" maxlength="100">
+				<input type="email" value="<?php echo $email; ?>" class="form-control" id="email" name="email" placeholder="Enter email" maxlength="100">
 			</div>
 		</div>
 
 		<div class="form-group<?php echo $password_extra; ?>">
 			<label for="password1" class="col-lg-3 control-label">Password</label>
 			<div class="col-lg-5">
-				<input type="password" value="<?php echo $password1; ?>" class="form-control input-lg" id="password1" name="password1" placeholder="Enter password" maxlength="100">
+				<input type="password" value="<?php echo $password1; ?>" class="form-control" id="password1" name="password1" placeholder="Enter password" maxlength="100">
 			</div>
 		</div>
 
 		<div class="form-group<?php echo $password_extra; ?>">
-			<label for="password2" class="col-lg-3 control-label">Repeat Password</label>
+			<label for="password2" class="col-lg-3 control-label">Repeat Password<br/><span id="password-mismatch" class="label label-danger">Mismatch!</span></label>
 			<div class="col-lg-5">
-				<input type="password" value="<?php echo $password2; ?>" class="form-control input-lg" id="password2" name="password2" placeholder="Enter password again" maxlength="100">
+				<input type="password" value="<?php echo $password2; ?>" class="form-control" id="password2" name="password2" placeholder="Enter password again" maxlength="100">
 			</div>
 		</div>
 
@@ -87,7 +91,7 @@ if ( ! empty( $_[ 'error' ] ) ) {
 		</div>
 
 		<div class="col-lg-8">
-			<button type="submit" class="btn btn-primary btn-lg pull-right">Register</button>
+			<button type="submit" class="btn btn-primary pull-right">Register</button>
 		</div>
 	</form>
 

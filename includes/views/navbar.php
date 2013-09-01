@@ -23,7 +23,7 @@
 		</form>
 
 		<ul class="nav navbar-nav navbar-right">
-			<?php if ( ! is_user_logged_in() ) { ?>
+			<?php if ( ! User_Manager::is_user_logged_in() ) { ?>
 				<li><a href="<?php site_url( '/register/'); ?>">Sign up</a></li>
 				<li class="dropdown">
 					<a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
@@ -39,13 +39,12 @@
 						</form>
 					</div>
 				</li>
-			<?php }
-
-			else { ?>
+			<?php } else { ?>
 				<li>
-					<a class="navbar-link" href="<?php site_url( '/user/' . $GLOBALS['app']->current_user->user_login ); ?>">
-						Signed in as <?php echo $GLOBALS['app']->current_user->user_login; ?>
-						<?php echo get_gravatar( $GLOBALS['app']->current_user->user_email, 20, 'mm', 'g', true ); ?>
+					<?php $current_user = User_Manager::get_current_user(); ?>
+					<a class="navbar-link" href="<?php site_url( '/user/' . $current_user->user_login ); ?>">
+						Signed in as <?php echo $current_user->user_login; ?>
+						<?php echo get_gravatar( $current_user->user_email, 20, 'mm', 'g', true ); ?>
 					</a>
 				</li>
 				<li>

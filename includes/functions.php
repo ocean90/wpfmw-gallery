@@ -186,21 +186,6 @@ function check_password( $password, $hash ) {
 }
 
 /**
- * Checks if the current visitor is a logged in user.
- *
- * @return boolean True if user is logged in, false if not logged in.
- */
-function is_user_logged_in() {
-	global $app;
-
-	if ( $app->current_user !== null )
-		return true;
-
-	return false;
-}
-
-
-/**
  * Get either a Gravatar URL or complete image tag for a specified email address.
  *
  * @param string $email The email address
@@ -225,7 +210,6 @@ function get_gravatar( $email, $s = 80, $d = 'mm', $r = 'g', $img = false, $atts
     return $url;
 }
 
-
 /**
  * Calls error controller and index method to render
  * 404 view.
@@ -236,6 +220,31 @@ function show_404() {
 	require APP_INCLUDES_PATH .  "/controllers/class-error-controller.php";
 	$controller = new Error_Controller();
 	$controller->index();
+}
+
+/**
+ * Escapes a HTML attribute value for output.
+ *
+ * @param  string $value Text to escape.
+ * @return string        Escaped text.
+ */
+function escape_attribute( $value ) {
+	return htmlspecialchars( $value, ENT_QUOTES );
+}
+
+/**
+ * Checks if a string is serialized.
+ *
+ * @param  string  $string Maybe serialized string.
+ * @return boolean         True if serialized, false if not.
+ */
+function is_serialized( $string ) {
+	$data = @unserialize( $string );
+	if ( $string === 'b:0;' || $data !== false ) {
+	   return true;
+	} else {
+	   return false;
+	}
 }
 
 /**

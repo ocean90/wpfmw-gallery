@@ -305,6 +305,9 @@
 			var $progress = $( '.progress-bar', $imageWrapper );
 			$progress.width( '100%' );
 
+			$( '.image-description', $imageWrapper ).attr( 'name', 'image[' + result.id + '][description]' );
+			$( '.image-title', $imageWrapper ).attr( 'name', 'image[' + result.id + '][title]' );
+
 			$progress.parent( '.progress' ).delay( 1000 ).fadeOut( 300, function() {
 				$(this).remove();
 				$imageWrapper.removeClass( 'loading' );

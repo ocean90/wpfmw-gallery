@@ -72,6 +72,13 @@ class Database extends mysqli {
 	private $_last_result = array();
 
 	/**
+	 * Holds the insert ID.
+	 *
+	 * @var integer
+	 */
+	public $_insert_id = 0;
+
+	/**
 	 * Constructor.
 	 * Sets database connection and calls constructor of parent class.
 	 *
@@ -112,6 +119,9 @@ class Database extends mysqli {
 	/**
 	 * Prepares a SQL query for safe execution. Uses sprintf()-like syntax.
 	 *
+	 * This does more or less the same as mysqli_stmt::bind_param(), but in a much easier
+	 * way.
+	 *
 	 * @param  string       $query Query statement with sprintf()-like placeholders.
 	 * @param  array|string $args  Either string or array, see vsprintf().
 	 * @return mixed               Sanitized query or false on failure.
@@ -125,7 +135,7 @@ class Database extends mysqli {
 		if ( isset( $args[0] ) )
 			$args = $args[0];
 
-		// If single placeholder passed move it into an array
+		// If single placeholder passed, move it into an array
 		if ( ! is_array( $args ) )
 			$args = array( $args );
 
@@ -170,14 +180,40 @@ class Database extends mysqli {
 			}
 		}
 
+		$this->_insert_id = $this->insert_id;
+
 		if ( is_resource( $result ) )
 			$result->close();
 
 		return true;
 	}
 
+	/**
+	 * Returns all results for a query.
+	 *
+	 * @param  string $query The query.
+	 * @return mixed         The result of the query. Null if empty.
+	 */
+	public function get_results( $query ) {
+		$result = $this->query( $query );
+
+		if ( empty( $this->_last_result ) )
+			return null;
+
+		return $this->_last_result;
+	}
+
+	/**
+	 * Returns just one row of a query.
+	 *
+	 * @param  string $query The query.
+	 * @return mixed         The result of the query. Null if empty.
+	 */
 	public function get_row( $query, $i = 0 ) {
 		$result = $this->query( $query );
+
+		if ( empty( $this->_last_result ) )
+			return null;
 
 		if ( ! isset( $this->_last_result[ $i ] ) )
 			return null;
@@ -185,8 +221,15 @@ class Database extends mysqli {
 		return $this->_last_result[ $i ];
 	}
 
+	/**
+	 * Resets some internal vars, becaouse the instance is used
+	 * for multiple queries.
+	 *
+	 * @return void
+	 */
 	private function flush() {
 		$this->_error = '';
 		$this->_last_result = array();
+		$this->_insert_id = 0;
 	}
 }
