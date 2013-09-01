@@ -48,3 +48,5 @@ $RECYCLE.BIN/
 *.toc
 *.top
 *.tui
+
+includes/controllers/class-install-controller.php

@@ -2,11 +2,14 @@
 <?php include APP_VIEWS_PATH . 'navbar.php'; ?>
 
 <div class="page-header">
-	<h2>Profile</h2>
+	<h2>Profile <small>Have a look at your profile</small></h2>
 </div>
 
+<p>Firstname: <?php echo $_[ 'user' ]->lastname; ?></p><br>
+<p>Lastname: <?php echo $_[ 'users' ]->lastname; ?></p><br>
 <p>Username: <?php echo $_[ 'user' ]->user_login; ?></p><br>
 <p>Email-Adresse: <?php echo $_[ 'user' ]->user_email; ?></p><br>
+
 <p>Gravatar:<p>
 
 <?php
