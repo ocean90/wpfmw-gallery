@@ -56,7 +56,7 @@ class Upload_Controller extends Controller {
 		$gallery[ 'is_public' ] = ! empty( $_POST[ 'gallery-is-public' ] );
 
 		$gallery_id = Gallery_Manager::create_gallery( $gallery );
-
+var_dump($gallery_id);
 		$images = (array) $_POST[ 'images' ];
 		$image_ids = array_keys( $images );
 

@@ -154,6 +154,21 @@ function sanitize_key( $key ) {
 }
 
 /**
+ * Sanitizes a string for using as slug.
+ * Only lowercase alphanumeric characters, dashes and underscores are allowed.
+ * Replaces whitespace with dashes.
+ *
+ * @param  string $slug String slug.
+ * @return string       Sanitized slug.
+ */
+function sanitize_slug( $slug ) {
+	$slug = strtolower( $slug );
+	$slug = str_replace( ' ', '-', $slug );
+	return preg_replace( '/[^a-z0-9_\-]/', '', $slug );
+}
+
+
+/**
  * Hashes a password via PasswordHash.
  * See APP_INCLUDES_PATH . 'libs/PasswordHash.php'
  *

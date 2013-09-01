@@ -197,9 +197,10 @@ class Database extends mysqli {
 	}
 
 	/**
-	 * Returns just one row of a query.
+	 * Returns just one row of a query result.
 	 *
 	 * @param  string $query The query.
+	 * @param  int    $i     Row index.
 	 * @return mixed         The result of the query. Null if empty.
 	 */
 	public function get_row( $query, $i = 0 ) {
@@ -212,6 +213,31 @@ class Database extends mysqli {
 			return null;
 
 		return $this->_last_result[ $i ];
+	}
+
+	/**
+	 * Returns just one field of a query result.
+	 *
+	 * @param  string $query The query.
+	 * @param  int    $i     Row index.
+	 * @param  int    $j     Col index.
+	 * @return mixed         The result of the query. Null if empty.
+	 */
+	public function get_field( $query , $i = 0, $j = 0 ) {
+		$result = $this->query( $query );
+
+		if ( empty( $this->_last_result ) )
+			return null;
+
+		if ( ! isset( $this->_last_result[ $i ] ) )
+			return null;
+
+		$fields = array_values( get_object_vars( $this->_last_result[ $i ] ) );
+
+		if ( ! isset( $fields[ $j ] ) )
+			return null;
+
+		return $fields[ $j ];
 	}
 
 	/**
