@@ -31,15 +31,23 @@ class Upload_Controller extends Controller {
 			exit;
 		}
 
-		$view = new View( 'upload/index' );
-		$view->set_page_title( 'Upload' );
-		$extra_footer = '
-			<script>var ajaxURL = "' . get_site_url( 'ajax/' ) . '";</script>
-			<script src="' . get_assets_url( 'js/libs/md5.min.js' ) . '"></script>
-			<script src="' . get_assets_url( 'js/image-uploader.js' ) . '"></script>
-		';
-		$view->set_extra_footer( $extra_footer );
-		$view->render();
+		if ( 'POST' === $request->method ) {
+			$this->create_gallery();
+		} else {
+			$view = new View( 'upload/index' );
+			$view->set_page_title( 'Upload' );
+			$extra_footer = '
+				<script>var ajaxURL = "' . get_site_url( 'ajax/' ) . '";</script>
+				<script src="' . get_assets_url( 'js/libs/md5.min.js' ) . '"></script>
+				<script src="' . get_assets_url( 'js/image-uploader.js' ) . '"></script>
+			';
+			$view->set_extra_footer( $extra_footer );
+			$view->render();
+		}
+	}
+
+	private function create_gallery() {
+		var_dump( $_POST );
 	}
 
 }

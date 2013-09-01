@@ -3,18 +3,19 @@
 	var imageUploader = {
 		$el: $( '#image-uploader' ),
 		$wrapper: $( '#image-uploader-wrapper' ),
-		$button: $( '#image-upload-button' ),
+		$selectButton: $( '#image-upload-button' ),
 		$imagesToUpload: $( '#images' ),
 		$container: $( '#image-container' ),
 		$galleryContainer: $( '#gallery-container' ),
+		$createGalleryButton: $( '#create-gallery-button' ),
 		currentImages: [],
 		events: {},
 
 		init: function() {
-			this.$button.on( 'click', $.proxy( this.triggerFileSelect, this ) );
+			this.$selectButton.on( 'click', $.proxy( this.triggerFileSelect, this ) );
 			this.$imagesToUpload.on( 'change', $.proxy( this.imagesChanged, this ) );
-
 			this.$container.on( 'click', '.delete-image', $.proxy( this.removeImage, this ) );
+			this.$createGalleryButton.on( 'click', $.proxy( this.createGallery, this ) );
 
 			$( this.events ).on( 'images.selected', $.proxy( this.recalculateHeights, this ) );
 			$( this.events ).on( 'images.selected', $.proxy( this.toggleGalleryContainer, this ) );
@@ -56,6 +57,7 @@
 						.append(
 							$( '<label/>')
 								.attr( 'for', 'image-title-' + data.hash )
+								.addClass( 'control-label' )
 								.text(
 									'Title'
 								)
@@ -73,6 +75,7 @@
 						.append(
 							$( '<label/>')
 								.attr( 'for', 'image-description-' + data.hash )
+								.addClass( 'control-label' )
 								.text(
 									'Description'
 								)
@@ -126,7 +129,7 @@
 				var image = newImages[ index ];
 				var hash = md5( image.name + image.size + image.type );
 
-				if ( ! ( hash in self.currentImages ) ) {
+				if ( -1 === self.currentImages.indexOf( hash ) ) {
 					self.currentImages.push( hash );
 					todo.push( image );
 				} else {
@@ -134,7 +137,7 @@
 				}
 			} );
 
-			self.$el.trigger( 'reset' );
+			self.$imagesToUpload.parent( 'form' ).trigger( 'reset' );
 
 			self.previewImages( todo );
 		},
@@ -170,6 +173,9 @@
 					imageO.src = file.target.result;
 
 					imageO.onload = function() {
+						// Remove an existing one (mostly a broken one)
+						self.$container.find( '[data-hash="' + hash + '"]' ).remove();
+
 						self.$container.prepend(
 							self.template( {
 								hash : hash,
@@ -179,12 +185,13 @@
 						);
 
 						i = i + 1;
-						if ( i === count )
+						if ( i === count ) {
 							$( self.events ).trigger( 'images.selected', { images: images } );
 						}
 
 						reader = null;
 						imageO = null;
+					}
 				}
 
 				reader.readAsDataURL( image );
@@ -339,6 +346,8 @@
 			var $imageWrapper = self.$container.find( '[data-hash="' + hash + '"]' );
 			var $progress = $( '.progress-bar', $imageWrapper );
 
+			$imageWrapper.addClass( 'broken' );
+
 			$progress.addClass( 'progress-bar-danger' );
 
 			$( '.image-description', $imageWrapper ).prop( 'disabled', true );
@@ -347,6 +356,9 @@
 			if ( result === 5 ) {
 				self.showError( 'Uploads directory is not writeable! Please check if the root dir is writeable, try to change permissions to 777.' );
 			}
+
+			// Allow the broken image to be uploaded again
+			self.currentImages.splice( self.currentImages.indexOf( hash ), 1 );
 		},
 
 		showProgress: function( e, hash ) {
@@ -361,6 +373,52 @@
 
 				$progress.width( percentComplete + '%' );
 			}
+		},
+
+		createGallery: function() {
+			var self = this;
+			var hasError = false;
+
+			$.each( self.currentImages, function( index, hash ) {
+				var $imageWrapper = self.$container.find( '[data-hash="' + hash + '"]' );
+				var $title = $( '.image-title', $imageWrapper );
+				var $desc = $( '.image-description', $imageWrapper );
+
+				// Remove old classes
+				$title.parent( '.form-group' ).removeClass( 'has-error' );
+				$desc.parent( '.form-group' ).removeClass( 'has-error' );
+
+				if ( $.trim( $title.val() ) === '' ) {
+					hasError = true;
+					$title.parent( '.form-group' ).addClass( 'has-error' );
+				}
+
+				if ( $.trim( $desc.val() ) === '' ) {
+					hasError = true;
+					$desc.parent( '.form-group' ).addClass( 'has-error' );
+				}
+
+			} );
+
+			var $galleryTitle = $( '#gallery-title', self.$galleryContainer );
+			var $galleryDesc = $( '#gallery-description', self.$galleryContainer );
+
+			// Remove old classes
+			$galleryTitle.parent( '.form-group' ).removeClass( 'has-error' );
+			$galleryDesc.parent( '.form-group' ).removeClass( 'has-error' );
+
+			if ( $.trim( $galleryTitle.val() ) === '' ) {
+				hasError = true;
+				$galleryTitle.parent( '.form-group' ).addClass( 'has-error' );
+			}
+
+			if ( $.trim( $galleryDesc.val() ) === '' ) {
+				hasError = true;
+				$galleryDesc.parent( '.form-group' ).addClass( 'has-error' );
+			}
+
+			if ( hasError )
+				return false;
 		},
 
 		showError: function( text ) {
