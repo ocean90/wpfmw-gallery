@@ -11,15 +11,33 @@
 </blockquote>
 <div class="clearfix"></div>
 <div id="image-uploader-wrapper">
-	 <div id="upload-container">
-	 	<form id="image-uploader" action="" method="post" enctype="multipart/form-data">
+	<div id="upload-container">
+		<div id="image-uploader">
 			<input type="file" id="images" name="images[]" multiple accept="image/*">
 
-			<button id="image-upload-button" type="button" class="btn btn-primary btn-lg btn-block">Select Images To Upload</button>
+			<button id="image-upload-button" type="button" class="btn btn-success btn-lg btn-block">Select Images To Upload</button>
 
-			<div id="image-container" class="clearfix"></div>
+			<form method="post" action="">
+				<div id="image-container" class="clearfix">
+				</div>
+				<div id="gallery-container" class="hidden clearfix">
+					<div class="form-group">
+						<label for="gallery-title">Gallery Title</label>
+						<input type="text" class="form-control" id="gallery-title" name="gallery-title" placeholder="Enter Gallery Title">
+					</div>
 
-	 	</form>
-	 </div>
+					<div class="form-group">
+						<label for="gallery-description">Gallery Description</label>
+						<textarea class="form-control" id="gallery-description" rows="10" name="gallery-description" placeholder="Enter Gallery Description"></textarea>
+					</div>
+
+					<div class="form-group">
+						<button id="create-gallery-button" type="button" class="btn btn-primary btn-lg btn-block pull-right">Create New Gallery</button>
+					</div>
+				</div>
+			</form>
+
+		</div>
+	</div>
 </div>
 <?php include APP_VIEWS_PATH . 'footer.php'; ?>

@@ -6,6 +6,7 @@
 		$button: $( '#image-upload-button' ),
 		$imagesToUpload: $( '#images' ),
 		$container: $( '#image-container' ),
+		$galleryContainer: $( '#gallery-container' ),
 		currentImages: [],
 		events: {},
 
@@ -16,6 +17,7 @@
 			this.$container.on( 'click', '.delete-image', $.proxy( this.removeImage, this ) );
 
 			$( this.events ).on( 'images.selected', $.proxy( this.recalculateHeights, this ) );
+			$( this.events ).on( 'images.selected', $.proxy( this.toggleGalleryContainer, this ) );
 			$( this.events ).on( 'images.readyToUpload', $.proxy( this.uploadImages, this ) );
 		},
 
@@ -94,6 +96,10 @@
 				);
 		},
 
+		toggleGalleryContainer: function() {
+			this.$galleryContainer.toggleClass( 'hidden', this.currentImages.length === 0 );
+		},
+
 		triggerFileSelect: function( e ) {
 			this.$imagesToUpload.trigger( 'click' );
 		},
@@ -102,11 +108,12 @@
 			var self = this;
 			var hash = $( e.target ).data( 'hash' );
 			var $imageWrapper = self.$container.find( '[data-hash="' + hash + '"]' );
-			delete self.currentImages[ hash ];
+			self.currentImages.splice( self.currentImages.indexOf( hash ), 1 );
 
 			$imageWrapper.fadeOut( 300, function() {
 				$( this ).remove();
 				self.recalculateHeights( {}, {} );
+				self.toggleGalleryContainer();
 			} );
 		},
 
@@ -120,7 +127,7 @@
 				var hash = md5( image.name + image.size + image.type );
 
 				if ( ! ( hash in self.currentImages ) ) {
-					self.currentImages[ hash ] = image;
+					self.currentImages.push( hash );
 					todo.push( image );
 				} else {
 					self.showError( 'File <strong>' + image.name + '</strong> exists already!' );
@@ -147,14 +154,14 @@
 				if ( ! image.type.match( 'image.*' ) ) {
 					self.showError( 'File <strong>' + image.name + '</strong> has the wrong file type!' );
 					count = count - 1;
-					delete self.currentImages[ hash ];
+					self.currentImages.splice( self.currentImages.indexOf( hash ), 1 );
 					return;
 				}
 
 				if ( image.size > 3145728 ) {
 					self.showError( 'File <strong>' + image.name + '</strong> exceeds size limit of 3 MB!' );
 					count = count - 1;
-					delete self.currentImages[ hash ];
+					self.currentImages.splice( self.currentImages.indexOf( hash ), 1 );
 					return;
 				}
 
@@ -187,17 +194,13 @@
 		imageToCanvas: function( image ) {
 			var $canvas = $( '<canvas/>' ).addClass( 'img-thumbnail' );
 			var c = $canvas.get(0);
-
 			var cx = c.getContext( '2d' );
-
 			var dimensions = this.dimensions( image.width, image.height, 300 );
 
 			c.width = dimensions.w;
 			c.height = dimensions.h;
 
-			cx.drawImage(
-				image, 0, 0, dimensions.w, dimensions.h
-			);
+			cx.drawImage( image, 0, 0, dimensions.w, dimensions.h );
 
 			return c;
 		},

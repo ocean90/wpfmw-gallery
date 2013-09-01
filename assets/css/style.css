@@ -99,6 +99,10 @@ body {
 	resize: none;
 }
 
+#create-gallery-button {
+	max-width: 300px;
+}
+
 #footer {
 	clear: both;
 	background-color: #458acf;
