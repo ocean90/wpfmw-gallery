@@ -327,3 +327,36 @@ function check_image_file( $file ) {
 	// File is okay, return current file name
 	return array( 'name' => $file[ 'name' ], 'ext' => $ext );
 }
+
+/**
+ * Creates a dir with the correct permissions and recursive.
+ *
+ * @param  string  $target The full path to the dir.
+ * @return boolean         True on success, false on failure.
+ */
+function mkdir_rec_with_perm( $target ) {
+	$target = rtrim( $target, '/' );
+
+	if ( file_exists( $target ) )
+		return @is_dir( $target );
+
+	// We need to find the permissions of the parent folder that exists and inherit that.
+	$target_parent = dirname( $target );
+	while ( '.' != $target_parent && ! is_dir( $target_parent ) ) {
+		$target_parent = dirname( $target_parent );
+	}
+
+	// Get the permission bits.
+	if ( $target_parent && '.' != $target_parent ) {
+		$stat = @stat( $target_parent );
+		$dir_perms = $stat['mode'] & 0007777;
+	} else {
+		$dir_perms = 0777;
+	}
+
+	if ( @mkdir( $target, $dir_perms, true ) ) {
+		return true;
+	}
+
+	return false;
+}

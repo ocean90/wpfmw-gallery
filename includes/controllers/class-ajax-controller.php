@@ -66,15 +66,14 @@ class Ajax_Controller extends Controller {
 		$current_user_id = User_Manager::get_current_user()->ID;
 		$path = APP_CONTENT_PATH . '/' . $current_user_id . '/';
 
-		if ( ! is_dir( APP_CONTENT_PATH ) )
-			mkdir( APP_CONTENT_PATH );
 
-		if ( ! is_dir( $path ) )
-			mkdir( $path );
+		if ( ! mkdir_rec_with_perm( $path ) ) {
+			die( '5' );
+		}
 
 		// Image is okay, move it to the content dir
 		if ( false === @ move_uploaded_file( $image[ 'tmp_name' ], $path . $filename ) ) {
-			die( '5' );
+			die( '6' );
 		}
 
 		$data = array(
