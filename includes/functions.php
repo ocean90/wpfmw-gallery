@@ -121,8 +121,6 @@ function site_url( $path = '' ) {
  * @return string       Assets URL link with optional path appended.
  */
 function get_assets_url( $path = '' ) {
-	global $app;
-
 	$url  = get_site_url( '/assets' );
 
 	if ( $path && is_string( $path ) )
@@ -139,6 +137,33 @@ function get_assets_url( $path = '' ) {
  */
 function assets_url( $path = '' ) {
 	echo get_assets_url( $path );
+}
+
+/**
+ * Returns the content URL of the application.
+ *
+ * @param  string $path Path relative to the content URL.
+ * @return string       Content URL link with optional path appended.
+ */
+function get_content_url( $path = '' ) {
+	$dir = str_replace( APP_PATH, '', APP_CONTENT_PATH );
+
+	$url = get_site_url( $dir );
+
+	if ( $path && is_string( $path ) )
+		$url .= ltrim( $path, '/' );
+
+	return $url;
+}
+
+/**
+ * Prints the content URL of the application.
+ *
+ * @param  string $path Path relative to the content url.
+ * @return void
+ */
+function content_url( $path = '' ) {
+	echo get_content_url( $path );
 }
 
 /**

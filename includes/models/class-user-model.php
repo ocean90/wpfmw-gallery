@@ -59,6 +59,7 @@ class User_Model {
 
 		$this->ID = $this->data->ID;
 		$this->meta = $this->set_meta();
+		$this->data->user_nicename = $this->set_user_nicename();
 	}
 
 	public function __get( $key ) {
@@ -78,6 +79,25 @@ class User_Model {
 		} else {
 			return (bool) $this->get_meta( $key );
 		}
+	}
+
+	private function set_user_nicename() {
+		$name = '';
+		$firstname = $this->get_meta( 'firstname' );
+		if ( ! empty( $firstname ) ) {
+			$name = $firstname;
+		}
+
+		$lastname = $this->get_meta( 'lastname' );
+		if ( ! empty( $lastname ) ) {
+			if ( empty( $name ) ) {
+				$name = $lastname;
+			} else {
+				$name .= ' ' . $lastname;
+			}
+		}
+
+		return $name;
 	}
 
 	public function get_meta( $key ) {

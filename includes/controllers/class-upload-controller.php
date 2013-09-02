@@ -54,7 +54,7 @@ class Upload_Controller extends Controller {
 		$gallery[ 'description' ] = trim( $_POST[ 'gallery-description' ] );
 		$gallery[ 'is_public' ] = ! empty( $_POST[ 'gallery-is-public' ] );
 
-		$gallery_id = Gallery_Manager::create_gallery( $gallery );
+		$new_gallery = Gallery_Manager::create_gallery( $gallery );
 
 		$images = (array) $_POST[ 'images' ];
 		$image_ids = array_keys( $images );
@@ -66,13 +66,11 @@ class Upload_Controller extends Controller {
 		}
 
 		// Create relationships
-		Gallery_Manager::create_relationships( $gallery_id, $image_ids );
-
-		// Get new gallery model
-		$gallery = new Gallery_Model( $gallery_id );
+		Gallery_Manager::create_relationships( $new_gallery[ 'id' ], $image_ids );
 
 		if ( $gallery ) {
-			$path = sprintf( 'user/%s/gallery/%s/', $current_user->user_login, $gallery->gallery_slug  );
+			var_dump($gallery);
+			$path = sprintf( 'user/%s/gallery/%s/', $current_user->user_login, $new_gallery[ 'slug' ] );
 			redirect( get_site_url( $path ) );
 			exit;
 		} else {

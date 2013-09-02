@@ -47,7 +47,7 @@ class Gallery_Manager {
 		);
 		$result = $db->query( $query );
 		if ( $result )
-			return $db->insert_id;
+			return array( 'id' => $db->insert_id, 'slug' => $slug );
 		else
 			return false;
 	}

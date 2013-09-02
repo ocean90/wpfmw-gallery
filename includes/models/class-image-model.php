@@ -38,14 +38,13 @@ class Image_Model {
 
 	/**
 	 * Constructor.
-	 *
 	 */
 	function __construct( $id ) {
 		$this->init( $id );
 	}
 
 	/**
-	 * Sets the user data.
+	 * Sets the image data.
 	 *
 	 * @param  int  $id The ID of the image.
 	 * @return void

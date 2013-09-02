@@ -21,6 +21,25 @@ class Image_Manager {
 	function __construct( ) {
 	}
 
+	public static function get_url_of_image( $image ) {
+		if ( $image instanceof Image_Model ) {
+			$user_id = $image->user_id;
+			$filename = $image->image_filename;
+		} else if ( is_numeric( $image ) ) {
+			$image = new Image_Model( $image );
+			if ( empty( $image->ID ) ) {
+				return false;
+			} else {
+				$user_id = $image->user_id;
+				$filename = $image->image_filename;
+			}
+		} else {
+			return false;
+		}
+
+		return get_content_url( $user_id . '/' . $filename );
+	}
+
 	/**
 	 * Creates an database entry for an image
 	 * Image title and description are left blank and needs to be filled

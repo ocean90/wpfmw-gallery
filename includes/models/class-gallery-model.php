@@ -11,46 +11,45 @@
  */
 
 /**
- * Gallery model
+ * Gallery model.
  */
 class Gallery_Model {
 
 	/**
-	 * User's ID.
+	 * Galery's ID.
 	 *
 	 * @var int
 	 */
 	public $ID = 0;
 
 	/**
-	 * Holds user data.
+	 * Holds gallery data.
 	 *
 	 * @var object
 	 */
 	public $data = null;
 
 	/**
-	 * Cache for meta values.
+	 * Holds images of the gallery.
 	 *
 	 * @var array;
 	 */
-	private $images = array();
+	public $images = array();
 
 	/**
 	 * Constructor.
-	 *
 	 */
-	function __construct( $id ) {
-		$this->init( $id );
+	function __construct( $id, $with_meta = true ) {
+		$this->init( $id, $with_meta );
 	}
 
 	/**
-	 * Sets the user data.
+	 * Sets the gallery data.
 	 *
-	 * @param  int  $id The ID of the user.
+	 * @param  int  $id The ID of a gallery.
 	 * @return void
 	 */
-	private function init( $id ) {
+	private function init( $id, $with_meta = true ) {
 		$this->data = self::get_data( $id );
 
 		// Gallery doesn't exists
@@ -58,7 +57,9 @@ class Gallery_Model {
 			return;
 
 		$this->ID = $this->data->ID;
-		$this->images = $this->set_images( 10 );
+
+		if ( $with_meta)
+			$this->images = $this->set_images( 10 );
 	}
 
 	public function __get( $key ) {
@@ -87,15 +88,18 @@ class Gallery_Model {
 		}
 
 		$images = array();
-		foreach ( $results as $image_id ) {
-			$images = $image_id;
+		foreach ( $results as $result ) {
+			$image = new Image_Model( $result->image_id );
+			if ( ! empty( $image->ID ) ) {
+				$images[] = $image;
+			}
 		}
 
 		return $images;
 	}
 
 	/**
-	 * Returns data of a user by field.
+	 * Returns data of a gallery by field.
 	 *
 	 * @param  int   $id  Gallery ID.
 	 * @return mixed
@@ -109,10 +113,10 @@ class Gallery_Model {
 	}
 
 	/**
-	 * Returns a galley by field.
+	 * Returns a gallery by field.
 	 *
-	 * @param  string  $skug     Slug
-	 * @param  mixed   $user_id  User ID
+	 * @param  string  $slug     Slug.
+	 * @param  mixed   $user_id  User ID.
 	 * @return mixed             False on error, object on success.
 	 */
 	public static function get_gallery_by_slug( $slug, $user_id ) {

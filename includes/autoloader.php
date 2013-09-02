@@ -39,6 +39,7 @@ class Autoloader {
 			'session'         => APP_INCLUDES_PATH . 'class-session.php',
 			'user_model'      => APP_INCLUDES_PATH . 'models/class-user-model.php',
 			'gallery_model'   => APP_INCLUDES_PATH . 'models/class-gallery-model.php',
+			'image_model'     => APP_INCLUDES_PATH . 'models/class-image-model.php',
 			'passwordhash'    => APP_INCLUDES_PATH . 'libs/PasswordHash.php',
 		);
 
