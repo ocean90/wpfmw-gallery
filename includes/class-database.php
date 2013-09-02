@@ -72,6 +72,20 @@ class Database extends mysqli {
 	private $_last_result = array();
 
 	/**
+	 * Holds the number of queries
+	 *
+	 * @var string
+	 */
+	public $queries_count = 0;
+
+	/**
+	 * Saves the queries to debug them later.
+	 *
+	 * @var string
+	 */
+	public $saved_queries = array();
+
+	/**
 	 * Constructor.
 	 * Sets database connection and calls constructor of parent class.
 	 *
@@ -153,6 +167,12 @@ class Database extends mysqli {
 	 */
 	public function query( $query ) {
 		$this->flush();
+
+		// Sore query
+		$this->saved_queries[] = $query;
+
+		// Increase query counter
+		$this->queries_count++;
 
 		// Call parent methode
 		$result = parent::query( $query );

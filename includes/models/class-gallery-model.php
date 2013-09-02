@@ -39,8 +39,8 @@ class Gallery_Model {
 	/**
 	 * Constructor.
 	 */
-	function __construct( $id, $with_meta = true ) {
-		$this->init( $id, $with_meta );
+	function __construct( $id, $args = array() ) {
+		$this->init( $id, $args );
 	}
 
 	/**
@@ -49,7 +49,7 @@ class Gallery_Model {
 	 * @param  int  $id The ID of a gallery.
 	 * @return void
 	 */
-	private function init( $id, $with_meta = true ) {
+	private function init( $id, $args = array() ) {
 		$this->data = self::get_data( $id );
 
 		// Gallery doesn't exists
@@ -58,8 +58,14 @@ class Gallery_Model {
 
 		$this->ID = $this->data->ID;
 
-		if ( $with_meta)
-			$this->images = $this->set_images( 10 );
+		$defaults = array(
+			'limit'     => 10,
+			'with_meta' => true
+		);
+		$args = array_merge( $defaults, $args );
+
+		if ( $args[ 'with_meta' ] )
+			$this->images = $this->set_images( $args[ 'limit' ] );
 	}
 
 	public function __get( $key ) {
@@ -79,7 +85,7 @@ class Gallery_Model {
 		if ( ! $this->ID )
 			return false;
 
-		$query = $db->prepare( "SELECT `image_id` FROM $db->image_relationships WHERE `gallery_id` = %d LIMIT 10", $this->ID );
+		$query = $db->prepare( "SELECT `image_id` FROM $db->image_relationships WHERE `gallery_id` = %d LIMIT %d", array( $this->ID, $limit ) );
 
 		$results = $db->get_results( $query );
 

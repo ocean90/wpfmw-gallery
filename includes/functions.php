@@ -273,6 +273,32 @@ function escape_attribute( $value ) {
 }
 
 /**
+ * Starts a timer.
+ */
+function timer_start() {
+	global $time_start;
+	$time_start = microtime( true );
+}
+
+/**
+ * Stops the timer and returns the total time.
+ *
+ * @param  boolean $echo  Return or echo.
+ * @return string         Time difference.
+ */
+function timer_stop( $echo = false ) {
+	global $time_start;
+
+	$time_end = microtime( true );
+	$time_total = $time_end - $time_start;
+
+	if ( ! $echo )
+		return $time_total;
+
+	echo $time_total;
+}
+
+/**
  * Returns serialized data for arrays and objects.
  *
  * @param  mixed  $data Data to serialize.

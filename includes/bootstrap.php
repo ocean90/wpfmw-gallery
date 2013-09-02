@@ -22,6 +22,9 @@ require APP_INCLUDES_PATH . 'functions.php';
 
 check_compatibility();
 
+// Start loading timer.
+timer_start();
+
 // Init the application
 global $app;
 $app = new Application();
@@ -39,13 +42,14 @@ if ( ! is_file( APP_PATH . '.htaccess' ) )
 // Init the database
 $app->init_database();
 
-User_Manager::set_current_user();
-
 // Parse the request
 global $request;
 $request = new Request();
 
 // Check if application is installed
 maybe_install();
+
+// Init user
+User_Manager::set_current_user();
 
 

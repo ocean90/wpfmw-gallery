@@ -35,9 +35,17 @@ class User_Controller extends Controller {
 		}
 
 		if ( ! empty( $user ) ) {
+
+			$galleries = Gallery_Manager::get_galleries( array(
+				'user_id'   => $user->ID,
+				'limit'     => 20,
+				'is_public' => -1,
+			) );
+
 			$view = new View( 'user/index' );
 			$view->set_page_title( $user->user_login . ' | User' );
 			$view->assign( 'user', $user );
+			$view->assign( 'galleries', $galleries );
 			$view->render();
 		} else {
 			show_404();

@@ -10,9 +10,20 @@
  * @license   MIT
  */
 
+global $db;
+
+if ( defined( 'DEBUG' ) && DEBUG ) {
+	?>
+<pre>
+Time: <?php timer_stop( true ); ?> | DB Queries: <?php echo $db->queries_count; ?>
+
+Queries:
+<?php echo implode( "\n", $db->saved_queries ); ?>
+</pre>
+	<?php
+}
 
 /**
  * Close database connection.
  */
-global $db;
 $db->close();

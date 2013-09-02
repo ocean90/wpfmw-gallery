@@ -52,6 +52,68 @@ class Gallery_Manager {
 			return false;
 	}
 
+	public static function get_galleries( $args ) {
+		global $db;
+
+		$defaults = array(
+			'user_id'     => 0,
+			'is_public'   => 1, // -1 for all
+			'limit'       => 12,
+			'images_limit' => 1
+		);
+		$args = array_merge( $defaults, $args );
+
+		$limit = '';
+		$where = array();
+
+		if ( ! empty( $args[ 'user_id' ] ) ) {
+			$where[] = $db->prepare( '`user_id` = %d', $args[ 'user_id' ] );
+		}
+
+		if ( isset( $args[ 'is_public' ] ) ) {
+			switch ( $args[ 'is_public' ] ) {
+				case -1:
+					break;
+				case 0:
+					$where[] = '`is_public` = 0';
+					break;
+				default:
+					$where[] = '`is_public` = 1';
+					break;
+			}
+
+		}
+
+		if ( ! empty( $args[ 'limit' ] ) ) {
+			$limit = $db->prepare( 'LIMIT %d', $args[ 'limit' ] );
+		}
+
+		$where = implode( ' AND ', $where );
+		if ( ! empty( $where ) ) {
+			$where = 'WHERE ' . $where;
+		}
+
+		$query = "SELECT ID FROM $db->galleries {$where} {$limit}";
+		$gallery_ids = $db->get_results( $query );
+
+		if ( empty( $gallery_ids ) ) {
+			return null;
+		}
+
+		$galleries = array();
+		$gallery_args = array();
+		if ( empty( $args[ 'images_limit' ] ) ) {
+			$gallery_args[ 'with_meta' ] = false;
+		} else {
+			$gallery_args[ 'limit' ] = $args[ 'images_limit' ];
+		}
+		foreach ( $gallery_ids as $gallery_id ) {
+			$galleries[] = new Gallery_Model( $gallery_id->ID, $gallery_args );
+		}
+
+		return $galleries;
+	}
+
 	/**
 	 * Creates relationships between gallery and images.
 	 *
