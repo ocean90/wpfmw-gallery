@@ -21,7 +21,7 @@ class Image_Manager {
 	function __construct( ) {
 	}
 
-	public static function get_url_of_image( $image ) {
+	public static function create_thumbnail( $image ) {
 		if ( $image instanceof Image_Model ) {
 			$user_id = $image->user_id;
 			$filename = $image->image_filename;
@@ -35,6 +35,36 @@ class Image_Manager {
 			}
 		} else {
 			return false;
+		}
+
+		$image_file = APP_CONTENT_PATH . $user_id . '/' . $filename ;
+
+		$thumbnail = new Thumbnailer( $image_file );
+		$thumbnail->load();
+		$result = $thumbnail->resize( 300, 600 );
+		$result = $thumbnail->save();
+
+		return $result;
+	}
+
+	public static function get_url_of_image( $image, $thumb = false ) {
+		if ( $image instanceof Image_Model ) {
+			$user_id = $image->user_id;
+			$filename = $image->image_filename;
+		} else if ( is_numeric( $image ) ) {
+			$image = new Image_Model( $image );
+			if ( empty( $image->ID ) ) {
+				return false;
+			} else {
+				$user_id = $image->user_id;
+				$filename = $image->image_filename;
+			}
+		} else {
+			return false;
+		}
+
+		if ( $thumb ) {
+
 		}
 
 		return get_content_url( $user_id . '/' . $filename );

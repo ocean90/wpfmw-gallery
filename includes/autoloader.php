@@ -37,10 +37,15 @@ class Autoloader {
 			'image_manager'   => APP_INCLUDES_PATH . 'class-image-manager.php',
 			'gallery_manager' => APP_INCLUDES_PATH . 'class-gallery-manager.php',
 			'session'         => APP_INCLUDES_PATH . 'class-session.php',
+
+			// Models
 			'user_model'      => APP_INCLUDES_PATH . 'models/class-user-model.php',
 			'gallery_model'   => APP_INCLUDES_PATH . 'models/class-gallery-model.php',
 			'image_model'     => APP_INCLUDES_PATH . 'models/class-image-model.php',
-			'passwordhash'    => APP_INCLUDES_PATH . 'libs/PasswordHash.php',
+
+			// Third-party libs
+			'passwordhash'    => APP_INCLUDES_PATH . 'thirdparty/PasswordHash.php',
+			'thumbnailer'    => APP_INCLUDES_PATH . 'thirdparty/class-thumbnailer.php',
 		);
 
 		spl_autoload_register( 'Autoloader::load_class' );

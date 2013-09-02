@@ -27,6 +27,9 @@ function check_compatibility() {
 
 	if ( session_status() === 0 )
 		die( 'Your server has sessions disabled but this application requires it.' );
+
+	if ( ! extension_loaded( 'gd' ) || ! function_exists( 'gd_info' ) )
+		die( 'Your server is not running the GD extension but this application requires it.' );
 }
 
 /**

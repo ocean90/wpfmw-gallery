@@ -64,8 +64,7 @@ class Ajax_Controller extends Controller {
 		$filename = md5( microtime() . $image_file[ 'name' ] ) . '.' . $image_file[ 'ext' ];
 
 		$current_user_id = User_Manager::get_current_user()->ID;
-		$path = APP_CONTENT_PATH . '/' . $current_user_id . '/';
-
+		$path = APP_CONTENT_PATH . $current_user_id . '/';
 
 		if ( ! mkdir_rec_with_perm( $path ) ) {
 			die( '5' );
