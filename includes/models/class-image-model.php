@@ -23,7 +23,7 @@ class Image_Model {
 	public $ID = 0;
 
 	/**
-	 * Holds user data.
+	 * Holds image data.
 	 *
 	 * @var object
 	 */
@@ -53,7 +53,7 @@ class Image_Model {
 	private function init( $id ) {
 		$this->data = self::get_data_by( 'id', $id );
 
-		// User doesn't exists
+		// Image doesn't exists
 		if ( null === $this->data )
 			return;
 
@@ -98,7 +98,7 @@ class Image_Model {
 		if ( ! $this->ID )
 			return false;
 
-		$query = $db->prepare( "SELECT * FROM $db->usermeta WHERE user_id = %d", $this->ID );
+		$query = $db->prepare( "SELECT * FROM $db->imagemeta WHERE image_id = %d", $this->ID );
 
 		$results = $db->get_results( $query );
 
@@ -115,9 +115,9 @@ class Image_Model {
 	}
 
 	/**
-	 * Returns data of a user by field.
+	 * Returns data of a image by field.
 	 *
-	 * @param  string  $field  id, email or login.
+	 * @param  string  $field  id or filename.
 	 * @param  mixed   $value  The value of the field.
 	 * @return mixed           false on error, object on success.
 	 */
@@ -141,30 +141,26 @@ class Image_Model {
 			case 'id':
 				$db_field = 'ID';
 				break;
-			case 'email':
-				$db_field = 'user_email';
-				break;
-			case 'login':
-			case 'username':
-				$db_field = 'user_login';
+			case 'filename':
+				$db_field = 'image_filename';
 				break;
 			default:
 				return false;
 		}
 
-		$query = $db->prepare( "SELECT * FROM $db->users WHERE $db_field = %s", $value );
+		$query = $db->prepare( "SELECT * FROM $db->images WHERE $db_field = %s", $value );
 
 		return $db->get_row( $query );
 	}
 
 	/**
-	 * Returns a user by field.
+	 * Returns a image by field.
 	 *
-	 * @param  string  $field  email or login.
+	 * @param  string  $field  filename
 	 * @param  mixed   $value  The value of the field.
 	 * @return mixed           false on error, object on success.
 	 */
-	public static function get_user_by( $field, $value ) {
+	public static function get_image_by( $field, $value ) {
 		global $db;
 
 		$value = trim( $value );
@@ -173,23 +169,19 @@ class Image_Model {
 			return false;
 
 		switch ( $field ) {
-			case 'email':
-				$db_field = 'user_email';
-				break;
-			case 'login':
-			case 'username':
-				$db_field = 'user_login';
+			case 'filename':
+				$db_field = 'image_filename';
 				break;
 			default:
 				return false;
 		}
 
-		$query = $db->prepare( "SELECT ID FROM $db->users WHERE $db_field = %s", $value );
+		$query = $db->prepare( "SELECT ID FROM $db->images WHERE $db_field = %s", $value );
 
 		$result = $db->get_row( $query );
 
 		if ( ! empty ( $result ) ) {
-			return new User_Model( $result->ID );
+			return new Image_Model( $result->ID );
 		} else {
 			return null;
 		}
