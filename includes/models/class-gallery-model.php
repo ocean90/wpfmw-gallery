@@ -58,7 +58,7 @@ class Gallery_Model {
 			return;
 
 		$this->ID = $this->data->ID;
-		$this->images = $this->set_images();
+		$this->images = $this->set_images( 10 );
 	}
 
 	public function __get( $key ) {
@@ -72,13 +72,13 @@ class Gallery_Model {
 		}
 	}
 
-	private function set_images() {
+	private function set_images( $limit = 10 ) {
 		global $db;
 
 		if ( ! $this->ID )
 			return false;
 
-		$query = $db->prepare( "SELECT image_id FROM $db->image_relationships WHERE gallery_id = %d", $this->ID );
+		$query = $db->prepare( "SELECT `image_id` FROM $db->image_relationships WHERE `gallery_id` = %d LIMIT 10", $this->ID );
 
 		$results = $db->get_results( $query );
 
