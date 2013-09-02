@@ -20,7 +20,7 @@
 	   		</div>
 			
 			<div class="col-md-8">
-			<h5 class="text-info">Username: </h5>
+			<h5 class="text-info">Firstname: </h5>
 	   		<?php   	
 	   		if (!empty($isemptyfirstn)) {
 	   			echo $_[ 'user' ]->firstname;
@@ -28,7 +28,7 @@
 			?>
     			<br /><br />
 	
-			<h5 class="text-info">Username: </h5>
+			<h5 class="text-info">Lastname: </h5>
 			<?php
 			if (!empty($isemptylastn)) {
 				echo $_[ 'user' ]->lastname;
