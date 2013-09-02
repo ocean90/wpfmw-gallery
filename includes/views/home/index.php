@@ -2,7 +2,7 @@
 <?php include APP_VIEWS_PATH . 'navbar.php'; ?>
 
 
-<div class="page-header" style="text-align:center">
+<div class="page-header">
   <h2>Welcome! <small>to your own gallery</small></h2>
 </div>
 

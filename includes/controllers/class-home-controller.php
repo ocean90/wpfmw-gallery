@@ -40,7 +40,7 @@ class Home_Controller extends Controller {
 			$extra_footer = '
 	<script src="' . get_assets_url( 'js/libs/craftyslide.min.js' ) . '"></script>
 	<script>
- 	$("#slideshow").craftyslide();
+ 	$( ".carousel" ).carousel();
 	</script>
 			';
 			$view->set_extra_footer( $extra_footer );

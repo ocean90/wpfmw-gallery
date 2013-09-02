@@ -75,6 +75,8 @@ class Request {
 		switch ( $this->method ) {
 			case 'GET':
 				$this->parameters = $_GET;
+			case 'POST':
+				$this->parameters = $_POST;
 			break;
 		}
 	}

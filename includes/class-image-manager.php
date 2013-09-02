@@ -21,33 +21,85 @@ class Image_Manager {
 	function __construct( ) {
 	}
 
-	public static function create_thumbnail( $image ) {
-		if ( $image instanceof Image_Model ) {
-			$user_id = $image->user_id;
-			$filename = $image->image_filename;
-		} else if ( is_numeric( $image ) ) {
-			$image = new Image_Model( $image );
-			if ( empty( $image->ID ) ) {
-				return false;
-			} else {
-				$user_id = $image->user_id;
-				$filename = $image->image_filename;
-			}
-		} else {
-			return false;
+	/**
+	 * Retrieves default thumbnail sizes.
+	 *
+	 * @return array Array with thumb sizes.
+	 */
+	public static function get_thumb_sizes() {
+		return array(
+			'thumb-400' => array( 'w' => 400, 'h' => 800, 'crop' => false ),
+			'thumb-200' => array( 'w' => 200, 'h' => 200, 'crop' => true ),
+		);
+	}
+
+	/**
+	 * Creats thumbs for an uploaded images.
+	 *
+	 * @param  array   $image Array with filepath and image ID.
+	 * @return boolean        True on success, false on failure.
+	 */
+	public static function create_thumbs( $image ) {
+		global $db;
+
+		// Holds generated thumbs
+		$thumbs = array();
+
+		// Create a thumb for each size
+		foreach ( self::get_thumb_sizes() as $key => $size ) {
+			// Create a new instance
+			$thumbnail = new Thumbnailer( $image[ 'filepath' ] );
+
+			// Load the image
+			$thumbnail->load();
+
+			// Resize/crop the image
+			$result = $thumbnail->resize( $size[ 'w' ], $size[ 'h' ], $size[ 'crop' ] );
+
+			if ( ! $result )
+				continue;
+
+			// Save the image to disk
+			$result = $thumbnail->save();
+
+			if ( ! $result )
+				continue;
+
+			// Remove not needed keys
+			unset( $result[ 'path'] );
+			unset( $result[ 'mime-type'] );
+
+			// Add to queue to save
+			$thumbs[ $key ] = $result;
 		}
 
-		$image_file = APP_CONTENT_PATH . $user_id . '/' . $filename ;
+		if ( empty( $thumbs ) )
+			return true;
 
-		$thumbnail = new Thumbnailer( $image_file );
-		$thumbnail->load();
-		$result = $thumbnail->resize( 300, 600 );
-		$result = $thumbnail->save();
+		// Save thumbs infos as meta
+		$query = $db->prepare(
+			"INSERT INTO $db->imagemeta (`image_id`, `meta_key`, `meta_value` ) VALUES ( %d, %s, %s )",
+			array(
+				$image[ 'ID' ],
+				'thumbs',
+				maybe_serialize( $thumbs )
+			)
+		);
+
+		$result = $db->query( $query );
 
 		return $result;
 	}
 
+	/**
+	 * Returns an url to a full image, or, if specified to an thumb.
+	 *
+	 * @param  Image_Model|int  $image  The image.
+	 * @param  boolean|string   $thumb  False for full image, thumb key for thumb.
+	 * @return string                   URL to image file.
+	 */
 	public static function get_url_of_image( $image, $thumb = false ) {
+		// Get the user ID and filename of the image
 		if ( $image instanceof Image_Model ) {
 			$user_id = $image->user_id;
 			$filename = $image->image_filename;
@@ -63,15 +115,18 @@ class Image_Manager {
 			return false;
 		}
 
-		if ( $thumb ) {
-
+		// Check if a thumb should be returned
+		if ( $thumb && in_array( $thumb, array_keys( self::get_thumb_sizes() ) ) ) {
+			if ( ! empty( $image->thumbs[ $thumb ] ) ) {
+				$filename = $image->thumbs[ $thumb ][ 'file' ];
+			}
 		}
 
 		return get_content_url( $user_id . '/' . $filename );
 	}
 
 	/**
-	 * Creates an database entry for an image
+	 * Creates an database entry for an image.
 	 * Image title and description are left blank and needs to be filled
 	 * later
 	 *
@@ -91,14 +146,20 @@ class Image_Manager {
 				''
 			)
 		);
-
 		$result = $db->query( $query );
+
 		if ( $result )
 			return $db->insert_id;
 		else
 			return false;
 	}
 
+	/**
+	 * Updates an existing database entry of an image.
+	 *
+	 * @param  array   $image  Array with fields to edit, like title or description.
+	 * @return boolean         True on success, false on failure.
+	 */
 	public static function edit_image( $image ) {
 		global $db;
 
@@ -118,7 +179,6 @@ class Image_Manager {
 		}
 
 		$query = "UPDATE $db->images SET " . implode( ', ', $data ) . " WHERE `ID` = {$image[ 'ID' ]}";
-
 		$result = $db->query( $query );
 
 		return $result;

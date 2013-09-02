@@ -51,5 +51,3 @@ maybe_install();
 
 // Init user
 User_Manager::set_current_user();
-
-

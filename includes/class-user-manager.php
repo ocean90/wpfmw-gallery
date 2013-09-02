@@ -83,6 +83,12 @@ class User_Manager {
 		return $db->query( $query );
 	}
 
+	/**
+	 * Updates an existing user
+	 *
+	 * @param  array   $user Array with fields to edit.
+	 * @return boolean
+	 */
 	public static function edit_user( $user ) {
 		global $db;
 
@@ -93,14 +99,17 @@ class User_Manager {
 		$data = array();
 		$result = false;
 
+		// Update email
 		if ( isset( $user[ 'email' ] ) ) {
 			$data[] = $db->prepare( '`user_email` = %s', $user[ 'email' ] );
 		}
 
+		// Update password
 		if ( isset( $user[ 'password' ] ) ) {
 			$data[] = $db->prepare( '`user_pass` = %s', hash_password( $user['password'] ) );
 		}
 
+		// Update meta
 		if ( isset( $user[ 'meta' ] ) ) {
 			$current_user = self::get_current_user();
 

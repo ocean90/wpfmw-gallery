@@ -113,6 +113,20 @@ body {
     text-align: center;
 }
 
+.home-welcome {
+	padding-top: 50px;
+}
+
+#carousel-home-welcome {
+	border: 10px solid #f8f8f8;
+	border-radius: 4px;
+}
+
+.home-welcome .btn {
+	margin-top: 50px;
+}
+
+#welcome-page,
 #profile-page {
 	margin-top: 50px;
 }

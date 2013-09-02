@@ -42,8 +42,7 @@
 					?>
 					<div class="thumbnail">
 				 		<?php
-				 		Image_Manager::create_thumbnail( $image );
-				 		$image_src = Image_Manager::get_url_of_image( $image, 'thumb-300' );
+				 		$image_src = Image_Manager::get_url_of_image( $image, 'thumb-400' );
 
 						printf(
 							'<img src="%s" class="image">',

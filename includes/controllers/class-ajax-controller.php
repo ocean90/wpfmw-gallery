@@ -65,18 +65,27 @@ class Ajax_Controller extends Controller {
 
 		$current_user_id = User_Manager::get_current_user()->ID;
 		$path = APP_CONTENT_PATH . $current_user_id . '/';
+		$image_file = $path . $filename;
 
 		if ( ! mkdir_rec_with_perm( $path ) ) {
 			die( '5' );
 		}
 
 		// Image is okay, move it to the content dir
-		if ( false === @ move_uploaded_file( $image[ 'tmp_name' ], $path . $filename ) ) {
+		if ( false === @ move_uploaded_file( $image[ 'tmp_name' ], $image_file ) ) {
 			die( '6' );
 		}
 
 		if ( ! $image_id = Image_Manager::create_image( $filename ) ) {
 			die( '7' );
+		}
+
+		$image_short = array(
+			'ID'       => $image_id,
+			'filepath' => $image_file,
+		);
+		if ( ! Image_Manager::create_thumbs( $image_short ) ) {
+			die( '8' );
 		}
 
 		$data = array(

@@ -52,6 +52,12 @@ class Gallery_Manager {
 			return false;
 	}
 
+	/**
+	 * Fetches galleries from the database.
+	 *
+	 * @param  array  $args Query args for WHERE or LIKE.
+	 * @return array        Array of gallery models.
+	 */
 	public static function get_galleries( $args ) {
 		global $db;
 
@@ -93,6 +99,7 @@ class Gallery_Manager {
 			$where = 'WHERE ' . $where;
 		}
 
+		// Get the IDs of the galleries
 		$query = "SELECT ID FROM $db->galleries {$where} {$limit}";
 		$gallery_ids = $db->get_results( $query );
 
@@ -100,6 +107,7 @@ class Gallery_Manager {
 			return null;
 		}
 
+		// Get gallery models
 		$galleries = array();
 		$gallery_args = array();
 		if ( empty( $args[ 'images_limit' ] ) ) {
@@ -107,6 +115,7 @@ class Gallery_Manager {
 		} else {
 			$gallery_args[ 'limit' ] = $args[ 'images_limit' ];
 		}
+
 		foreach ( $gallery_ids as $gallery_id ) {
 			$galleries[] = new Gallery_Model( $gallery_id->ID, $gallery_args );
 		}
@@ -158,8 +167,7 @@ class Gallery_Manager {
 			 * Slugs exists, append a suffix and check again
 			 * until we find an unique slug.
 			 */
-
-			$suffix = 2; // Start with suffix = 2 because the is already one gallery with the same title
+			$suffix = 2; // Start with suffix = 2 because there is already one gallery with the same slug
 			do {
 				$alt_slug = $slug . '-' . $suffix;
 				$slug_check = $db->get_field( $db->prepare( $check_sql, array( $alt_slug, $current_user_id ) ) );

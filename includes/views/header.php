@@ -18,5 +18,3 @@
 	<body>
 		<div class="container">
 			<div id="content">
-
-
