@@ -7,33 +7,38 @@
 
 <div class="span4 well" style="text-align: center">
 	<div class="row">
-		<div class="span3">	
+
 			<?php 
-				$isemptylastn = $_[ 'user' ]->lastname;
-	   			$isemptyfirstn = $_[ 'user' ]->firstname;
+			$isemptyfirstn = $_[ 'user' ]->firstname;
+			$isemptylastn = $_[ 'user' ]->lastname;
 	   		?>
 
 	   		<div id="avatar_profile">
 	   		<?php
-	    		echo get_gravatar(   $_[ 'user' ]->user_email, 200, 'mm', 'g', true );
+	    		echo get_gravatar( $_[ 'user' ]->user_email, 200, 'mm', 'g', true );
 	   		?>
 	   		</div>
-
-	   		<?php   		
-	   		
-	   			if (!empty($isemptylastf)) {
-	   				echo $_[ 'user' ]->firstname;
-	  			 }
-	   		
-		    
-			   if (!empty($isemptylastn)) {
-			    echo $_[ 'user' ]->lastname;
-			   }
+			
+			<div class="col-md-8">
+			<h5 class="text-info">Username: </h5>
+	   		<?php   	
+	   		if (!empty($isemptyfirstn)) {
+	   			echo $_[ 'user' ]->firstname;
+	  		}
 			?>
+    			<br /><br />
+	
+			<h5 class="text-info">Username: </h5>
+			<?php
+			if (!empty($isemptylastn)) {
+				echo $_[ 'user' ]->lastname;
+			}
+			?>
+			<br /><br />
 
-		   	</div>
-			<h5 class="text-info">Username: </h5><?php echo $_[ 'user' ]->user_login; ?><br><br>
-			<h5 class="text-info">Email-Adresse: </h5><?php echo $_[ 'user' ]->user_email; ?><br><br>
+			<h5 class="text-info">Username: </h5><?php echo $_[ 'user' ]->user_login; ?><br /><br />
+			<h5 class="text-info">Email-Adresse: </h5><?php echo $_[ 'user' ]->user_email; ?><br /><br />
+			</div>
 
 		</div>
 	</div>
@@ -42,6 +47,3 @@
 
 
 <?php include APP_VIEWS_PATH . 'footer.php'; ?>
-
-
-
