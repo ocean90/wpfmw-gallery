@@ -33,15 +33,10 @@ class Home_Controller extends Controller {
 		} else {
 			$view = new View( 'home/index-public' );
 			$view->set_page_title( 'Welcome | Gallery' );
-			$extra_header = '
-	<link rel="stylesheet" href="' . get_assets_url( 'css/libs/craftyslide.css' ) . '">
-			';
-			$view->set_extra_header( $extra_header );
 			$extra_footer = '
-	<script src="' . get_assets_url( 'js/libs/craftyslide.min.js' ) . '"></script>
-	<script>
- 	$( ".carousel" ).carousel();
-	</script>
+			<script>
+		 	$( ".carousel" ).carousel();
+			</script>
 			';
 			$view->set_extra_footer( $extra_footer );
 			$view->render();

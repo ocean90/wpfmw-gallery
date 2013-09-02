@@ -26,6 +26,10 @@ class User_Controller extends Controller {
 	 * @return void
 	 */
 	public function index( $request ) {
+		if ( ! User_Manager::is_user_logged_in() ) {
+			redirect( get_site_url( '/login/' ) );
+			exit;
+		}
 
 		if ( empty( $request->segments[1] ) ) {
 			redirect( get_site_url( '/' ) );

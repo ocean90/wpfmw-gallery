@@ -15,15 +15,77 @@
 		?>
 	</div>
 
-	<?php foreach ( $_['gallery']->images as $image ) {
-		$image_src = Image_Manager::get_url_of_image( $image );
+	<div class="row">
+		<div class="col-md-12">
+			<div id="carousel-gallery-images" class="carousel slide">
+					<ol class="carousel-indicators">
+						<?php
+						$count = count( $_['gallery']->images );
+						$min = min( $count, 5 );
+						for ( $i = 0; $i < $min; $i++ ) {
+							printf(
+								'<li data-target="#carousel-gallery-images" data-slide-to="%d"%s></li>',
+								$i,
+								$i == 0 ? ' class="active"' : ''
+							);
+						}
+						?>
+					</ol>
 
-		printf(
-			'<img src="%s" class="image">',
-			$image_src
-		);
-	}
-	?>
+					<div class="carousel-inner">
+						<?php
+						$i = 0;
+						foreach ( $_['gallery']->images as $image ) {
+							// Only show 5 images big
+							if ( $i == 5 )
+								break;
+							$image_src = Image_Manager::get_url_of_image( $image, 'thumb-1200-600' );
+							?>
+							<div class="item<?php echo $i == 0 ? ' active' : ''; ?> ">
+								<img src="<?php echo $image_src; ?>" alt="<?php echo $image->image_title; ?>">
+								<div class="carousel-caption">
+									<h4><?php echo $image->image_title; ?></h4>
+									<p><?php echo $image->image_description; ?></p>
+								</div>
+							</div>
+							<?php
+							$i++;
+						}
+						?>
+					</div>
+
+					<a class="left carousel-control" href="#carousel-gallery-images" data-slide="prev">
+						<span class="icon-prev"></span>
+					</a>
+					<a class="right carousel-control" href="#carousel-gallery-images" data-slide="next">
+						<span class="icon-next"></span>
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="gallery-images-thumbs">
+		<?php
+		$i = 0;
+		echo '<div class="row">';
+		foreach ( $_['gallery']->images as $image ) {
+			if ( $i != 0 && $i % 3 == 0 ) {
+				echo '</div><div class="row">';
+			}
+
+			$image_src = Image_Manager::get_url_of_image( $image, 'thumb-200-200' );
+			?>
+			<div class="col-sm-2 gallery-images-thumb">
+				<div class="thumbnail">
+					<img src="<?php echo $image_src; ?>" alt="<?php echo $image->image_title; ?>">
+				</div>
+			</div>
+			<?php
+		}
+		echo '</div>';
+		?>
+	</div>
 </div>
 
 <?php include APP_VIEWS_PATH . 'footer.php'; ?>
