@@ -11,12 +11,12 @@
  */
 
 /**
- * User model
+ * Image model
  */
-class User_Model {
+class Image_Model {
 
 	/**
-	 * User's ID.
+	 * Image's ID.
 	 *
 	 * @var int
 	 */
@@ -47,7 +47,7 @@ class User_Model {
 	/**
 	 * Sets the user data.
 	 *
-	 * @param  int  $id The ID of the user.
+	 * @param  int  $id The ID of the image.
 	 * @return void
 	 */
 	private function init( $id ) {

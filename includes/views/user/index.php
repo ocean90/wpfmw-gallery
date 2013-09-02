@@ -2,10 +2,10 @@
 <?php include APP_VIEWS_PATH . 'navbar.php'; ?>
 
 <div id="profile-page" class="row">
-	<div class="col-lg-2">
+	<div class="col-sm-2">
 		<img src="<?php echo get_gravatar( $_[ 'user' ]->user_email, 200 ); ?>" class="img-circle avatar">
 	</div>
-	<div class="col-lg-10 page-header">
+	<div class="col-sm-10 page-header">
 		<?php
 		$name = '';
 		if ( ! empty( $_[ 'user' ]->firstname ) ) {
