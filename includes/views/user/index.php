@@ -1,42 +1,35 @@
 <?php include APP_VIEWS_PATH . 'header.php'; ?>
 <?php include APP_VIEWS_PATH . 'navbar.php'; ?>
 
-<div class="page-header">
-	<h2>Profile <small>Have a look at your profile</small></h2>
-</div>
+<div id="profile-page" class="row">
+	<div class="col-lg-2">
+		<img src="<?php echo get_gravatar( $_[ 'user' ]->user_email, 200 ); ?>" class="img-circle avatar">
+	</div>
+	<div class="col-lg-10 page-header">
+		<?php
+		$name = '';
+		if ( ! empty( $_[ 'user' ]->firstname ) ) {
+			$name = $_[ 'user' ]->firstname;
+		}
 
-<div class="span4 well">
-	<div class="row">
-		<div class="span3">
-			<div id="avatar_profile">
-			<?php
-				echo get_gravatar( $_[ 'user' ]->user_email, 200, 'mm', 'g', true );
-			?>
-			</div>
-
-			<?php
-
-			if ( ! empty( $_[ 'user' ]->firstname ) ) {
-				echo $_[ 'user' ]->firstname;
+		if ( ! empty( $_[ 'user' ]->lastname ) ) {
+			if ( empty( $name ) ) {
+				$name = $_[ 'user' ]->lastname;
+			} else {
+				$name .= ' ' . $_[ 'user' ]->lastname;
 			}
+		}
 
+		if ( ! empty( $name ) ) {
+			$name = ' <small>' . $name . '</small>';
+		}
+		?>
+		<h1><?php echo $_[ 'user' ]->user_login; echo $name; ?></h1>
 
-			if ( ! empty( $_[ 'user' ]->lastname)) {
-				echo $_[ 'user' ]->lastname;
-			}
-			?>
-
-			</div>
-			<h5 class="text-info">Username: </h5><?php echo $_[ 'user' ]->user_login; ?><br><br>
-			<h5 class="text-info">Email-Adresse: </h5><?php echo $_[ 'user' ]->user_email; ?><br><br>
-
-		</div>
+		<?php if ( ! empty( $_[ 'user' ]->user_email ) ) { ?>
+		<p>Contact: <a href="mailto:<?php echo $_[ 'user' ]->user_email; ?>"><?php echo $_[ 'user' ]->user_email; ?></a></p>
+		<?php } ?>
 	</div>
 </div>
 
-
-
 <?php include APP_VIEWS_PATH . 'footer.php'; ?>
-
-
-

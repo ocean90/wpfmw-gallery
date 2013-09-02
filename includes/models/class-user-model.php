@@ -74,7 +74,7 @@ class User_Model {
 
 	public function __isset( $key ) {
 		if ( isset( $this->data->$key ) ) {
-			return $true;
+			return true;
 		} else {
 			return (bool) $this->get_meta( $key );
 		}

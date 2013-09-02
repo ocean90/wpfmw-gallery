@@ -113,12 +113,10 @@ body {
     text-align: center;
 }
 
-.page-header{
-	text-align: center;
+#profile-page {
+	margin-top: 50px;
 }
 
-#avatar_profile{
-	float: right;
+.avatar {
+	max-width: 100%;
 }
-
-
