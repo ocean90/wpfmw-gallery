@@ -56,7 +56,7 @@
 			 	<div class="caption">
 					<h3><?php echo $gallery->gallery_title; ?></h3>
 					<p><?php echo $gallery->gallery_description; ?></p>
-					<p><a href="#" class="btn btn-primary btn-lg btn-block">View Gallery</a></p>
+					<p><a href="<?php echo $gallery->gallery_url; ?>" class="btn btn-primary btn-lg btn-block">View Gallery</a></p>
 				</div>
 			</div>
 			<?php

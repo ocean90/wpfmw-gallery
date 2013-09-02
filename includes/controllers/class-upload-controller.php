@@ -69,7 +69,6 @@ class Upload_Controller extends Controller {
 		Gallery_Manager::create_relationships( $new_gallery[ 'id' ], $image_ids );
 
 		if ( $gallery ) {
-			var_dump($gallery);
 			$path = sprintf( 'user/%s/gallery/%s/', $current_user->user_login, $new_gallery[ 'slug' ] );
 			redirect( get_site_url( $path ) );
 			exit;

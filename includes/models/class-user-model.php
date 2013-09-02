@@ -40,7 +40,7 @@ class User_Model {
 	 * Constructor.
 	 *
 	 */
-	function __construct( $id ) {
+	function __construct( $id, $args = array() ) {
 		$this->init( $id );
 	}
 
@@ -50,16 +50,24 @@ class User_Model {
 	 * @param  int  $id The ID of the user.
 	 * @return void
 	 */
-	private function init( $id ) {
+	private function init( $id, $args = array() ) {
 		$this->data = self::get_data_by( 'id', $id );
 
 		// User doesn't exists
 		if ( null === $this->data )
 			return;
 
+		$defaults = array(
+			'with_meta' => true
+		);
+		$args = array_merge( $defaults, $args );
+
 		$this->ID = $this->data->ID;
-		$this->meta = $this->set_meta();
-		$this->data->user_nicename = $this->set_user_nicename();
+
+		if ( $args[ 'with_meta' ] ) {
+			$this->meta = $this->set_meta();
+			$this->data->user_nicename = $this->set_user_nicename();
+		}
 	}
 
 	public function __get( $key ) {

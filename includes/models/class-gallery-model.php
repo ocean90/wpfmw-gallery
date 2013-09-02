@@ -58,6 +58,8 @@ class Gallery_Model {
 
 		$this->ID = $this->data->ID;
 
+		$this->data->gallery_url = $this->set_gallery_url();
+
 		$defaults = array(
 			'limit'     => 10,
 			'with_meta' => true
@@ -77,6 +79,12 @@ class Gallery_Model {
 		} else {
 			return null;
 		}
+	}
+
+	private function set_gallery_url() {
+		$user = new User_Model( $this->data->user_id, array( 'with_meta' => false ) );
+		$path = sprintf( 'user/%s/gallery/%s/', $user->user_login, $this->data->gallery_slug );
+		return get_site_url( $path );
 	}
 
 	private function set_images( $limit = 10 ) {
