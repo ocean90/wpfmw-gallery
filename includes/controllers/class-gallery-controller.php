@@ -54,15 +54,36 @@ class Gallery_Controller extends Controller {
 			$view = new View( 'gallery/index' );
 			$view->set_page_title( 'Gallery' );
 			$view->assign( 'gallery', $gallery );
+			$extra_header = '
+				<link rel="stylesheet" href="' . get_assets_url( 'css/libs/fancybox/jquery.fancybox.css' ) . '" type="text/css" media="screen">
+				<link rel="stylesheet" href="' . get_assets_url( 'css/libs/fancybox/jquery.fancybox-thumbs.css' ) . '" type="text/css" media="screen">
+			';
+			$view->set_extra_header( $extra_header );
 			$extra_footer = '
+			<script src="' . get_assets_url( 'js/libs/jquery.fancybox.pack.js' ) . '"></script>
+			<script src="' . get_assets_url( 'js/libs/jquery.fancybox-thumbs.js' ) . '"></script>
 			<script>
-		 	$(document).ready(function() {
-			$(".fancybox").fancybox({
-			openEffect	: "none", 
-			closeEffect	: "none"
-			});
-			});
-
+			( function( $ ) {
+			 	$( function() {
+					$( ".fancybox" )
+						.attr( "rel", "gallery" )
+						.fancybox( {
+							padding : 1,
+        					margin : [20, 60, 20, 60],
+							prevEffect	: "none",
+							nextEffect	: "none",
+							helpers	: {
+								title	: {
+									type: "inside"
+								},
+								thumbs	: {
+									width	: 50,
+									height	: 50
+								}
+							}
+						} );
+				});
+			} )( jQuery );
 			</script>
 			';
 			$view->set_extra_footer( $extra_footer );

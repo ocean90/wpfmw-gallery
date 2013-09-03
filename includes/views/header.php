@@ -9,13 +9,11 @@
 		$title = ! empty( $_['page_title'] ) ? $_['page_title'] : ''; ?>
 		<title><?php echo $title; ?></title>
 		<link rel="stylesheet" href="<?php assets_url( 'css/libs/bootstrap.min.css' ); ?>" type="text/css" media="screen">
-		<link rel="stylesheet" href="<?php assets_url( 'css/style.css' ); ?>" type="text/css" media="screen">
-		<link rel="stylesheet" href="<?php assets_url( 'css/libs/jquery.fancybox.css' ); ?>" type="text/css" media="screen">
-		<link rel="stylesheet" href="<?php assets_url( 'css/libs/jquery.fancybox-thumbs.css' ); ?>" type="text/css" media="screen">
 		<?php
 		if ( ! empty( $_['extra_header'] ) )
 			echo $_['extra_header'];
 		?>
+		<link rel="stylesheet" href="<?php assets_url( 'css/style.css' ); ?>" type="text/css" media="screen">
 	</head>
 	<body>
 		<div id="fb-root"></div>

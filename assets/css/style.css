@@ -9,8 +9,8 @@ body {
 
 body {
 	background-color: #dde4ec;
-    font-family: 'Lato', sans-serif;
-    color: #6e6e6e;
+	font-family: 'Lato', sans-serif;
+	color: #6e6e6e;
 }
 
 .container {
@@ -106,11 +106,11 @@ body {
 #footer {
 	clear: both;
 	background-color: #458acf;
-    color: #f8f8f8;
-    padding: 10px;
-    height: 200px;
-    width: 100%;
-    text-align: center;
+	color: #f8f8f8;
+	padding: 10px;
+	height: 200px;
+	width: 100%;
+	text-align: center;
 }
 
 .home-welcome {
@@ -156,9 +156,31 @@ body {
 }
 
 #fb-root {
-  	display: none;
+	display: none;
 }
- 
+
 .fb_iframe_widget, .fb_iframe_widget span, .fb_iframe_widget span iframe[style] {
-       	width: 100% !important;
+		width: 100% !important;
 }
+
+.fancybox-nav {
+	width: 60px;
+}
+
+.fancybox-nav span {
+	visibility: visible;
+	opacity: 0.5;
+}
+
+.fancybox-nav:hover span {
+	opacity: 1;
+}
+
+.fancybox-next {
+	right: -60px;
+}
+
+.fancybox-prev {
+	left: -60px;
+}
+

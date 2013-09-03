@@ -2,19 +2,6 @@
 <?php include APP_VIEWS_PATH . 'navbar.php'; ?>
 
 <div id="gallery-page">
-	<div class="page-header">
-		<h2>Gallery: <?php echo $_['gallery']->gallery_title; ?> <small> <?php echo $_['gallery']->gallery_description; ?></small></h2>
-		<?php
-		$creator = new User_Model( $_['gallery']->user_id );
-		if ( ! empty ( $creator->ID ) ) {
-			$image = '<img class="img-circle avatar" src="' . get_gravatar( $creator->user_email, 20 ) . '">';
-			?>
-			<p>Creator: <a href="<?php site_url( 'user/' . $creator->user_login . '/' ); ?>"><?php echo $image . ' ' . $creator->user_login; ?></a></p>
-			<?php
-		}
-		?>
-	</div>
-
 	<div class="row">
 		<div class="col-md-12">
 			<div id="carousel-gallery-images" class="carousel slide">
@@ -39,7 +26,7 @@
 							// Only show 5 images big
 							if ( $i == 5 )
 								break;
-							$image_thumb_src = Image_Manager::get_url_of_image( $image, 'thumb-1200-600' );
+							$image_thumb_src = Image_Manager::get_url_of_image( $image, 'thumb-1200-300' );
 							?>
 							<div class="item<?php echo $i == 0 ? ' active' : ''; ?> ">
 								<img src="<?php echo $image_thumb_src; ?>" alt="<?php echo $image->image_title; ?>">
@@ -65,6 +52,19 @@
 		</div>
 	</div>
 
+	<div class="page-header">
+		<h2>Gallery: <?php echo $_['gallery']->gallery_title; ?> <small> <?php echo $_['gallery']->gallery_description; ?></small></h2>
+		<?php
+		$creator = new User_Model( $_['gallery']->user_id );
+		if ( ! empty ( $creator->ID ) ) {
+			$image = '<img class="img-circle avatar" src="' . get_gravatar( $creator->user_email, 20 ) . '">';
+			?>
+			<p>Creator: <a href="<?php site_url( 'user/' . $creator->user_login . '/' ); ?>"><?php echo $image . ' ' . $creator->user_login; ?></a></p>
+			<?php
+		}
+		?>
+	</div>
+
 	<div class="gallery-images-thumbs">
 		<?php
 		$i = 0;
@@ -79,7 +79,7 @@
 
 			?>
 			<div class="col-sm-2 gallery-images-thumb">
-				<a class="fancybox" rel="gallery" href="<?php echo $image_full_src; ?>">
+				<a class="fancybox" rel="gallery" href="<?php echo $image_full_src; ?>" title="<?php echo $image->image_title; ?>">
 					<div class="thumbnail">
 						<img src="<?php echo $image_thumb_src; ?>" alt="<?php echo $image->image_title; ?>">
 					</div>
@@ -89,9 +89,10 @@
 		}
 		echo '</div>';
 		?>
-		<div class="fb-like" data-href="<?php echo $_['gallery']->gallery_url ?>" data-show-faces="true" data-send="true"></div>
-		<div class="fb-comments" data-href="<?php echo $_['gallery']->gallery_url ?>"></div>
 	</div>
+
+	<div class="fb-like" data-href="<?php echo $_['gallery']->gallery_url ?>" data-show-faces="true" data-send="true"></div>
+	<div class="fb-comments" data-href="<?php echo $_['gallery']->gallery_url ?>"></div>
 </div>
 
 <?php include APP_VIEWS_PATH . 'footer.php'; ?>
