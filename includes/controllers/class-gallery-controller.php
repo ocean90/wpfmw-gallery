@@ -54,6 +54,16 @@ class Gallery_Controller extends Controller {
 			$view = new View( 'gallery/index' );
 			$view->set_page_title( 'Gallery' );
 			$view->assign( 'gallery', $gallery );
+			$extra_footer = '
+			<script>
+		 	$(document).ready(function() {
+			$(".fancybox").fancybox({
+			openEffect	: 'none', closeEffect	: 'none'
+			});
+			});
+
+			</script>
+			';
 			$view->render();
 		} else {
 			show_404();
