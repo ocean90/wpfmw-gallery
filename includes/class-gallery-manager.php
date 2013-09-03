@@ -62,12 +62,13 @@ class Gallery_Manager {
 		global $db;
 
 		$defaults = array(
-			'user_id'     => 0,
-			'is_public'   => 1, // -1 for all
-			'limit'       => 12,
+			'user_id'      => 0,
+			'is_public'    => 1, // -1 for all
+			'limit'        => 12,
 			'images_limit' => 1,
 			'order_by'     => 'gallery_created',
-			'order'        => 'ASC'
+			'order'        => 'ASC',
+			'search'       => ''
 		);
 		$args = array_merge( $defaults, $args );
 
@@ -92,13 +93,19 @@ class Gallery_Manager {
 
 		}
 
-		if ( ! empty( $args[ 'limit' ] ) ) {
-			$limit = $db->prepare( 'LIMIT %d', $args[ 'limit' ] );
-		}
-
 		$where = implode( ' AND ', $where );
 		if ( ! empty( $where ) ) {
 			$where = 'WHERE ' . $where;
+		}
+
+		$search_where = array();
+		if ( ! empty( $args[ 'search' ] ) ) {
+			$search_where[] = $db->prepare( '`gallery_title` LIKE %s', '%' . $args[ 'search' ] . '%' );
+			$search_where[] = $db->prepare( '`gallery_description` LIKE %s', '%' . $args[ 'search' ] . '%' );
+		}
+
+		if ( ! empty( $search_where ) ) {
+			$where .= ' AND ( ' . implode( ' OR ', $search_where ) . ' )';
 		}
 
 		if ( ! empty( $args[ 'order_by' ] ) ) {
@@ -107,6 +114,10 @@ class Gallery_Manager {
 
 		if ( ! empty( $args[ 'order' ] ) ) {
 			$order .= ' ' . strtoupper( $args[ 'order' ] );
+		}
+
+		if ( ! empty( $args[ 'limit' ] ) ) {
+			$limit = $db->prepare( 'LIMIT %d', $args[ 'limit' ] );
 		}
 
 		// Get the IDs of the galleries

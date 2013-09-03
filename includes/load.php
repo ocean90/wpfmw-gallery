@@ -42,6 +42,7 @@ switch ( $controller ) {
 	case 'upload' :
 	case 'gallery' :
 	case 'ajax' :
+	case 'search' :
 		$class = ucfirst( $controller ) . '_Controller';
 		require APP_INCLUDES_PATH . "/controllers/class-$controller-controller.php";
 		break;
