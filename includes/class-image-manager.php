@@ -157,17 +157,72 @@ class Image_Manager {
 			return false;
 	}
 
+	/**
+	 * Creates meta items for some exif data, like GPS coodirnates
+	 *
+	 * @param  int    $image_id  ID of an image.
+	 * @param  string $file      Full path to an image.
+	 */
 	public static function set_image_meta_from_exif( $image_id, $file ) {
+		global $db;
 
+		// Check only for .jpg images
 		if ( exif_imagetype( $file ) != IMAGETYPE_JPEG ) {
 			return;
 		}
 
+		// Read exif data
 		$exif = exif_read_data( $file, 0, true );
 
 		// No header data found
 		if ( false === $exif ) {
 			return;
+		}
+
+		// GPS location data
+		if ( $exif[ 'GPS' ][ 'GPSLatitude' ] ) {
+			// Source: http://developer.nokia.com/Community/Wiki/Extract_GPS_coordinates_from_digital_camera_images_using_PHP
+			$lat_ref = $exif[ 'GPS'][ 'GPSLatitudeRef' ];
+			$lat = $exif[ 'GPS' ][ 'GPSLatitude' ];
+			list( $num, $dec ) = explode( '/', $lat[0] );
+			$lat_s = $num / $dec;
+			list( $num, $dec ) = explode( '/', $lat[1] );
+			$lat_m = $num / $dec;
+			list( $num, $dec ) = explode( '/', $lat[2] );
+			$lat_v = $num / $dec;
+
+			$lon_ref = $exif[ 'GPS' ]['GPSLongitudeRef' ];
+			$lon = $exif[ 'GPS' ][ 'GPSLongitude' ];
+			list( $num, $dec ) = explode( '/', $lon[0] );
+			$lon_s = $num / $dec;
+			list( $num, $dec ) = explode( '/', $lon[1] );
+			$lon_m = $num / $dec;
+			list( $num, $dec ) = explode( '/', $lon[2] );
+			$lon_v = $num / $dec;
+
+			$lat_int = ( $lat_s + $lat_m / 60.0 + $lat_v / 3600.0 );
+			// Check orientation of latitude and prefix with (-) if S
+			$lat_int = ( $lat_ref == 'S' ) ? '-' . $lat_int : $lat_int;
+
+			$lon_int = ( $lon_s + $lon_m / 60.0 + $lon_v / 3600.0 );
+       		// Check orientation of longitude and prefix with (-) if W
+       		$lon_int = ( $lon_ref == 'W' ) ? '-' . $lon_int : $lon_int;
+
+			$gps_int = array(
+				'lat' => $lat_int,
+				'lng' => $lon_int
+			);
+
+			// Save thumbs infos as meta
+			$query = $db->prepare(
+				"INSERT INTO $db->imagemeta (`image_id`, `meta_key`, `meta_value` ) VALUES ( %d, %s, %s )",
+				array(
+					$image_id,
+					'geolocation',
+					maybe_serialize( $gps_int )
+				)
+			);
+			$db->query( $query );
 		}
 	}
 
