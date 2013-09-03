@@ -39,10 +39,10 @@
 							// Only show 5 images big
 							if ( $i == 5 )
 								break;
-							$image_src = Image_Manager::get_url_of_image( $image, 'thumb-1200-600' );
+							$image_thumb_src = Image_Manager::get_url_of_image( $image, 'thumb-1200-600' );
 							?>
 							<div class="item<?php echo $i == 0 ? ' active' : ''; ?> ">
-								<img src="<?php echo $image_src; ?>" alt="<?php echo $image->image_title; ?>">
+								<img src="<?php echo $image_thumb_src; ?>" alt="<?php echo $image->image_title; ?>">
 								<div class="carousel-caption">
 									<h4><?php echo $image->image_title; ?></h4>
 									<p><?php echo $image->image_description; ?></p>
@@ -74,17 +74,23 @@
 				echo '</div><div class="row">';
 			}
 
-			$image_src = Image_Manager::get_url_of_image( $image, 'thumb-200-200' );
+			$image_thumb_src = Image_Manager::get_url_of_image( $image, 'thumb-200-200' );
+			$image_full_src = Image_Manager::get_url_of_image( $image );
+
 			?>
 			<div class="col-sm-2 gallery-images-thumb">
 				<div class="thumbnail">
-					<img src="<?php echo $image_src; ?>" alt="<?php echo $image->image_title; ?>">
+					<a class="fancybox" rel="gallery" href="<?php echo $image_full_src; ?>">
+						<img src="<?php echo $image_thumb_src; ?>" alt="<?php echo $image->image_title; ?>">
+					</a>
 				</div>
 			</div>
 			<?php
 		}
 		echo '</div>';
 		?>
+		<div class="fb-like" data-href="<?php echo $_['gallery']->gallery_url ?>" data-show-faces="true" data-send="true"></div>
+		<div class="fb-comments" data-href="<?php echo $_['gallery']->gallery_url ?>"></div>
 	</div>
 </div>
 
