@@ -155,6 +155,20 @@ class Image_Manager {
 			return false;
 	}
 
+	public static function set_image_meta_from_exif( $image_id, $file ) {
+
+		if ( exif_imagetype( $file ) != IMAGETYPE_JPEG ) {
+			return;
+		}
+
+		$exif = exif_read_data( $file, 0, true );
+
+		// No header data found
+		if ( false === $exif ) {
+			return;
+		}
+	}
+
 	/**
 	 * Updates an existing database entry of an image.
 	 *

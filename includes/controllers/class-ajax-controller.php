@@ -88,6 +88,8 @@ class Ajax_Controller extends Controller {
 			die( '8' );
 		}
 
+		Image_Manager::set_image_meta_from_exif( $image_id, $image_file );
+
 		$data = array(
 			'hash'     => $_POST[ 'hash' ],
 			'id'       => $image_id,
