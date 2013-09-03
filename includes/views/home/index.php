@@ -94,6 +94,27 @@
 					<a class="btn btn-primary btn-block" href="<?php site_url( 'upload/' ); ?>">Upload Photos Now</a>
 				</div>
 			</div>
+
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Search</h3>
+				</div>
+				<div class="panel-body">
+					<form class="form-inline" method="get" action="<?php site_url( 'search/' ); ?>">
+						<div class="form-group">
+							<?php
+							$search_value = ! empty( $_GET[ 'q' ] ) ? escape_attribute( $_GET[ 'q' ] ) : '';
+							?>
+							<input type="text" class="form-control" name="q" value="<?php echo $search_value; ?>" placeholder="Enter Search Term">
+						</div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary">Search</button>
+						</div>
+					</form>
+				</div>
+			</div>
+
+
 		</div>
 	</div>
 </div>
