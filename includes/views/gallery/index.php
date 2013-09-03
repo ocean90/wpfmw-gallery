@@ -85,6 +85,8 @@
 		}
 		echo '</div>';
 		?>
+		<div class="fb-like" data-href="<?php echo $_['gallery']->gallery_url ?>" data-show-faces="true" data-send="true"></div>
+		<div class="fb-comments" data-href="<?php echo $_['gallery']->gallery_url ?>"></div>
 	</div>
 </div>
 
