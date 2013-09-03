@@ -147,12 +147,30 @@ body {
 	margin-bottom: 15px;
 }
 
+#gallery-page .private-label {
+	font-size: 40%;
+	vertical-align: middle;
+}
+
 #gallery-page .image {
 	width: 24%;
 	margin-right: 1%;
 	margin-bottom: 3%;
 	float: left;
 	position: relative;
+}
+
+#timeline-page .gallery {
+	margin-bottom: 40px;
+	padding-bottom: 40px;
+	border-bottom: 1px solid #eee;
+}
+
+/**
+ * Custom styles for Facebook widgets
+ */
+.facebook-container {
+	margin-top: 50px;
 }
 
 #fb-root {
@@ -163,6 +181,9 @@ body {
 		width: 100% !important;
 }
 
+/**
+ * Custom styles for Fancybox
+ */
 .fancybox-nav {
 	width: 60px;
 }

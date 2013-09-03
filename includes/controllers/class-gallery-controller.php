@@ -65,6 +65,8 @@ class Gallery_Controller extends Controller {
 			<script>
 			( function( $ ) {
 			 	$( function() {
+			 		$( ".carousel" ).carousel( { interval: false } );
+
 					$( ".fancybox" )
 						.attr( "rel", "gallery" )
 						.fancybox( {
@@ -82,7 +84,7 @@ class Gallery_Controller extends Controller {
 								}
 							}
 						} );
-				});
+				} );
 			} )( jQuery );
 			</script>
 			';

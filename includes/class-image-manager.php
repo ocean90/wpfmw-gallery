@@ -30,7 +30,8 @@ class Image_Manager {
 		return array(
 			'thumb-400-800' => array( 'w' => 400, 'h' => 800, 'crop' => false ),
 			'thumb-200-200' => array( 'w' => 200, 'h' => 200, 'crop' => true ),
-			'thumb-350-260' => array( 'w' => 200, 'h' => 200, 'crop' => true ),
+			'thumb-350-260' => array( 'w' => 350, 'h' => 260, 'crop' => true ),
+			'thumb-750-350' => array( 'w' => 750, 'h' => 350, 'crop' => true ),
 			'thumb-1200-300' => array( 'w' => 1200, 'h' => 300, 'crop' => true ),
 		);
 	}

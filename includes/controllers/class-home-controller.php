@@ -27,20 +27,49 @@ class Home_Controller extends Controller {
 	 */
 	public function index() {
 		if ( User_Manager::is_user_logged_in() ) {
-			$view = new View( 'home/index' );
-			$view->set_page_title( 'Timeline | Gallery' );
-			$view->render();
+			$this->index_for_logged_in();
 		} else {
-			$view = new View( 'home/index-public' );
-			$view->set_page_title( 'Welcome | Gallery' );
-			$extra_footer = '
-			<script>
-		 	$( ".carousel" ).carousel();
-			</script>
-			';
-			$view->set_extra_footer( $extra_footer );
-			$view->render();
+			$this->index_for_public();
 		}
+	}
+
+	private function index_for_logged_in() {
+		$galleries = Gallery_Manager::get_galleries( array(
+			'limit'        => 10,
+			'images_limit' => 2,
+			'order'        => 'DESC'
+		) );
+
+		$view = new View( 'home/index' );
+		$view->assign( 'galleries', $galleries );
+		$view->set_page_title( 'Timeline | Gallery' );
+		$extra_footer = '
+		<script>
+		( function( $ ) {
+			$( function() {
+				$( ".carousel" ).carousel( { interval: false } );
+			} );
+		} )( jQuery );
+		</script>
+		';
+		$view->set_extra_footer( $extra_footer );
+		$view->render();
+	}
+
+	private function index_for_public() {
+		$view = new View( 'home/index-public' );
+		$view->set_page_title( 'Welcome | Gallery' );
+		$extra_footer = '
+		<script>
+		( function( $ ) {
+			$( function() {
+				$( ".carousel" ).carousel();
+			} );
+		} )( jQuery );
+		</script>
+		';
+		$view->set_extra_footer( $extra_footer );
+		$view->render();
 	}
 
 }

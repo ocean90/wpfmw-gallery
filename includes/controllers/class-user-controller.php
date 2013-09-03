@@ -43,7 +43,8 @@ class User_Controller extends Controller {
 			$galleries = Gallery_Manager::get_galleries( array(
 				'user_id'   => $user->ID,
 				'limit'     => 20,
-				'is_public' => -1,
+				'order'     => 'DESC',
+				'is_public' => ( $user->ID === User_Manager::get_current_user()->ID ) ? -1 : 1, // Show private galleries if creator = current user
 			) );
 
 			$view = new View( 'user/index' );

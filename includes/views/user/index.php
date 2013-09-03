@@ -15,9 +15,8 @@
 			?>
 			<h2><?php echo $_[ 'user' ]->user_login; echo $nicename; ?></h2>
 
-			<?php if ( ! empty( $_[ 'user' ]->user_email ) ) { ?>
 			<p>Contact: <a href="mailto:<?php echo $_[ 'user' ]->user_email; ?>"><?php echo $_[ 'user' ]->user_email; ?></a></p>
-			<?php } ?>
+			<p>Member since: <?php echo mysql2date( 'Y/m/d', $_['user']->user_registered ); ?></p>
 		</div>
 	</div>
 
@@ -54,8 +53,13 @@
 				}
 				?>
 			 	<div class="caption">
+			 		<?php
+					if ( $gallery->user_id === User_Manager::get_current_user()->ID && ! $gallery->is_public ) {
+						echo '<span class="label label-info private-label pull-right">Private</span>';
+					}
+					?>
 					<h3><?php echo $gallery->gallery_title; ?></h3>
-					<p><?php echo $gallery->gallery_description; ?></p>
+					<p><?php echo utf8_truncate( $gallery->gallery_description, 300 ); ?></p>
 					<p><a href="<?php echo $gallery->gallery_url; ?>" class="btn btn-primary btn-lg btn-block">View Gallery</a></p>
 				</div>
 			</div>

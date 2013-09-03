@@ -362,3 +362,68 @@ function mkdir_rec_with_perm( $target ) {
 
 	return false;
 }
+
+/**
+ * Converts given date string into a different format.
+ *
+ * @param  string $format Format of the date to return.
+ * @param  string $date   Date string to convert.
+ * @return string         Formatted date string.
+ */
+function mysql2date( $format, $date ) {
+	$i = strtotime( $date );
+
+	return date( $format, $i );
+}
+
+/**
+ * Shortens an UTF-8 encoded string without breaking words.
+ *
+ * Source: http://wordpress.stackexchange.com/a/11089
+ *
+ * @param  string $string     string to shorten
+ * @param  int    $max_chars  maximal length in characters
+ * @param  string $append     replacement for truncated words.
+ * @return string
+ */
+function utf8_truncate( $string, $max_chars = 200, $append = "\xC2\xA0…" )
+{
+    $string = strip_tags( $string );
+    $string = html_entity_decode( $string, ENT_QUOTES, 'utf-8' );
+    // \xC2\xA0 is the no-break space
+    $string = trim( $string, "\n\r\t .-;–,—\xC2\xA0" );
+    $length = strlen( utf8_decode( $string ) );
+
+    // Nothing to do.
+    if ( $length < $max_chars )
+    {
+        return $string;
+    }
+
+    // mb_substr() is in /wp-includes/compat.php as a fallback if
+    // your the current PHP installation doesn’t have it.
+    $string = mb_substr( $string, 0, $max_chars, 'utf-8' );
+
+    // No white space. One long word or chinese/korean/japanese text.
+    if ( FALSE === strpos( $string, ' ' ) )
+    {
+        return $string . $append;
+    }
+
+    // Avoid breaks within words. Find the last white space.
+    if ( extension_loaded( 'mbstring' ) )
+    {
+        $pos   = mb_strrpos( $string, ' ', 'utf-8' );
+        $short = mb_substr( $string, 0, $pos, 'utf-8' );
+    }
+    else
+    {
+        // Workaround. May be slow on long strings.
+        $words = explode( ' ', $string );
+        // Drop the last word.
+        array_pop( $words );
+        $short = implode( ' ', $words );
+    }
+
+    return $short . $append;
+}

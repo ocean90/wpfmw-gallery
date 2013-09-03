@@ -65,11 +65,13 @@ class Gallery_Manager {
 			'user_id'     => 0,
 			'is_public'   => 1, // -1 for all
 			'limit'       => 12,
-			'images_limit' => 1
+			'images_limit' => 1,
+			'order_by'     => 'gallery_created',
+			'order'        => 'ASC'
 		);
 		$args = array_merge( $defaults, $args );
 
-		$limit = '';
+		$limit = $order = '';
 		$where = array();
 
 		if ( ! empty( $args[ 'user_id' ] ) ) {
@@ -99,8 +101,16 @@ class Gallery_Manager {
 			$where = 'WHERE ' . $where;
 		}
 
+		if ( ! empty( $args[ 'order_by' ] ) ) {
+			$order = sprintf( 'ORDER BY `%s`', $args[ 'order_by' ] );
+		}
+
+		if ( ! empty( $args[ 'order' ] ) ) {
+			$order .= ' ' . strtoupper( $args[ 'order' ] );
+		}
+
 		// Get the IDs of the galleries
-		$query = "SELECT ID FROM $db->galleries {$where} {$limit}";
+		$query = "SELECT ID FROM $db->galleries {$where} {$order} {$limit}";
 		$gallery_ids = $db->get_results( $query );
 
 		if ( empty( $gallery_ids ) ) {
