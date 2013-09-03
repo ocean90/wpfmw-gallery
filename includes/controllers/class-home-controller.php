@@ -35,13 +35,7 @@ class Home_Controller extends Controller {
 			$view->set_page_title( 'Welcome | Gallery' );
 			$extra_footer = '
 			<script>
-		 	$(document).ready(function() {
-			$(".fancybox").fancybox({
-			openEffect	: 'none',
-			closeEffect	: 'none'
-			});
-			});
-
+		 	$( ".carousel" ).carousel();
 			</script>
 			';
 			$view->set_extra_footer( $extra_footer );
