@@ -79,11 +79,11 @@
 
 			?>
 			<div class="col-sm-2 gallery-images-thumb">
-				<div class="thumbnail">
-					<a class="fancybox" rel="gallery" href="<?php echo $image_full_src; ?>">
+				<a class="fancybox" rel="gallery" href="<?php echo $image_full_src; ?>">
+					<div class="thumbnail">
 						<img src="<?php echo $image_thumb_src; ?>" alt="<?php echo $image->image_title; ?>">
-					</a>
-				</div>
+					</div>
+				</a>
 			</div>
 			<?php
 		}
