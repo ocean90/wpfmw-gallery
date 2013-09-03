@@ -58,12 +58,14 @@ class Gallery_Controller extends Controller {
 			<script>
 		 	$(document).ready(function() {
 			$(".fancybox").fancybox({
-			openEffect	: 'none', closeEffect	: 'none'
+			openEffect	: "none", 
+			closeEffect	: "none"
 			});
 			});
 
 			</script>
 			';
+			$view->set_extra_footer( $extra_footer );
 			$view->render();
 		} else {
 			show_404();
