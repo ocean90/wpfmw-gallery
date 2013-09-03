@@ -11,8 +11,17 @@
 
 	<div class="collapse navbar-collapse navbar-ex1-collapse">
 		<ul class="nav navbar-nav">
-			<li><a href="<?php site_url( '/settings/' ); ?>">Settings</a></li>
-			<li><a href="<?php site_url( '/upload/' ); ?>">Upload</a></li>
+			<?php
+			if ( false === strpos( $_SERVER[ 'REQUEST_URI' ], '/upload' ) ) {
+				?>
+				<li><a href="<?php site_url( '/upload/' ); ?>">Upload</a></li>
+				<?php
+			} else {
+				?>
+				<li class="active"><a href="<?php site_url( '/upload/' ); ?>" >Upload</a></li>
+				<?php
+			}
+			?>
 		</ul>
 
 		<?php if ( User_Manager::is_user_logged_in() ) { ?>
@@ -23,7 +32,7 @@
 				?>
 				<input type="text" class="form-control" name="q" value="<?php echo $search_value; ?>" placeholder="Enter Search Term">
 			</div>
-			<button type="submit" class="btn btn-primary">Search</button>
+			<button type="submit" class="btn btn-default">Search</button>
 		</form>
 		<?php } ?>
 
@@ -31,28 +40,32 @@
 			<?php if ( ! User_Manager::is_user_logged_in() ) { ?>
 				<li><a href="<?php site_url( '/register/'); ?>">Sign up</a></li>
 				<li class="dropdown">
-					<a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <strong class="caret"></strong></a>
+					<a class="dropdown-toggle" href="#" data-toggle="dropdown">Sign In <b class="caret"></b></a>
 					<div class="dropdown-menu" style="padding: 15px; padding-bottom: 0px;">
 						<form method="post" action="<?php site_url( '/login/' ); ?>">
-								<input style="margin-bottom: 15px;" type="text" placeholder="Enter Email" class="form-control" id="login" name="login">
-								<input style="margin-bottom: 15px;" type="password" placeholder="Enter Password" class="form-control" id="password" name="password">
-								<input style="float: left; margin-right: 10px;" type="checkbox" name="remember" id="remember" value="1">
-								<label class="string optional" for="remember"> Remember me</label>
-								<input class="btn btn-primary btn-block" type="submit" id="sign-in" value="Sign In">
-								<label style="text-align:center;margin-top:5px"></label>
+							<input style="margin-bottom: 15px;" type="text" placeholder="Enter Email" class="form-control" id="login" name="login">
+							<input style="margin-bottom: 15px;" type="password" placeholder="Enter Password" class="form-control" id="password" name="password">
+							<input style="float: left; margin-right: 10px;" type="checkbox" name="remember" id="remember" value="1">
+							<label class="string optional" for="remember"> Remember me</label>
+							<input class="btn btn-primary btn-block" type="submit" id="sign-in" value="Sign In">
+							<label style="text-align:center;margin-top:5px"></label>
 						</form>
 					</div>
 				</li>
 			<?php } else { ?>
-				<li>
+				<li class="dropdown">
 					<?php $current_user = User_Manager::get_current_user(); ?>
-					<a class="navbar-link" href="<?php site_url( '/user/' . $current_user->user_login ); ?>">
+					<a class="dropdown-toggle" data-toggle="dropdown" href="<?php site_url( '/user/' . $current_user->user_login ); ?>">
 						Signed in as <?php echo $current_user->user_login; ?>
 						<?php echo get_gravatar( $current_user->user_email, 20, 'mm', 'g', true ); ?>
+						<b class="caret"></b>
 					</a>
-				</li>
-				<li>
-					<a href="<?php site_url( '/logout/' ); ?>">Log out</a>
+					<ul class="dropdown-menu">
+						<li><a href="<?php site_url( '/user/' . $current_user->user_login ); ?>">Profile</a></li>
+						<li><a href="<?php site_url( '/settings/' ); ?>">Settings</a></li>
+						<li class="divider"></li>
+						<li><a href="<?php site_url( '/logout/' ); ?>">Log out</a></li>
+					</ul>
 				</li>
 			<?php } ?>
 		</ul>
