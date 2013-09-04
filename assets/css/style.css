@@ -179,9 +179,21 @@ body {
  */
 .image-box {
 	display: none;
-	height: 5000px;
-	width: 5000px;
+	height: 2000px;
+	width: 2000px;
 	overflow: hidden;
+	position: relative;
+}
+
+.image-box .loading {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	display: block;
+	width: 200px;
+	height: 20px;
+	margin-top: -10px;
+	margin-left: -100px;
 }
 
 .fancybox-inner .image-box {

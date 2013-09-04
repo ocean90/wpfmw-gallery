@@ -69,6 +69,7 @@
 				</a>
 			</div>
 			<div id="image-box-<?php echo $image->ID; ?>" class="image-box">
+				<p class="loading">Loading...</p>
 				<div class="row">
 					<div class="col-sm-9 image-box-left">
 						<img class="image">

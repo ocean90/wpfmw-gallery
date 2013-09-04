@@ -65,11 +65,14 @@
 					image.src = src;
 					image.onload = function() {
 						var $image = $( '.image', $container );
+						$( '.loading', self.content ).remove();
 						$image.attr( 'src', src );
 					}
 
 				},
-				afterLoad: function() {
+				afterShow: function() {
+				},
+				onUpdate: function() {
 				},
 				padding : 0,
 				margin : [20, 60, 20, 60],
