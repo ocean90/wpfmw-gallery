@@ -57,7 +57,7 @@
 					<?php $current_user = User_Manager::get_current_user(); ?>
 					<a class="dropdown-toggle" data-toggle="dropdown" href="<?php site_url( '/user/' . $current_user->user_login ); ?>">
 						Signed in as <?php echo $current_user->user_login; ?>
-						<?php echo get_gravatar( $current_user->user_email, 20, 'mm', 'g', true ); ?>
+						<?php echo get_gravatar( $current_user->user_email, 18, 'mm', 'g', true ); ?>
 						<b class="caret"></b>
 					</a>
 					<ul class="dropdown-menu">
