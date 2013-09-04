@@ -175,6 +175,38 @@ body {
 }
 
 /**
+ * Image Fancybox
+ */
+.image-box {
+	display: none;
+	height: 5000px;
+	width: 5000px;
+	overflow: hidden;
+}
+
+.fancybox-inner .image-box {
+	max-height: 100%;
+	max-width: 100%;
+}
+
+.image-box .image {
+	max-width: 100%;
+	max-height: 100%;
+	height: auto;
+	margin: 0 auto;
+	display: block;
+}
+
+.image-box-right {
+	padding-top: 15px;
+	padding-right: 50px;
+}
+
+.image-box-scroll {
+	overflow: scroll;
+}
+
+/**
  * Logo in Nav bar
  */
 .navbar-logo {

@@ -62,11 +62,37 @@
 
 			?>
 			<div class="col-sm-2 gallery-images-thumb">
-				<a class="fancybox" rel="gallery" href="<?php echo $image_full_src; ?>" title="<?php echo $image->image_title; ?>">
+				<a class="fancybox" data-full-image="<?php echo $image_full_src; ?>"rel="gallery" href="#image-box-<?php echo $image->ID; ?>" title="<?php echo $image->image_title; ?>">
 					<div class="thumbnail">
 						<img src="<?php echo $image_thumb_src; ?>" alt="<?php echo $image->image_title; ?>">
 					</div>
 				</a>
+			</div>
+			<div id="image-box-<?php echo $image->ID; ?>" class="image-box">
+				<div class="row">
+					<div class="col-sm-9 image-box-left">
+						<img class="image">
+					</div>
+					<div class="col-sm-3 image-box-right">
+						<div class="image-box-scroll">
+							<div class="panel panel-default">
+								<div class="panel-heading"><?php echo $image->image_title; ?></div>
+								<div class="panel-body">
+									<p><?php echo nl2br( $image->image_description ); ?></p>
+								</div>
+							</div>
+							<?php if ( ! empty( $image->geolocation ) ) { ?>
+							<div class="panel panel-default">
+								<div class="panel-heading">Location</div>
+								<div class="panel-body">
+									<p><strong>Coordinates:</strong> <?php echo $image->geolocation['lat'] . ', ' . $image->geolocation['lng']; ?></p>
+									<p><button class="btn btn-sm btn-info pull-right fetch-loaction-infos" data-lat="<?php echo $image->geolocation['lat']; ?>" data-lng="<?php echo $image->geolocation['lng']; ?>">Load Location Infos</button></p>
+								</div>
+							</div>
+							<?php } ?>
+						</div>
+					</div>
+				</div>
 			</div>
 			<?php
 		}
@@ -76,7 +102,7 @@
 
 	<?php if ( ! empty( $locations ) ) { ?>
 		<div class="row maps-container">
-			<h2>Location Map</h2>
+			<h3>Location Map</h3>
 			<p>The markers represent the locations where the photos are taken.</p>
 			<?php
 			$markers = array();
@@ -94,10 +120,10 @@
 			echo '<div class="thumbnail"><img width="640" height="300" src="' . $url . '" alt="Location Map"></div>';
 			?>
 		</div>
-		<?php } ?>
+	<?php } ?>
 
 	<div class="row facebook-container">
-		<h2>Feedback</h2>
+		<h3>Feedback</h3>
 		<p>Like or comment this gallery.</p>
 		<div class="fb-like" data-href="<?php echo $_['gallery']->gallery_url ?>" data-show-faces="true" data-send="true"></div>
 		<div class="fb-comments" data-href="<?php echo $_['gallery']->gallery_url ?>"></div>

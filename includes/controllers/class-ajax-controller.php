@@ -63,10 +63,12 @@ class Ajax_Controller extends Controller {
 		// Filename = md5 hash of current time and image file name
 		$filename = md5( microtime() . $image_file[ 'name' ] ) . '.' . $image_file[ 'ext' ];
 
+		// Get the path to upload
 		$current_user_id = User_Manager::get_current_user()->ID;
 		$path = APP_CONTENT_PATH . $current_user_id . '/';
 		$image_file = $path . $filename;
 
+		// Create path if not exits
 		if ( ! mkdir_rec_with_perm( $path ) ) {
 			die( '5' );
 		}
@@ -76,22 +78,27 @@ class Ajax_Controller extends Controller {
 			die( '6' );
 		}
 
-		Image_Manager::maybe_rotate_image( $image_file );
-
+		// Create database entry
 		if ( ! $image_id = Image_Manager::create_image( $filename ) ) {
 			die( '7' );
 		}
 
+		// Add some image meta from exif data
+		Image_Manager::set_image_meta_from_exif( $image_id, $image_file );
+
+		// Rotate the image if neccesary
+		// Note: We can do this only now, because the rotation will remove
+		// exif data
+		Image_Manager::maybe_rotate_image( $image_file );
+
+		// Create thumbs
 		$image_short = array(
 			'ID'       => $image_id,
 			'filepath' => $image_file,
 		);
-		if ( ! Image_Manager::create_thumbs( $image_short ) ) {
-			die( '8' );
-		}
+		Image_Manager::create_thumbs( $image_short );
 
-		Image_Manager::set_image_meta_from_exif( $image_id, $image_file );
-
+		// Return the image
 		$data = array(
 			'hash'     => $_POST[ 'hash' ],
 			'id'       => $image_id,
