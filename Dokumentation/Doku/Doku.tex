@@ -2,7 +2,7 @@
 \documentclass[a4paper,12pt,oneside]{article} %einseitiger Druck
 % Optionen:
 % - a4paper => DIN A4-Format
-% - 12pt    => Schriftgröße (weitere  
+% - 12pt    => Schriftgröße (weitere
 %         grundlegende Fontgrößen: 10pt, 11pt)
 % - oneside => Einseitiger Druck
 
@@ -16,13 +16,13 @@
 \usepackage{lmodern} % Type1-Schriftart für nicht-englische Texte
 \usepackage{ulem} % Für das Unterstreichen von Text z.B. mit \uline{}
 \usepackage[left=3cm,right=2cm,top=1.5cm,bottom=1cm,textheight=245mm,textwidth=160mm,includeheadfoot,headsep=1cm,
-			footskip=1cm]{geometry} % Einrichtung der Seite 
+			footskip=1cm]{geometry} % Einrichtung der Seite
 
 \usepackage{graphicx} % Zum Laden von Graphiken
 
 % Pakete für Tabellen
 \usepackage{tabularx} % Einfache Tabellen
-\usepackage{longtable} % Tabellen als Gleitobjekte (für die Aufteilung bei langen 
+\usepackage{longtable} % Tabellen als Gleitobjekte (für die Aufteilung bei langen
  %Tabellen über mehrere Seiten)
 \usepackage{multirow} % Für das Verbinden von Zeilen innerhalb einer Tabelle mit
  % \multirow{anzahl}{*}{Text}
@@ -35,25 +35,25 @@
 \usepackage{setspace} % Paket zum Setzen des Zeilenabstandes
 \usepackage[colorlinks,pdfpagelabels,pdfstartview=FitH,
 bookmarksopen=true,bookmarksnumbered=true,linkcolor=black,
-plainpages=false,hypertexnames=false,citecolor=black]{hyperref} 
+plainpages=false,hypertexnames=false,citecolor=black]{hyperref}
 % Globale Einstellungen (gelten für das gesamte Dokument, sofern sie nicht verändert werden)
 \setlength{\headheight}{14.599pt} % Kopzeilenhöhe festlegen
 \setlength{\headwidth}{160mm}     % Kopzeilenbreite festlegen
 \onehalfspacing % Zeilenabstand auf 1,5-zeilig setzen
 
- 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% DOKUMENT                                %%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{document}
- 
+
   % TO-DO: Unbeschriftetes Vorblatt (Leere Seite)
   % ...
-   
-  % Deckblatt 
+
+  % Deckblatt
   \pagestyle{empty}
   \input{Sources/leerSeite}
-  
+
   \begin{titlepage}
     \includegraphics[scale=1.00]{Sources/logo_fhkoeln_sw}\\
     \begin{center}
@@ -65,101 +65,106 @@ plainpages=false,hypertexnames=false,citecolor=black]{hyperref}
       \textsc{Documentation}\\
       \vspace{1cm} % Vertikaler Abstand von 1cm erzeugen
       \huge
-      WPF Moderne Webentwicklung\\
+      WPF Modern Web\\
       \Large
       \vspace{1.5cm}
       \large
       presented at Cologne University of Applied Science\\
       Campus Gummersbach\\
       Course of studies
-      Medieninformatik\\ 
+      Medieninformatik\\
       \vspace{1.0cm}
-      prepared by:\\
+      elaborated by:\\
       \textsc{Dominik Schilling}\\
-      (Matrikelnummer: ???)\\
+      (Matrikelnummer: 11081691)\\
       \textsc{Laura-Maria Hermann}\\
       (Matrikelnummer: 11083968)\\
-      \textsc{Dario }\\
-      (Matrikelnummer: ???)\\
+      \textsc{Dario Vizzaccaro}\\
+      (Matrikelnummer: 11085033)\\
       \vspace{1.5cm}
       \vspace{1.5cm}
-     
-    \end{center}    
+
+    \end{center}
   \end{titlepage}
-  
+
   \newpage
- 
-  
+
+
   \tableofcontents
   % TO-DO: Seitennummerierung "einschalten"
   % ...
 	\pagestyle{fancy}
-   		
- \newpage 
-  
- 
 
-  
+ \newpage %neue Seite zwischen Inhaltsverzeichnis und Abbildungsverzeichnis
+  % TO-DO: Abbildungsverzeichnis einfügen
+  % ...
+
+
+
+
 
 \newpage
 
 \section{Introduction}
 
-This documentation contains the content elaborated within the scope 
-of the WPF modern Web applications. It includes, among other things,
-the source code and the approaches or considerations that have been 
+This documentation contains the content elaborated within the scope
+of the WPF modern Web applications. It includes, among other sections,
+the source code and the approaches or considerations that have been
 made during the early stage of the project.
 The goal was to create a gallery in form of a website, which had
 to include the following features:
 \begin{itemize}
-\item The gallery as such should be implemented using Javascript. 
-\item Individual images should be zoomed when selected and navigable with arrows. 
-\item A log-in area should be available. 
-\item MySQL implementation to allow log-in for users, but also to allow the upload of new images. 
-\item JSON, JQuery and AJAX should be used.
+\item The gallery as such should be implemented using HTML5, CSS3 and JavaScript.
+\item Individual images should be zoomed when selected and navigable with arrows.
+\item A log-in area should be available.
+\item MySQL implementation to allow log-in for users, but also to allow the upload of new images.
+\item JSON, jQuery and AJAX should be used.
 \end{itemize}
+
+\newpage
 
 \section{Planning}
 
 The first task was to discuss how the gallery should look like
 - not optically but functionally. Because a log-in area was required,
 it seemed reasonable to create an administrator with extended
-rights (although initially irrelevant). (?)
+rights.
 
-When looking at existing galleries on the net it is possible to 
-roughly distinguish between two groups. 
+When looking at existing galleries on the internet it is possible to
+roughly distinguish between two groups.
 
-On the one hand, there are web pages which serve as a real galleries and 
-only have one author who can publish content. In this case only the admin 
+On the one hand, there are web pages which serve as a real galleries and
+only have one author who can publish content. In this case only the admin
 - the author - himself can eg. upload, delete, edit, etc. photos.
 
 On the other hand, many galleries are used as a platform.
-These web pages give not only administrators, but also registered users 
+These web pages give not only administrators, but also registered users
 the possibility to upload and manage their photos.
 
-Due to the WPF we had to choose the second alternative. 
+Due to the WPF we had to choose the second alternative.
 
+\newpage
 
 \section{Realization}
 
 
 \subsection{MVC-paradigm}
 
-The idea of administrators and users beeing able to upload and manage photos, 
+The idea of administrators and users beeing able to upload and manage photos,
 was pursued throughout the entire implementation of the MVC paradigm.
-In the following this will be further explained in more detail. 
+In the following this will be further explained in more detail.
 
 \emph{What is MVC?}
 
-MVC (Model-view-controller) is an software architecture pattern which provides a 
-strict separation between reprasentation of information and user's interaction with it. 
+MVC (Model-view-controller) is an software architecture pattern which provides a
+strict separation between reprasentation of information and user's interaction with it.
 A distinction is made between the three components model, view and controller. These
 are explained in more detail below.
 
 
 \subsubsection*{Request}
 
-Example: 
+Example:
 \begin{lstlisting}
 GET localhost/user/?foo=bar
 \end{lstlisting}
@@ -170,9 +175,9 @@ for example, is one segment.
 
 \subsubsection*{Controller}
 
-The controllers include the logic that always belongs to a resource. 
+The controllers include the logic that always belongs to a resource.
 
-Example: 
+Example:
 
 \begin{lstlisting}
 localhost / user
@@ -187,7 +192,7 @@ exist, the "index" is retrieved.
 
 \subsubsection*{Views}
 
-The views are located in the 
+The views are located in the
 includes / views
 directory. The views are responsible for the visual representation
 of the data.
@@ -195,8 +200,8 @@ of the data.
 Example call:
 
 \begin{lstlisting}
-$view = new View( 'install/success' ); 
-$view->set_page_title( 'Installation' );  
+$view = new View( 'install/success' );
+$view->set_page_title( 'Installation' );
 $view->render(); // Gibt das Template aus
 \end{lstlisting}
 
@@ -204,7 +209,7 @@ A view can consist of several templates, eg headers - content - footer.
 
 
 \subsubsection*{Model}
-The model contains the real Content.
+
 
 \subsection{Database}
 
@@ -228,23 +233,25 @@ can be found. Collation: utf8\_general\_ci
 
 This is to inform the users of the gallery. These are uniquely identified
 by an ID.
+
+
 \begin{tabular}{|c|c|}
-\hline 
-Feld & Typ\tabularnewline
-\hline 
-\hline 
+\hline
+Field & Typ\tabularnewline
+\hline
+\hline
 ID & bigint(20)\tabularnewline
-\hline 
+\hline
 user\_login & varchar(50)\tabularnewline
-\hline 
+\hline
 user\_pass & varchar(64)\tabularnewline
-\hline 
+\hline
 user\_email & varchar(100)\tabularnewline
-\hline 
+\hline
 user\_registered & datetime\tabularnewline
-\hline 
+\hline
 user\_status & int(10)\tabularnewline
-\hline 
+\hline
 \end{tabular}
 
 
@@ -252,108 +259,126 @@ user\_status & int(10)\tabularnewline
 
 Metadatas of the users
 
+
 \begin{tabular}{|c|c|}
-\hline 
-Feld & Typ\tabularnewline
-\hline 
-\hline 
+\hline
+Field & Typ\tabularnewline
+\hline
+\hline
 ID & bigint(20)\tabularnewline
-\hline 
+\hline
 user\_id & bigint(20)\tabularnewline
-\hline 
+\hline
 meta\_key & varchar(255)\tabularnewline
-\hline 
+\hline
 meta\_value & longtext\tabularnewline
-\hline 
+\hline
 \end{tabular}
+
+
 
 \paragraph*{Images}
 
 Data of the images
+
+
 \begin{tabular}{|c|c|}
-\hline 
-Feld & Typ\tabularnewline
-\hline 
-\hline 
+\hline
+Field & Typ\tabularnewline
+\hline
+\hline
 ID & bigint(20)\tabularnewline
-\hline 
+\hline
 user\_id & bigint(20)\tabularnewline
-\hline 
+\hline
 uploaded\_date & datetime\tabularnewline
-\hline 
+\hline
 image\_caption & longtext\tabularnewline
-\hline 
+\hline
 image\_title & text\tabularnewline
 \end{tabular}
+
 
 \paragraph*{Imagemeta}
 
 Metadatas of the images
 
+
 \begin{tabular}{|c|c|}
-\hline 
-Feld & Typ\tabularnewline
-\hline 
-\hline 
+\hline
+Field & Typ\tabularnewline
+\hline
+\hline
 ID & bigint(20)\tabularnewline
-\hline 
+\hline
 image\_id & bigint(20)\tabularnewline
-\hline 
+\hline
 metakey & varchar(255)\tabularnewline
-\hline 
+\hline
 meta\_value & longtext\tabularnewline
 \end{tabular}
+
 
 \paragraph*{Gallery}
 
 Informations about the gallery in general
 
+
 \begin{tabular}{|c|c|}
-\hline 
-Feld & Typ\tabularnewline
-\hline 
-\hline 
+\hline
+Field & Typ\tabularnewline
+\hline
+\hline
 ID & bigint(20)\tabularnewline
-\hline 
+\hline
 user\_id & bigint(20)\tabularnewline
-\hline 
+\hline
 public & boolean\tabularnewline
-\hline 
+\hline
 gallery\_title & text\tabularnewline
-\hline 
+\hline
 gallery\_description & longtext\tabularnewline
 \end{tabular}
 
+
 \paragraph*{ImageRelationships}
 
+Relations between images and galleries
+
+
 \begin{tabular}{|c|c|}
-\hline 
-Feld & Typ\tabularnewline
-\hline 
-\hline 
+\hline
+Field & Typ\tabularnewline
+\hline
+\hline
 ID & bigint(20)\tabularnewline
-\hline 
+\hline
 gallery\_id & bigint(20)\tabularnewline
 \end{tabular}
+
+
 
 \subsubsection{SQL-Query}
 
 The following SQL commands are called to create the tables.
 
 \begin{lstlisting}
-CREATE TABLE `gallery` (
-  `ID` bigint(20) unsigned NOT NULL,
-  `user_id` bigint(20) unsigned NOT NULL,
-  `is_public` tinyint(1) NOT NULL DEFAULT '1',
+CREATE TABLE `galleries` (
+  `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) unsigned NOT NULL DEFAULT 0,
+  `is_public` tinyint(1) NOT NULL DEFAULT 1,
   `gallery_title` text NOT NULL,
+  `gallery_slug` varchar(200) NOT NULL DEFAULT '',
   `gallery_description` longtext NOT NULL,
-  PRIMARY KEY (`ID`)
+  `gallery_created` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`ID`),
+  UNIQUE KEY user_id_gallery_slug(`user_id`, `gallery_slug`)
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE `imagemeta` (
   `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `image_id` bigint(20) unsigned NOT NULL,
-  `meta_key` varchar(255) NOT NULL,
+  `image_id` bigint(20) unsigned NOT NULL DEFAULT 0,
+  `meta_key` varchar(255) NOT NULL DEFAULT '',
   `meta_value` longtext NOT NULL,
   PRIMARY KEY (`ID`),
   KEY (`image_id`),
@@ -362,26 +387,26 @@ CREATE TABLE `imagemeta` (
 
 CREATE TABLE `images` (
   `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) unsigned NOT NULL,
-  `uploaded_date` datetime NOT NULL,
+  `user_id` bigint(20) unsigned NOT NULL DEFAULT 0,
+  `image_uploaded` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `image_filename` text NOT NULL,
   `image_title` text NOT NULL,
-  `image_description` longtext,
-  `image_caption` text NOT NULL,
+  `image_description` longtext NOT NULL,
   PRIMARY KEY (`ID`),
   KEY (`user_id`)
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE `image_relationships` (
-  `image_id` bigint(20) unsigned NOT NULL,
-  `gallery_id` bigint(20) unsigned NOT NULL,
+  `image_id` bigint(20) unsigned NOT NULL DEFAULT 0,
+  `gallery_id` bigint(20) unsigned NOT NULL DEFAULT 0,
   PRIMARY KEY (`image_id`, `gallery_id`),
   KEY (`gallery_id`)
 ) DEFAULT CHARSET=utf8;
 
 CREATE TABLE `usermeta` (
   `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` bigint(20) unsigned NOT NULL,
-  `meta_key` varchar(255) NOT NULL,
+  `user_id` bigint(20) unsigned NOT NULL DEFAULT 0,
+  `meta_key` varchar(255) NOT NULL DEFAULT '',
   `meta_value` longtext NOT NULL,
   PRIMARY KEY (`ID`),
   KEY (`user_id`),
@@ -390,9 +415,9 @@ CREATE TABLE `usermeta` (
 
 CREATE TABLE `users` (
   `ID` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `user_login` varchar(60) NOT NULL,
-  `user_pass` varchar(64) NOT NULL,
-  `user_email` varchar(100) NOT NULL,
+  `user_login` varchar(60) NOT NULL DEFAULT '',
+  `user_pass` varchar(128) NOT NULL DEFAULT '',
+  `user_email` varchar(200) NOT NULL DEFAULT '',
   `user_registered` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_status` int(10) NOT NULL,
   PRIMARY KEY (`ID`),
@@ -405,7 +430,7 @@ CREATE TABLE `users` (
 
 
 
-\subsection{resources }
+\subsection{Resources}
 
 There follows an explanation of the necessary resources.
 
@@ -434,8 +459,8 @@ The direct logout area if you have been previously logged in.
 
 \subsubsection{/profile}
 
-A profile might look as followed. At this point the user can make any 
-changes to his profile settings, within the range of his permissions. 
+A profile might look as followed. At this point the user can make any
+changes to his profile settings, within the range of his permissions.
 This would be eg. loading up an avatar.
 \begin{itemize}
 \item Setting
@@ -451,7 +476,7 @@ With the help of this resource you are able to get the profile of
 a specific user (which is uniquely identified by its ID). This is
 especially useful for viewing all of the galleries of the user.
 \begin{itemize}
-\item User profile 
+\item User profile
 \item Overview of public / private galleries
 \end{itemize}
 
@@ -472,7 +497,7 @@ with filters.
 \item Filters
 \end{itemize}
 
-\subsubsection{/install}
+\subsubsection{/\_install}
 
 At the beginning of a session, the installation must be carried out.
 \begin{itemize}
@@ -490,7 +515,7 @@ Here is how to recognize the control classes that were implemented and used.
 
 Almost all of these controller classes differ only in their title.
 The page title, which is visible in the browser connection is \textquotedbl{}set\textquotedbl{}
-at this point. 
+at this point.
 
 For example, the title of 'class-error controller' on \textquotedbl{}404
 - Page does not exists!\textquotedbl{} was placed. Another one was described
@@ -499,12 +524,12 @@ in the controller.
 
 \subsubsection{Form-Validation}
 
-It was of great importance that measures of validation were implemented in all forms, 
-such as the Login or Register forms. 
+It was of great importance that measures of validation were implemented in all forms,
+such as the Login or Register forms.
 When logging in it has to be verified, whether the username is available and whether the
 associated password is correct.
 
-In order to registrate successfully, an availible username and an unique email address are required. 
+In order to registrate successfully, an availible username and an unique email address are required.
 Furthermore, it has to be ensured that both passwords entered are the same.
 
 These error handlings are implemented in the class \textquotedbl{}class-user-manager\textquotedbl{}
@@ -516,50 +541,35 @@ First, a variable is created for each field of the form. If the field is no long
 
 \subsubsection{CSS-Framework Bootstrap}
 
-As a basis and as a simplification, the work was accomplished with the free Bootstrap 3.0 framework. 
+As a basis and as a simplification, the work was accomplished with the free Bootstrap 3.0 framework.
 
-This simplified, especially at the beginning, the realization and the rapid progress. 
-Bootstrap has the advantage, among others, to be platform independent, but also supports in its 
-latest version the \textquotedbl{}responsive design\textquotedbl{}. The site has a dynamic structure, 
+This simplified, especially at the beginning, the realization and the rapid progress.
+Bootstrap has the advantage, among others, to be platform independent, but also supports in its
+latest version the \textquotedbl{}responsive design\textquotedbl{}. The site has a dynamic structure,
 regardless of which device was used.
 
 \subsubsection{Functions}
 In the following there are declarations about the used functions written in the functions.php.
 In addition it should be said that the functionality is only roughly explained. Further descriptions can be found in the source code.
 
-Before the installation process begins, a function checks the compatibility of the installed php-Version. If it is the case, it's important to warn the user that he has an older php-Version or that the MySQLi extension is not started. 
+Before the installation process begins, a function checks the compatibility of the installed php-Version. If it is the case, it's important to warn the user that he has an older php-Version or that the MySQLi extension is not started.
 
-Another function checks, whether or not the installation was already completed before. If this isn't the case it redirects to the installation page. 
+Another function checks, whether or not the installation was already completed before. If this isn't the case it redirects to the installation page.
 
-To guarantee the safety of the passwords a hash function was implemented. 
-For this purpose, the existing \hyperlink{http://www.openwall.com/phpass/}{hash function framework}  was used. 
+To guarantee the safety of the passwords a hash function was implemented.
+For this purpose, the existing \hyperlink{http://www.openwall.com/phpass/}{hash function framework} was used.
 
 \subsubsection{Javascript}
-It follows a short description of the javascript functions which were implemented. 
+It follows a short description of the javascript functions which were implemented.
 
-First found in the javascript part of the scripts that were taken completely from the specified sources to implement the Fancybox and the slider of the home page for example. These were the contents of complete packages which were available for the free use.
+The scripts found in the first part of the javascript were taken from the respective project websites, eg. the script for the  \hyperlink{http://fancyapps.com/fancybox/}{fancyBox} and for the \hyperlink{http://getbootstrap.com/javascript/\#carousel}{Carousel}. These were open source packages which were available free of charge.
 
 The most important file is the javascript image-uploader.js.
-Here, the entire upload of the images and thus the actual functionality is implemented. Furthermore, both \textbf{Ajax} elements and \textbf{JSON}  elements are introduced, as was requested in the job position.
+In this file the entire process of image uploading and thus the actual upload functionality is implemented. Furthermore, both Ajax and JSON elements are introduced, as requested in the assignment.
 
-First, the images are (this is new in HTML5) selected via a multiple-file upload input and loaded locally using the File Reader to then create a thumbnail. After the upload an AJAX request, which runs on an XML HTTP request level 2 begins.
+First, the images are (this is new in HTML5) selected via a multiple-file upload input and loaded locally using the File Reader to then create a thumbnail. After the upload an AJAX request, which runs on a XML HTTP request of level 2 begins.
 
 Password strength function
-As an extra to the user a feature was implemented, which determines the strength of the entered password.
-
-\subsubsection{JSON}
-As you can see the meta information, specifically the GEO data of the images were realized by using JSON as required by the task. This offers the possibility to determine the GEO data of the photos or recording, and thus serves as an extra for the user
-
-\begin{thebibliography}{}
-   \bibitem[Fancybox]{fancybox} \url{http://fancyapps.com/fancybox/}, 02.09.2013
-   \bibitem[Image Carousel]{carousel} \url{http://getbootstrap.com/javascript/#carousel} , 02.09.2013
-   \bibitem[Bootstrap]{bootstrap} \url{http://getbootstrap.com} , 26.08.2013
-   \bibitem[Facebook]{facebook}    \url{https://developers.facebook.com/docs/reference/plugins/comments/}
-, \url{https://developers.facebook.com/docs/reference/plugins/like/}, 02.09.2013
-   
-
-
-
-\end{thebibliography}
+As an extra for the user a feature was implemented, which determines the strength of the entered password. We used the JavaScript library named \hyperlink{https://tech.dropbox.com/2012/04/zxcvbn-realistic-password-strength-estimation/}{zxcvbn by Dropbox} therefor.
 \end{document}
 
