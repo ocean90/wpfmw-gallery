@@ -45,7 +45,7 @@ class Autoloader {
 
 			// Third-party libs
 			'passwordhash'    => APP_INCLUDES_PATH . 'thirdparty/PasswordHash.php',
-			'thumbnailer'    => APP_INCLUDES_PATH . 'thirdparty/class-thumbnailer.php',
+			'image_editor'    => APP_INCLUDES_PATH . 'thirdparty/class-image-editor.php',
 		);
 
 		spl_autoload_register( 'Autoloader::load_class' );

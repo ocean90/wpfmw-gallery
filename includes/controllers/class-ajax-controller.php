@@ -76,6 +76,8 @@ class Ajax_Controller extends Controller {
 			die( '6' );
 		}
 
+		Image_Manager::maybe_rotate_image( $image_file );
+
 		if ( ! $image_id = Image_Manager::create_image( $filename ) ) {
 			die( '7' );
 		}

@@ -74,31 +74,33 @@
 		?>
 	</div>
 
-	<div class="row maps-container">
-		<h2>Location Map</h2>
-		<p>The markers represent the locations where the photos are taken.</p>
-		<?php
-		$markers = array();
-		foreach ( $locations as $location ) {
-			$markers[] = sprintf(
-				'markers=color:blue%%7C%s,%s',
-				$location[ 'lat' ],
-				$location[ 'lng' ]
-			);
-		}
+	<?php if ( ! empty( $locations ) ) { ?>
+		<div class="row maps-container">
+			<h2>Location Map</h2>
+			<p>The markers represent the locations where the photos are taken.</p>
+			<?php
+			$markers = array();
+			foreach ( $locations as $location ) {
+				$markers[] = sprintf(
+					'markers=color:blue%%7C%s,%s',
+					$location[ 'lat' ],
+					$location[ 'lng' ]
+				);
+			}
 
-		$url = 'http://maps.googleapis.com/maps/api/staticmap?zoom=3&scale=2&size=640x300&sensor=true&maptype=terrain&';
-		$url .= implode( '&amp;', $markers );
+			$url = 'http://maps.googleapis.com/maps/api/staticmap?zoom=3&amp;scale=2&amp;size=640x300&amp;sensor=true&amp;maptype=terrain&amp;';
+			$url .= implode( '&amp;', $markers );
 
-		echo '<div class="thumbnail"><img width="640" height="300" src="' . $url . '" alt="Location Map"></div>';
-		?>
-	</div>
+			echo '<div class="thumbnail"><img width="640" height="300" src="' . $url . '" alt="Location Map"></div>';
+			?>
+		</div>
+		<?php } ?>
 
 	<div class="row facebook-container">
-		<div class="col-md-12">
-			<div class="fb-like" data-href="<?php echo $_['gallery']->gallery_url ?>" data-show-faces="true" data-send="true"></div>
-			<div class="fb-comments" data-href="<?php echo $_['gallery']->gallery_url ?>"></div>
-		</div>
+		<h2>Feedback</h2>
+		<p>Like or comment this gallery.</p>
+		<div class="fb-like" data-href="<?php echo $_['gallery']->gallery_url ?>" data-show-faces="true" data-send="true"></div>
+		<div class="fb-comments" data-href="<?php echo $_['gallery']->gallery_url ?>"></div>
 	</div>
 </div>
 

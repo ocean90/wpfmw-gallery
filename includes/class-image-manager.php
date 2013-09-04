@@ -51,7 +51,7 @@ class Image_Manager {
 		// Create a thumb for each size
 		foreach ( self::get_thumb_sizes() as $key => $size ) {
 			// Create a new instance
-			$thumbnail = new Thumbnailer( $image[ 'filepath' ] );
+			$thumbnail = new Image_Editor( $image[ 'filepath' ] );
 
 			// Load the image
 			$thumbnail->load();
@@ -158,6 +158,59 @@ class Image_Manager {
 	}
 
 	/**
+	 * Rotates the image based on exif data.
+	 *
+	 * @param  string $file      Full path to an image.
+	 */
+	public static function maybe_rotate_image( $file ) {
+		// Check only for .jpg images
+		if ( exif_imagetype( $file ) != IMAGETYPE_JPEG ) {
+			return;
+		}
+
+		// Read exif data
+		$exif = exif_read_data( $file, 0, true );
+
+		// No header data found
+		if ( false === $exif ) {
+			return;
+		}
+
+		if ( empty( $exif['IFD0']['Orientation'] ) ) {
+			return;
+		}
+
+		$angle = 0;
+		switch ( $exif['IFD0']['Orientation'] ) {
+			case 3:
+				$angle = 180;
+				break;
+			case 6:
+				$angle = -90;
+				break;
+			case 8:
+				$angle = 90;
+				break;
+		}
+
+		if ( empty( $angle ) ) {
+			return;
+		}
+
+		// Create a new instance
+		$thumbnail = new Image_Editor( $file );
+
+		// Load the image
+		$thumbnail->load();
+
+		// Resize/crop the rotate
+		$result = $thumbnail->rotate( $angle );
+
+		// Save the image to disk
+		$result = $thumbnail->save( $file );
+	}
+
+	/**
 	 * Creates meta items for some exif data, like GPS coodirnates
 	 *
 	 * @param  int    $image_id  ID of an image.
@@ -180,7 +233,7 @@ class Image_Manager {
 		}
 
 		// GPS location data
-		if ( $exif[ 'GPS' ][ 'GPSLatitude' ] ) {
+		if ( ! empty( $exif[ 'GPS' ][ 'GPSLatitude' ] ) ) {
 			// Source: http://developer.nokia.com/Community/Wiki/Extract_GPS_coordinates_from_digital_camera_images_using_PHP
 			$lat_ref = $exif[ 'GPS'][ 'GPSLatitudeRef' ];
 			$lat = $exif[ 'GPS' ][ 'GPSLatitude' ];
@@ -205,8 +258,8 @@ class Image_Manager {
 			$lat_int = ( $lat_ref == 'S' ) ? '-' . $lat_int : $lat_int;
 
 			$lon_int = ( $lon_s + $lon_m / 60.0 + $lon_v / 3600.0 );
-       		// Check orientation of longitude and prefix with (-) if W
-       		$lon_int = ( $lon_ref == 'W' ) ? '-' . $lon_int : $lon_int;
+			// Check orientation of longitude and prefix with (-) if W
+			$lon_int = ( $lon_ref == 'W' ) ? '-' . $lon_int : $lon_int;
 
 			$gps_int = array(
 				'lat' => $lat_int,

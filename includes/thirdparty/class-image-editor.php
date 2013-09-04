@@ -14,7 +14,7 @@
  * Class for creating thumbnails via the GD extension.
  * This is a trimmed version of the image editor from WordPress.
  */
-class Thumbnailer {
+class Image_Editor {
 
 	private $image = null;
 	private $size = null;
@@ -150,6 +150,26 @@ class Thumbnailer {
 			return $resized;
 		}
 
+		return false;
+	}
+
+	/**
+	 * Rotates current image counter-clockwise by $angle.
+	 *
+	 * @param float $angle
+	 * @return boolean
+	 */
+	public function rotate( $angle ) {
+		if ( function_exists('imagerotate') ) {
+			$rotated = imagerotate( $this->image, $angle, 0 );
+
+			if ( is_resource( $rotated ) ) {
+				imagedestroy( $this->image );
+				$this->image = $rotated;
+				$this->update_size();
+				return true;
+			}
+		}
 		return false;
 	}
 
