@@ -66,7 +66,7 @@
 				$locations[] = $image->geolocation;
 			}
 
-			if ( $i != 0 && $i % 3 == 0 ) {
+			if ( $i != 0 && $i % 6 == 0 ) {
 				echo '</div><div class="row">';
 			}
 
