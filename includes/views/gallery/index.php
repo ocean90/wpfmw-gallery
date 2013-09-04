@@ -17,7 +17,7 @@
 	<div class="page-header">
 	<?php
 		$private_label = '';
-		if ( $_['gallery']->user_id === User_Manager::get_current_user()->ID && $_['gallery']->is_public ) {
+		if ( ! $_['gallery']->is_public ) {
 			$private_label = '<span class="label label-info pull-right">Private</span>';
 		}
 
@@ -41,9 +41,18 @@
 
 	<div class="gallery-images-thumbs">
 		<?php
+		// Store locations for a map
+		$locations = array();
+
 		$i = 0;
 		echo '<div class="row">';
 		foreach ( $_['gallery']->images as $image ) {
+
+			// Get the location meta and store it, if exists
+			if ( ! empty( $image->geolocation ) ) {
+				$locations[] = $image->geolocation;
+			}
+
 			if ( $i != 0 && $i % 3 == 0 ) {
 				echo '</div><div class="row">';
 			}
@@ -62,6 +71,26 @@
 			<?php
 		}
 		echo '</div>';
+		?>
+	</div>
+
+	<div class="row maps-container">
+		<h2>Location Map</h2>
+		<p>The markers represent the locations where the photos are taken.</p>
+		<?php
+		$markers = array();
+		foreach ( $locations as $location ) {
+			$markers[] = sprintf(
+				'markers=color:blue%%7C%s,%s',
+				$location[ 'lat' ],
+				$location[ 'lng' ]
+			);
+		}
+
+		$url = 'http://maps.googleapis.com/maps/api/staticmap?zoom=3&scale=2&size=640x300&sensor=true&maptype=terrain&';
+		$url .= implode( '&amp;', $markers );
+
+		echo '<div class="thumbnail"><img width="640" height="300" src="' . $url . '" alt="Location Map"></div>';
 		?>
 	</div>
 

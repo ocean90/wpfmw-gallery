@@ -54,7 +54,7 @@
 				?>
 			 	<div class="caption">
 			 		<?php
-					if ( $gallery->user_id === User_Manager::get_current_user()->ID && ! $gallery->is_public ) {
+					if ( ! $gallery->is_public ) {
 						echo '<span class="label label-info private-label pull-right">Private</span>';
 					}
 					?>

@@ -44,7 +44,7 @@ if ( ! empty( $_[ 'error' ] ) ) {
 	<div class="form-group<?php echo $user_extra; ?>">
 		<label for="login" class="col-lg-2 control-label">Email</label>
 		<div class="col-lg-4">
-			<input type="text" value="<?php echo $login; ?>" class="form-control" id="login" name="login" autofocus placeholder="Enter Email">
+			<input type="email" value="<?php echo $login; ?>" class="form-control" id="login" name="login" autofocus placeholder="Enter Email">
 		</div>
 	</div>
 

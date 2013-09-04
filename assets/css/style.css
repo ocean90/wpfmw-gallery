@@ -183,6 +183,19 @@ body {
 }
 
 /**
+ * Google Maps
+ */
+.maps-container {
+	margin: 30px auto;
+}
+.maps-container img {
+	margin: 0 auto;
+	display: block;
+	width: 100%;
+	height: auto;
+}
+
+/**
  * Custom styles for Facebook widgets
  */
 .facebook-container {
