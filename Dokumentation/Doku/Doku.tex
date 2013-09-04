@@ -55,7 +55,7 @@ plainpages=false,hypertexnames=false,citecolor=black]{hyperref}
   \input{Sources/leerSeite}
 
   \begin{titlepage}
-    \includegraphics[scale=1.00]{Sources/logo_fhkoeln_sw}\\
+    \includegraphics[scale=1.00]{images/logo_fhkoeln_sw}\\
     \begin{center}
       \Large
       Fachhochschule Köln\\
@@ -71,8 +71,6 @@ plainpages=false,hypertexnames=false,citecolor=black]{hyperref}
       \large
       presented at Cologne University of Applied Science\\
       Campus Gummersbach\\
-      Course of studies
-      Medieninformatik\\
       \vspace{1.0cm}
       elaborated by:\\
       \textsc{Dominik Schilling}\\
@@ -571,5 +569,89 @@ First, the images are (this is new in HTML5) selected via a multiple-file upload
 
 Password strength function
 As an extra for the user a feature was implemented, which determines the strength of the entered password. We used the JavaScript library named \hyperlink{https://tech.dropbox.com/2012/04/zxcvbn-realistic-password-strength-estimation/}{zxcvbn by Dropbox} therefor.
+
+
+\newpage
+
+\section{Server requirements and installation}
+
+\subsection{Server requirements}
+
+Before starting the installation process, please make sure that the server meets the following minimum requirements:
+\begin{itemize}
+\item PHP version 5.4 or greater
+\item MySQL version 5.0 or greater with the MySQLi extension running
+\item Running GD extension
+\item Sessions support has to be active
+\end{itemize}
+
+Please note that these settings are not only recommended, but required.
+Failing to meet the above mentioned requirements will result in an early interruption of the installation process.
+
+\subsection{Installation}
+
+The installation process is fully automated, but to make sure everything goes smoothly we have to configure a
+few parameters first. To do so, you will need a web server, a FTP client, a text editor and a browser of your choice.
+
+
+\begin{enumerate}
+\item Download the latest available version of the script (GitHub is recommended).
+\item Unzip the whole content of the file to your preferred location.
+\item Create a MySQL database on your web server and an user with the rights for accessing and modifying it.
+\item Upload the previously unzipped files to your web server.
+\item Rename the .htaccess-sample and config-sample.php, respectively to .htaccess and config.php.
+At this point please note: If you have placed the files in a subdirectory, you will have to edit the .htaccess accordingly.
+Eg. if the subdirectory is called "gallery", you should modify line no. 7 "RewriteBase /" to "RewriteBase /gallery".
+If you have placed the files into the root of your domain (eg. http://yourdomain.com/) this step is not necessary.
+\item Open the file config.php and search for line no. 18 \lstinline{$app->config->url = 'http://localhost';}. Replace "localhost" with
+your domain, including the subdirectories. For the above example it would be \lstinline{$app->config->url = 'http://yourdomain.com/gallery;}.
+Also change the paramenter in line no. 24 \lstinline{$app->config->segment_offset = 0;} to \lstinline{$app->config->segment_offset = 1;} if you have used a subdirectory, otherwise leave it as it is.
+\item At the bottom of config.php you will find four database related settings. Please fill those settings accordingly to your database credentials.
+Eg. \lstinline{$app->config->db->name = '';} should be named after the database you created at step no. 2.
+The last setting doesn't usually need any changes, leave it as it is if you are unsure. Don't forget to save the changes made.
+\item Visit the URL that you have previously configured as the main location.
+\item Let yourself guide through the automated installation process.
+\end{enumerate}
+
+
+\newpage
+
+\section{File structure}
+
+\includegraphics[scale=0.4]{images/file-tree}\\
+
+\subsection{Where is what?}
+
+\subsubsection{AJAX, jQuery and JSON}
+
+\begin{itemize}
+\item /assets/js/image-gallery.js
+\item /assets/js/image-uploader.js
+\end{itemize}
+
+
+\subsubsection{MySQL Connection}
+
+\begin{itemize}
+\item /includes/class-database.php
+\end{itemize}
+
+
+\subsubsection{User Login}
+
+\begin{itemize}
+\item /includes/class-user-manager.php
+\item /includes/controllers/class-login-manager.php
+\end{itemize}
+
+
+\subsubsection{Lightbox}
+
+\begin{itemize}
+\item /assets/js/image-gallery.js
+\item /includes/views/gallery/index.php
+\end{itemize}
+
+
 \end{document}
 
