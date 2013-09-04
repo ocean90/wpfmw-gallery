@@ -109,6 +109,7 @@
 				</div>
 			</div>
 			<?php
+			$i++;
 		}
 		echo '</div>';
 		?>
