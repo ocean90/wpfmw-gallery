@@ -166,6 +166,22 @@ body {
 	border-bottom: 1px solid #eee;
 }
 
+.gallery .carousel {
+	background: #fff;
+}
+
+.gallery .carousel img {
+	max-height: 350px;
+}
+
+/**
+ * Center images in carousel views.
+ */
+.carousel img {
+	margin-left: auto;
+	margin-right: auto;
+}
+
 /**
  * Custom styles for Facebook widgets
  */
@@ -204,4 +220,3 @@ body {
 .fancybox-prev {
 	left: -60px;
 }
-
