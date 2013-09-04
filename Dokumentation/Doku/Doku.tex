@@ -65,7 +65,7 @@ plainpages=false,hypertexnames=false,citecolor=black]{hyperref}
       \textsc{Documentation}\\
       \vspace{1cm} % Vertikaler Abstand von 1cm erzeugen
       \huge
-      WPF Modern Web\\
+      WPF Moderne Webentwicklung\\
       \Large
       \vspace{1.5cm}
       \large
@@ -95,9 +95,7 @@ plainpages=false,hypertexnames=false,citecolor=black]{hyperref}
   % ...
 	\pagestyle{fancy}
    		
- \newpage %neue Seite zwischen Inhaltsverzeichnis und Abbildungsverzeichnis
-  % TO-DO: Abbildungsverzeichnis einfügen
-  % ...
+ \newpage 
   
  
 
@@ -206,7 +204,7 @@ A view can consist of several templates, eg headers - content - footer.
 
 
 \subsubsection*{Model}
-
+The model contains the real Content.
 
 \subsection{Database}
 
@@ -542,11 +540,26 @@ It follows a short description of the javascript functions which were implemente
 First found in the javascript part of the scripts that were taken completely from the specified sources to implement the Fancybox and the slider of the home page for example. These were the contents of complete packages which were available for the free use.
 
 The most important file is the javascript image-uploader.js.
-Here, the entire upload of the images and thus the actual functionality is implemented. Furthermore, both Ajax and JSON elements elements are introduced, as was requested in the job position.
+Here, the entire upload of the images and thus the actual functionality is implemented. Furthermore, both \textbf{Ajax} elements and \textbf{JSON}  elements are introduced, as was requested in the job position.
 
 First, the images are (this is new in HTML5) selected via a multiple-file upload input and loaded locally using the File Reader to then create a thumbnail. After the upload an AJAX request, which runs on an XML HTTP request level 2 begins.
 
 Password strength function
 As an extra to the user a feature was implemented, which determines the strength of the entered password.
+
+\subsubsection{JSON}
+As you can see the meta information, specifically the GEO data of the images were realized by using JSON as required by the task. This offers the possibility to determine the GEO data of the photos or recording, and thus serves as an extra for the user
+
+\begin{thebibliography}{}
+   \bibitem[Fancybox]{fancybox} \url{http://fancyapps.com/fancybox/}, 02.09.2013
+   \bibitem[Image Carousel]{carousel} \url{http://getbootstrap.com/javascript/#carousel} , 02.09.2013
+   \bibitem[Bootstrap]{bootstrap} \url{http://getbootstrap.com} , 26.08.2013
+   \bibitem[Facebook]{facebook}    \url{https://developers.facebook.com/docs/reference/plugins/comments/}
+, \url{https://developers.facebook.com/docs/reference/plugins/like/}, 02.09.2013
+   
+
+
+
+\end{thebibliography}
 \end{document}
 
