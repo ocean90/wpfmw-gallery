@@ -1,3 +1,16 @@
+<?php
+/**
+ * Gallery - A project for 'WPF - Moderne Webanwendungen' at
+ * Cologne University of Applied Sciences.
+ *
+ * @author    Dominik Schilling <dominik.schilling@smail.fh-koeln.de>
+ * @author    Laura Hermann <laura.hermann@smail.fh-koeln.de>
+ * @author    Dario Vizzaccaro <dario.vizzaccaro@smail.fh-koeln.de>
+ * @link      https://github.com/ocean90/wpfmw-gallery
+ * @license   MIT
+ */
+?>
+
 <?php include APP_VIEWS_PATH . 'header.php'; ?>
 <?php include APP_VIEWS_PATH . 'navbar.php'; ?>
 
@@ -108,7 +121,7 @@ if ( isset( $_GET[ 'success' ] ) ) {
 		</div>
 	</div>
 
-	
+
 
 	<div class="col-lg-offset-2 col-lg-4">
 		<button type="submit" class="btn btn-primary pull-right">Update</button>
