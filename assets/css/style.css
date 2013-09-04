@@ -175,6 +175,14 @@ body {
 }
 
 /**
+ * Logo in Nav bar
+ */
+.navbar-logo {
+	float: left;
+	padding: 8px 15px;
+}
+
+/**
  * Center images in carousel views.
  */
 .carousel img {

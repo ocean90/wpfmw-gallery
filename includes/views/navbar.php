@@ -6,9 +6,9 @@
 			<span class="icon-bar"></span>
 			<span class="icon-bar"></span>
 		</button>
-		<a class="navbar-brand">
+		<a class="navbar-logo" href="<?php site_url( '/' ); ?>">
 			<img src="<?php assets_url( 'img/Logo.png' ); ?>">
-		</a>	
+		</a>
 		<a class="navbar-brand" href="<?php site_url( '/' ); ?>">Home</a>
 	</div>
 
