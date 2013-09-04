@@ -14,6 +14,7 @@
 			echo $_['extra_header'];
 		?>
 		<link rel="stylesheet" href="<?php assets_url( 'css/style.css' ); ?>" type="text/css" media="screen">
+		<link rel="shortcut icon" href="<?php assets_url( 'img/favicon.ico' ); ?>" type="image/x-icon">
 	</head>
 	<body>
 		<div id="fb-root"></div>
