@@ -1,8 +1,31 @@
+/**
+ * Gallery - A project for 'WPF - Moderne Webanwendungen' at
+ * Cologne University of Applied Sciences.
+ *
+ * @author    Dominik Schilling <dominik.schilling@smail.fh-koeln.de>
+ * @author    Laura Hermann <laura.hermann@smail.fh-koeln.de>
+ * @author    Dario Vizzaccaro <dario.vizzaccaro@smail.fh-koeln.de>
+ * @link      https://github.com/ocean90/wpfmw-gallery
+ * @license   MIT
+ */
+
 ( function( $ ) {
+
+	/**
+	 * Handles AJAX request to GeoNames API.
+	 *
+	 * @type {Object}
+	 */
 	var locationInfo = {
 		apiEndpoint: 'http://api.geonames.org/countrySubdivisionJSON?username=ocean90',
 		$el: null,
 
+		/**
+		 * Inits the request.
+		 *
+		 * @param  {object} el
+		 * @return {void}
+		 */
 		request: function( el ) {
 			this.$el = el;
 
@@ -14,6 +37,13 @@
 			var result = this.loadData( lat, lng );
 		},
 
+		/**
+		 * AJAX request.
+		 *
+		 * @param  {float} lat
+		 * @param  {float} lng
+		 * @return {void}
+		 */
 		loadData: function( lat, lng ) {
 			var self = this;
 
@@ -28,13 +58,25 @@
 			} );
 		},
 
+		/**
+		 * Prints an error if AJAX request failed.
+		 *
+		 * @param  {string} message
+		 * @return {void}
+		 */
 		showError: function( message ) {
 			this.$el.before(
 				'<p class="text-danger">Error: ' + message + '</p>'
 			);
-			el.prop( 'disabled', false ).text( 'Load Location Infos');
+			el.prop( 'disabled', false ).text( 'Load Location Infos' );
 		},
 
+		/**
+		 * Prints the data returned by the AJAX request.
+		 *
+		 * @param  {Object} data
+		 * @return {void}
+		 */
 		showData: function( data ) {
 			this.$el.before(
 				'<p><strong>County:</strong> ' + data.countryName + '</p>' +
@@ -45,16 +87,22 @@
 		}
 	}
 
+	/**
+	 * DOM is ready.
+	 */
 	$( function() {
-		$( ".carousel" ).carousel( { interval: false } );
+		// Disabled auto carousel
+		$( '.carousel' ).carousel( { interval: false } );
 
+		// Bind 'Get Location Info' button
 		$( '.fetch-loaction-infos' ).on( 'click', function( e ) {
 			e.preventDefault();
 			locationInfo.request( $( this ) )
 		} );
 
-		$( ".fancybox" )
-			.attr( "rel", "gallery" )
+		// Init and customize FancyBox
+		$( '.fancybox' )
+			.attr( 'rel', 'gallery' )
 			.fancybox( {
 				beforeLoad: function() {
 					var self = this;
@@ -70,20 +118,16 @@
 					}
 
 				},
-				afterShow: function() {
-				},
-				onUpdate: function() {
-				},
 				padding : 0,
 				margin : [20, 60, 20, 60],
 				openEffect  : 'none',
   				closeEffect : 'none',
-				prevEffect	: "none",
-				nextEffect	: "none",
+				prevEffect	: 'none',
+				nextEffect	: 'none',
 				helpers	: {
 					overlay : {
 						css : {
-							'background' : 'rgba( 0, 0, 0, 0.95)'
+							'background' : 'rgba( 0, 0, 0, 0.95 )'
 						}
 					},
 					title: null,

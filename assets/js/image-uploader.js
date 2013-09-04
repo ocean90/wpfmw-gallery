@@ -1,5 +1,21 @@
+/**
+ * Gallery - A project for 'WPF - Moderne Webanwendungen' at
+ * Cologne University of Applied Sciences.
+ *
+ * @author    Dominik Schilling <dominik.schilling@smail.fh-koeln.de>
+ * @author    Laura Hermann <laura.hermann@smail.fh-koeln.de>
+ * @author    Dario Vizzaccaro <dario.vizzaccaro@smail.fh-koeln.de>
+ * @link      https://github.com/ocean90/wpfmw-gallery
+ * @license   MIT
+ */
+
 ( function( $ ){
 
+	/**
+	 * Handles the AJAX Upload.
+	 *
+	 * @type {Object}
+	 */
 	var imageUploader = {
 		$el: $( '#image-uploader' ),
 		$wrapper: $( '#image-uploader-wrapper' ),
@@ -11,6 +27,11 @@
 		currentImages: [],
 		events: {},
 
+		/**
+		 * Init stuff. Bind button clicks and events.
+		 *
+		 * @return {void}
+		 */
 		init: function() {
 			this.$selectButton.on( 'click', $.proxy( this.triggerFileSelect, this ) );
 			this.$imagesToUpload.on( 'change', $.proxy( this.imagesChanged, this ) );
@@ -22,6 +43,12 @@
 			$( this.events ).on( 'images.readyToUpload', $.proxy( this.uploadImages, this ) );
 		},
 
+		/**
+		 * Template for a single image.
+		 *
+		 * @param  {object} data
+		 * @return {object}
+		 */
 		template: function( data ) {
 			return $( '<div/>' )
 				.attr( 'data-hash', data.hash )
@@ -99,14 +126,32 @@
 				);
 		},
 
+		/**
+		 * Toggles the visibility of the gallery box for title and
+		 * description.
+		 *
+		 * @return {void}
+		 */
 		toggleGalleryContainer: function() {
 			this.$galleryContainer.toggleClass( 'hidden', this.currentImages.length === 0 );
 		},
 
+		/**
+		 * Trigges a button click to select files.
+		 *
+		 * @param  {object} e
+		 * @return {void}
+		 */
 		triggerFileSelect: function( e ) {
 			this.$imagesToUpload.trigger( 'click' );
 		},
 
+		/**
+		 * Removes an image from the view.
+		 *
+		 * @param  {object} e
+		 * @return {void}
+		 */
 		removeImage: function( e ) {
 			var self = this;
 			var hash = $( e.target ).data( 'hash' );
@@ -120,11 +165,18 @@
 			} );
 		},
 
+		/**
+		 * Callback method, which receives the user selected files.
+		 *
+		 * @param  {object} e
+		 * @return {void}
+		 */
 		imagesChanged: function( e ) {
 			var newImages = this.$imagesToUpload.prop( 'files' ),
 				self = this,
 				todo = [];
 
+			// Go to each image and add it to queue
 			$.each( newImages, function( index, value ) {
 				var image = newImages[ index ];
 				var hash = md5( image.name + image.size + image.type );
@@ -137,16 +189,26 @@
 				}
 			} );
 
+			// Reset the form again, to let the user select more images
 			self.$imagesToUpload.parent( 'form' ).trigger( 'reset' );
 
+			// Start the preview process
 			self.previewImages( todo );
 		},
 
+		/**
+		 * Creates a preview of the selected files. It loads the files via FileReader()
+		 * and creates an canvas of the image.
+		 *
+		 * @param  {array} images
+		 * @return {void}
+		 */
 		previewImages: function( images ) {
 			var self = this, count, i = 0;
 
 			count = images.length;
 
+			// Go to each image and load it from disk to the browser
 			$.each( images, function( index, value ) {
 				var image = images[ index ];
 
@@ -161,6 +223,7 @@
 					return;
 				}
 
+				// Only images < 3 MB
 				if ( image.size > 3145728 ) {
 					self.showError( 'File <strong>' + image.name + '</strong> exceeds size limit of 3 MB!' );
 					count = count - 1;
@@ -168,10 +231,12 @@
 					return;
 				}
 
+				// When file is loaded
 				reader.onload = function ( file ) {
 					var imageO = new Image();
 					imageO.src = file.target.result;
 
+					// When image is loaded
 					imageO.onload = function() {
 						// Remove an existing one (mostly a broken one)
 						self.$container.find( '[data-hash="' + hash + '"]' ).remove();
@@ -198,6 +263,12 @@
 			} );
 		},
 
+		/**
+		 * Convert the image to an canvas.
+		 *
+		 * @param  {Object} image
+		 * @return {string}
+		 */
 		imageToCanvas: function( image ) {
 			var $canvas = $( '<canvas/>' ).addClass( 'img-thumbnail' );
 			var c = $canvas.get(0);
@@ -212,6 +283,15 @@
 			return c;
 		},
 
+		/**
+		 * Retrieve calculated resized dimensions.
+		 *
+		 * @param  {int} currWidth
+		 * @param  {int} currHeigth
+		 * @param  {int} maxWidth
+		 * @param  {int} maxHeight
+		 * @return {object}
+		 */
 		dimensions: function( currWidth, currHeigth, maxWidth, maxHeight ) {
 			maxWidth = maxWidth || 0;
 			maxHeight = maxHeight || 0;
@@ -257,6 +337,14 @@
 			return { w: w, h: h };
 		},
 
+		/**
+		 * Recalculates the heights of the image wrapper to get always four images
+		 * in a line.
+		 *
+		 * @param  {object} e
+		 * @param  {object} data
+		 * @return {void}
+		 */
 		recalculateHeights: function( e, data ) {
 			var i = 0, j = 0, tmp = [], max = 0, self = this, $wrapper;
 
@@ -290,6 +378,13 @@
 			} );
 		},
 
+		/**
+		 * Uploads the images via AJAX request and FormData.
+		 *
+		 * @param  {object} e
+		 * @param  {object} data
+		 * @return {void}
+		 */
 		uploadImages: function( e, data ) {
 			var self = this;
 
@@ -313,6 +408,9 @@
 						else
 							self.imageUploadError( result, hash );
 					},
+					error: function( result ) {
+						self.imageUploadError( result, hash );
+					},
 					xhr: function() {
 						// Add a custom event listener for progress status
 						var xhr = $.ajaxSettings.xhr();
@@ -327,6 +425,13 @@
 			} );
 		},
 
+		/**
+		 * Called when upload progress was successfully.
+		 *
+		 * @param  {object} result
+		 * @param  {string} hash
+		 * @return {void}
+		 */
 		imageUploadSuccess: function( result, hash ) {
 			var $imageWrapper = this.$container.find( '[data-hash="' + hash + '"]' );
 			var $progress = $( '.progress-bar', $imageWrapper );
@@ -341,6 +446,13 @@
 			} );
 		},
 
+		/**
+		 * Called when upload progress failed.
+		 *
+		 * @param  {object} result
+		 * @param  {string} hash
+		 * @return {void}
+		 */
 		imageUploadError: function( result, hash ) {
 			var self = this;
 			var $imageWrapper = self.$container.find( '[data-hash="' + hash + '"]' );
@@ -361,6 +473,13 @@
 			self.currentImages.splice( self.currentImages.indexOf( hash ), 1 );
 		},
 
+		/**
+		 * Handles upload status.
+		 *
+		 * @param  {object} e
+		 * @param  {string} hash
+		 * @return {void}
+		 */
 		showProgress: function( e, hash ) {
 			var $imageWrapper = this.$container.find( '[data-hash="' + hash + '"]' );
 			var $progress = $( '.progress-bar', $imageWrapper );
@@ -375,10 +494,22 @@
 			}
 		},
 
+		/**
+		 * Checks if all required fields are set.
+		 *
+		 * @return {void}
+		 */
 		createGallery: function() {
 			var self = this;
 			var hasError = false;
 
+			// Check pending AJAX requests
+			if ( $.active > 0 ) {
+				alert( 'There are pending uploads. Please wait until they finished.' );
+				return false;
+			}
+
+			// Check each image title and description
 			$.each( self.currentImages, function( index, hash ) {
 				var $imageWrapper = self.$container.find( '[data-hash="' + hash + '"]' );
 				var $title = $( '.image-title', $imageWrapper );
@@ -407,11 +538,13 @@
 			$galleryTitle.parent( '.form-group' ).removeClass( 'has-error' );
 			$galleryDesc.parent( '.form-group' ).removeClass( 'has-error' );
 
+			// Check gallery title
 			if ( $.trim( $galleryTitle.val() ) === '' ) {
 				hasError = true;
 				$galleryTitle.parent( '.form-group' ).addClass( 'has-error' );
 			}
 
+			// Check gallery description
 			if ( $.trim( $galleryDesc.val() ) === '' ) {
 				hasError = true;
 				$galleryDesc.parent( '.form-group' ).addClass( 'has-error' );
@@ -421,6 +554,12 @@
 				return false;
 		},
 
+		/**
+		 * Prints an error alert.
+		 *
+		 * @param  {string} text
+		 * @return {void}
+		 */
 		showError: function( text ) {
 			this.$wrapper.before(
 				$( '<div/>')
@@ -435,6 +574,7 @@
 		}
 	}
 
+	// DOM is ready.
 	$( function() {
 		imageUploader.init();
 	});
