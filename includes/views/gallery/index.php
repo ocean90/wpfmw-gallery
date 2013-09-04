@@ -114,7 +114,7 @@
 				);
 			}
 
-			$url = 'http://maps.googleapis.com/maps/api/staticmap?zoom=3&amp;scale=2&amp;size=640x300&amp;sensor=true&amp;maptype=terrain&amp;';
+			$url = 'https://maps.googleapis.com/maps/api/staticmap?zoom=3&amp;scale=2&amp;size=640x300&amp;sensor=true&amp;maptype=terrain&amp;';
 			$url .= implode( '&amp;', $markers );
 
 			echo '<div class="thumbnail"><img width="640" height="300" src="' . $url . '" alt="Location Map"></div>';
